@@ -1,2 +1,2 @@
-# Coding-Problems-C-.github.io
+# CodingProblemsC++.github.io
 C++ Solutions of Interview problems
