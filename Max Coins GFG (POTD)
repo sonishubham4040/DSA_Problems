@@ -1,0 +1,53 @@
+                                  // Max Coins (GFG) POTD (5-5-23) //
+                                  // 2D array [start][end][coins] //
+                                  // Can select atmost 2 ranges to collect max coins but they should not intersect with each other but they can touch themselves //
+                                  // Using Binary Search //
+                                  // Input :n=3, ranges={{1,3,4},{2,3,5},{3,4,2}} => Output: 7 (2nd and 3rd range not overlap and coins => 5+2=7) //
+                                  // Input :n=5, ranges={{1,3,4},{2,3,5},{3,4,2},{5,8,9},{2,8,10}} => Output: 14 (2nd and 4th range and Coins => 5+9=14) //
+                                  // T.C = O(nlogn), S.C = O(n) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int maxCoins(int n,vector<vector<int>> &ranges)
+{
+    sort(ranges.begin(), ranges.end());
+    
+    vector<int> temp(n); // temperory array jisme right->left max coins value stored
+    temp[n-1]=ranges[n-1][2]; // temp ke last me range ki last joki max hai wohi store hogi na
+    
+    for(int i=n-2;i>=0;i--)
+    {
+        temp[i]=max(temp[i+1], ranges[i][2]);
+    }
+    
+    int ans=INT_MIN;
+    
+    for(int i=0;i<n;i++)
+    {
+        int sum=ranges[i][2]; // pehli range store kari fir binary search lagake dusri dhundi
+        int s=i+1;
+        int e=n-1;
+        int mid, t=0;
+        
+        while(s<=e)
+        {
+            mid=s+(e-s)/2;
+            
+            if(ranges[mid][0]>=ranges[i][1])
+            {
+                e=mid-1;
+                t=temp[mid];
+            }
+            else
+            {
+                s=mid+1;
+            }
+        }
+        
+        sum+=t;
+        ans=max(ans, sum);
+    }
+    
+    return ans;
+}
