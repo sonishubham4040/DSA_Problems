@@ -2,6 +2,24 @@
                                     // 2 Approaches: 1) Using Swap Recursion, T.C = O(n), S.C = O(n) 
                                                   // 2) Using Shifting Node Links, T.C = O(n), S.C = O(1) //
 
+// Approach-1
+ListNode* swapPairs(ListNode* head) 
+{
+        
+     // base case
+     if(head==NULL || head->next==NULL)
+     {
+         return head;
+     }
+
+     ListNode* temp=head->next;
+     head->next=swapPairs(temp->next);
+     temp->next=head;
+
+     return temp;
+}
+
+// Approach-2
 ListNode* swapPairs(ListNode* head) 
 {
      // T.C = O(n), S.C = O(1)
