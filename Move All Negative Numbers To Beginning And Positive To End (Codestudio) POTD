@@ -1,0 +1,59 @@
+                                      // Move All Negative Numbers To Beginning And Positive To End (Codestudio) POTD (17-5-23) //
+                                      // arr = [1 -4 -2 5 3] => [-4 -2 1 5 3] //
+                                      // Using 2 Approaches //
+                                      // Approach-1: Using for loop and store in extra vector array, T.C = O(n), S.C = O(n) //
+                                      // Approach-2: Using 2 Pointers and change in given vector itself, T.C = O(n), S.C = O(1) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+/*
+// Approach-1:
+vector<int> separateNegativeAndPositive(vector<int> &nums)
+{
+    vector<int> ans;
+
+    for(auto i:nums)
+    {
+        if(i<0)
+        {
+            ans.push_back(i);
+        }
+    }
+
+    for(auto i:nums)
+    {
+        if(i>=0)
+        {
+            ans.push_back(i);
+        }
+    }
+    
+    return ans;
+}
+*/
+
+// Approach-2:
+vector<int> separateNegativeAndPositive(vector<int> &nums)
+{
+    int s=0;
+    int e=nums.size()-1;
+
+    while(s<e)
+    {
+        if(nums[s]>=0 && nums[e]<0)
+        {
+            swap(nums[s++], nums[e--]);
+        }
+        else if(nums[s]<0)
+        {
+            s++;
+        }
+        else 
+        {
+            e--;
+        }
+    }
+
+    return nums;
+}
