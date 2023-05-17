@@ -1,0 +1,100 @@
+                                      // Maximum Twin Sum Of A Linked List (Leetcode-2130) POTD (17-5-23) //
+                                      // Twin Sum = arr[i] + arr[n-1-i], Return Max Twin Sum //
+                                      // head = [5,4,2,1] => 6 (5+1, 4+2) => 6 //
+                                      // head = [4,2,2,3] => 7 (4+3, 2+2) => Max is 7 //
+                                      // Using 2 Approaches : // 
+                                      // Approach-1: Using Extra Space Array T.C = O(n), S.C = O(n) //
+                                      // Approach-2: Using Reverse Of List From Mid T.C = O(n), S.C = O(1) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+/*
+// Approach-1
+int pairSum(ListNode* head) 
+{
+    vector<int> arr;
+    ListNode* temp=head;
+
+    while(temp!=NULL)
+    {
+        arr.push_back(temp->val);
+        temp=temp->next;
+    }
+
+    int n=arr.size();
+    int sum=0;
+    int maxi=-1;
+
+    for(int i=0;i<n;i++)
+    {
+        sum=arr[i]+arr[n-1-i];
+        maxi=max(maxi,sum);
+    }
+
+    return maxi;
+}
+*/
+
+// Approach-2:
+ListNode* reverseList(ListNode* head)
+{
+    if(head==NULL || head->next==NULL)
+    {
+        return head;
+    }
+
+    ListNode* curr=head;
+    ListNode* prev=NULL;
+    ListNode* forward=NULL;
+
+    while(curr!=NULL)
+    {
+        forward=curr->next;
+        curr->next=prev;
+        prev=curr;
+        curr=forward;
+    }
+
+    return prev;
+}
+
+ListNode* middle(ListNode* head)
+{
+    if(head==NULL || head->next==NULL)
+    {
+        return head;
+    }
+
+    ListNode* slow=head;
+    ListNode* fast=head->next; // for 1 based indexing 1 2 3 4 => mid => 2
+
+    while(fast!=NULL && fast->next!=NULL)
+    {
+        slow=slow->next;
+        fast=fast->next->next;
+    }
+
+    return slow;
+}
+
+int pairSum(ListNode* head) 
+{
+    int ans=0;
+
+    ListNode* mid=middle(head);
+    ListNode* head2=reverseList(mid->next);
+    mid->next=NULL;
+
+    ListNode* h1=head;
+    ListNode* h2=head2;
+
+    while(h1!=NULL && h2!=NULL)
+    {
+        ans=max(ans, h1->val + h2->val);
+        h1=h1->next;
+        h2=h2->next;
+    }
+
+    return ans;
+}
