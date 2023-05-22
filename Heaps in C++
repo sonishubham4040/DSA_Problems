@@ -1,5 +1,5 @@
-                                            // Heaps in C++ //
-                                            // Insertion, Deletion, Heapify(MinHeap), (MaxHeap), HeapSort //
+                                                // Heaps in C++ //
+                                                // Insertion, Deletion, Heapify(MinHeap), (MaxHeap), HeapSort //
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -157,4 +157,53 @@ int main()
         cout<<arr[i]<<" ";
     } cout<<endl;
     
+    cout<<"Priority queue (maxHeap): "<<endl;
+    
+    // maxHeap
+    priority_queue<int> pq;
+    
+    pq.push(4);
+    pq.push(3);
+    pq.push(5);
+    pq.push(1);
+    
+    cout<<"Top of pq: "<<pq.top()<<endl;
+    pq.pop();
+    
+    cout<<"Top of pq: "<<pq.top()<<endl;
+    cout<<"size of pq: "<<pq.size()<<endl;
+    
+    if(pq.empty())
+    {
+        cout<<"pq is empty! "<<endl;
+    }
+    else
+    {
+        cout<<"pq is not empty! "<<endl;
+    }
+    
+    // minHeap
+    cout<<"Priority queue (minHeap): "<<endl;
+    
+    priority_queue<int, vector<int>, greater<int>> minHeap;
+    
+    minHeap.push(4);
+    minHeap.push(3);
+    minHeap.push(5);
+    minHeap.push(1);
+    
+    cout<<"Top of minHeap: "<<minHeap.top()<<endl;
+    minHeap.pop();
+    
+    cout<<"Top of minHeap: "<<minHeap.top()<<endl;
+    cout<<"size of minHeap: "<<minHeap.size()<<endl;
+    
+    if(minHeap.empty())
+    {
+        cout<<"minHeap is empty! "<<endl;
+    }
+    else
+    {
+        cout<<"minHeap is not empty! "<<endl;
+    }
 }
