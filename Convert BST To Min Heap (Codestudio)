@@ -1,0 +1,45 @@
+                                                  // Convert BST To Min Heap (Codestudio) //
+                                                  // Already a CBT (Complete Binary Tree) //
+                                                  // Left child is smaller than Right for every node //
+                                                  // condition: N<L<R //
+                                                  // T.C = O(n), S.C = O(n), Not confirm //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void inorder(BinaryTreeNode* root, vector<int> &ans)
+{
+	// base case
+	if(root==NULL)
+	{
+		return;
+	}
+
+	inorder(root->left, ans);
+	ans.push_back(root->data);
+	inorder(root->right, ans);
+}
+
+void preorderFill(BinaryTreeNode* root, int &index, vector<int> &ans)
+{
+	if(root==NULL)
+	{
+		return;
+	}
+
+	root->data=ans[index++];
+	preorderFill(root->left, index, ans);
+	preorderFill(root->right, index, ans);
+}
+
+BinaryTreeNode* convertBST(BinaryTreeNode* root)
+{
+	// Write your code here.
+	vector<int> ans;
+	inorder(root, ans);
+
+	int index=0;
+	preorderFill(root, index, ans);
+
+	return root;
+}
