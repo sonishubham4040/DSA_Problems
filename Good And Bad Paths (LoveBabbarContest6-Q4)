@@ -1,0 +1,62 @@
+                                                        // Good And Bad Paths (Codestudio) //
+                                                        // Love Babbar Contest-6, Q-4 //
+                                                        // T.C = O(n), S.C = O(n) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+pair<int,int> solve(TreeNode<int> *root, int &good, int &bad)
+{
+    if(root==NULL)
+    {
+        return {0,0};
+    }  
+
+    pair<int,int> p1=solve(root->left, good, bad);
+    pair<int,int> p2=solve(root->right, good, bad);
+
+    int g=1;
+    int b=1;
+
+    if(root->left!=NULL)
+    {
+        if(root->data < root->left->data)
+        {
+            g+=p1.first;
+        }
+        
+        if(root->data > root->left->data)
+        {
+            b+=p1.second;
+        }
+    }
+
+    if(root->right!=NULL)
+    {
+        if(root->data < root->right->data)
+        {
+            g+=p2.first;
+        }
+        
+        if(root->data > root->right->data)
+        {
+            b+=p2.second;
+        }
+    }
+    
+    good+=g;
+    bad+=b;
+
+    return {g, b};
+}
+
+pair<int, int> countGoodBadPaths(TreeNode<int> *root)
+{
+    // Write your code here.
+    int good=0;
+    int bad=0;
+
+    solve(root, good, bad);
+    
+    return {good, bad};
+}
