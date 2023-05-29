@@ -1,0 +1,95 @@
+                                                  // Find median in a stream (GFG) //
+                                                  // Find Median from Data Stream (Leetcode-295) //
+                                                  // Using MaxHeap and MinHeap //
+                                                  // arr[] = [1 2 3] => [1 1 2] (for 1 median is 1, then for 1,2 median is 1, then for 1,2,3 median is 2) //
+                                                  // Running stream of numbers //
+                                                  // T.C = O(nlogn), S.C = O(n) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution
+{
+    public:
+    
+    priority_queue<int> maxHeap;
+    priority_queue<int, vector<int>, greater<int>> minHeap;
+    double median=0;
+
+    int signum(int a, int b)
+    {
+        if(a==b)
+            return 0;
+
+        else if(a>b)
+            return 1;
+
+        else
+            return -1;        
+    }
+    
+    //Function to insert heap.
+    void insertHeap(int &x)
+    {
+        switch(signum(maxHeap.size(), minHeap.size()))
+        {
+            case 0:
+                    if(x > median)
+                    {
+                        minHeap.push(x);
+                        median=minHeap.top();
+                    }
+                    else
+                    {
+                        maxHeap.push(x);
+                        median=maxHeap.top();
+                    }
+
+                    break;
+
+            case 1: 
+                    if(x > median)
+                    {
+                        minHeap.push(x);
+                        median=((double)minHeap.top() + (double)maxHeap.top())/2.0;
+                    }    
+                    else
+                    {
+                        minHeap.push(maxHeap.top());
+                        maxHeap.pop();
+                        maxHeap.push(x);
+                        median=((double)minHeap.top() + (double)maxHeap.top())/2.0;
+                    }    
+
+                    break;
+
+            case -1:
+                    if(x > median)
+                    {
+                        maxHeap.push(minHeap.top());
+                        minHeap.pop();
+                        minHeap.push(x);
+                        median=((double)minHeap.top() + (double)maxHeap.top())/2.0;
+                    }        
+                    else
+                    {
+                        maxHeap.push(x);
+                        median=((double)minHeap.top() + (double)maxHeap.top())/2.0;
+                    }
+
+                    break;
+        }
+    }
+    
+    //Function to balance heaps.
+    void balanceHeaps()
+    {
+        
+    }
+    
+    //Function to return Median.
+    double getMedian()
+    {
+        return median;
+    }
+};
