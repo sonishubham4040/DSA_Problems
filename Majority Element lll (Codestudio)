@@ -1,0 +1,29 @@
+                                        // Majority Element lll (Codestudio) //
+                                        // Find elements which occur >= n/k times in array //
+                                        // arr[] = [1 2 3 3 3 3 4 4 4 1 2 0] => {3, 4} //
+                                        // T.C = O(n), S.C = O(n) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<int> countTheNumber(vector<int> &arr, int n, int k) 
+{
+	vector<int> ans;
+
+	unordered_map<int,int> mp;
+
+	for(auto i:arr)
+	{
+		mp[i]++;
+	}
+
+	for(auto i:mp)
+	{
+		if(i.second>=n/k)
+		{
+			ans.push_back(i.first);
+		}
+	}
+
+	return ans;
+}
