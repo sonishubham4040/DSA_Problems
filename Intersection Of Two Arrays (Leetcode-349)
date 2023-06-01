@@ -1,0 +1,59 @@
+                                                  // Intersection Of Two Arrays (Leetcode-349) //
+                                                  // 2 Approaches: using set and map //
+                                                  // nums1 = [1,2,2,1], nums2 = [2,2] => [2] //
+                                                  // nums1 = [4,9,5], nums2 = [9,4,9,8,4] => [9,4] //
+                                                  // T.C = O(n+m), S.C = O(n) //
+                
+#include <bits/stdc++.h>
+using namespace std;
+
+// Approach-1: Using unordered_map
+vector<int> intersection(vector<int>& nums1, vector<int>& nums2) 
+{
+    vector<int> ans;
+    unordered_map<int, int> mp;
+
+    for(auto i:nums1)
+    {
+        mp[i]++;
+    }
+
+    for(auto i:nums2)
+    {
+        if(mp[i])
+        {
+            mp[i]=false;
+            ans.push_back(i);
+        }
+    }
+
+    return ans;
+}
+
+// Approach-2: Using Set
+vector<int> intersection(vector<int>& nums1, vector<int>& nums2) 
+{
+    vector<int> ans;
+    set<int> s1;
+    set<int> s2;
+
+    for(auto i:nums1)
+    {
+        s1.insert(i);
+    }
+
+    for(auto i:nums2)
+    {
+        s2.insert(i);
+    }
+
+    for(auto i:s1)
+    {
+        if(s2.count(i))
+        {
+            ans.push_back(i);
+        }
+    }
+
+    return ans;
+}
