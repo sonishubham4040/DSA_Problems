@@ -1,0 +1,60 @@
+                                    // Intersection Of Two Arrays (GFG) //
+                                    // 2 Approaches: using set and map //
+                                    // a[] = {89, 24, 75, 11, 23}, b[] = {89, 2, 4} => 1 (only 89) //
+                                    // a[] = {1, 2, 3, 4, 5, 6}, b[] = {3, 4, 5, 6, 7} => 4 (3,4,5,6) //
+                                    // T.C = O(n+m), S.C = O(n+m) //
+                
+#include <bits/stdc++.h>
+using namespace std;
+
+// Approach-1 Using Unordered_map
+int NumberofElementsInIntersection(int a[], int b[], int n, int m)
+{
+    int ans=0;
+    unordered_map<int, int> mp;
+
+    for(int i=0;i<n;i++)
+    {
+        mp[a[i]]++;
+    }
+
+    for(int i=0;i<m;i++)
+    {
+        if(mp[b[i]])
+        {
+            mp[b[i]]=false;
+            ans++;
+        }
+    }
+
+    return ans;
+}
+
+// Approach-2: Using Set
+int NumberofElementsInIntersection(int a[], int b[], int n, int m) 
+{
+    int ans=0;
+    
+    set<int> s1;
+    set<int> s2;
+    
+    for(int i=0;i<n;i++)
+    {
+        s1.insert(a[i]);
+    }
+    
+    for(int i=0;i<m;i++)
+    {
+        s2.insert(b[i]);
+    }
+
+    for(auto i:s1)
+    {
+        if(s2.count(i))
+        {
+            ans++;
+        }
+    }
+
+    return ans;
+}
