@@ -1,0 +1,185 @@
+                                                // Longest Common Prefix In An Array (GFG) //
+                                                // Longest Common Prefix (Leetcode-14), Codestudio //
+                                                // 3 Approaches //
+                                                // 1) Using sorting T.C = O(n*mlog*n*m), S.C = O(1)
+                                                // 2) Using comparing of each character T.C = O(n*m), S.C = O(1)
+                                                // 3) Using Trie T.C = O(n*m), S.C = O(n*m)
+                                                // arr = ["flower","flow","flight"] => "fl" //
+                                                // arr = {geeksforgeeks, geeks, geek, geezer} => "gee" //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+// Approach-1 Using Sort
+string longestCommonPrefix(vector<string> &arr, int n)
+{
+    // Write your code here
+    string ans="";
+
+    sort(arr.begin(), arr.end());
+    
+    string s=arr[0];
+    string e=arr[n-1];
+    
+    for(int i=0;i<min(s.size(), e.size());i++)
+    {
+        if(s[i]!=e[i])
+        {
+            return ans;
+        }
+        else
+        {
+            ans.push_back(s[i]);
+        }
+    }
+
+    return ans;
+}
+
+// Approach-2: Using compare each character
+string longestCommonPrefix(vector<string> &arr, int n)
+{
+    // Write your code here
+    string ans="";
+
+    for(int i=0;i<arr[0].size();i++)
+    {
+        char ch=arr[0][i];
+        bool match=true;
+
+        // for comparing with rest of strings
+        for(int j=0;j<n;j++)
+        {
+            // not match
+            if(arr[j].size()<i || ch!=arr[j][i])
+            {
+                match=false;
+                break;
+            }
+        }
+
+        if(match==false)
+        {
+            break;
+        }
+        else
+        {
+            ans.push_back(ch);
+        }
+    }
+
+    return ans;
+}
+
+// Approach-3: Using Trie 
+class TrieNode
+{
+    public:
+    char data;
+    TrieNode* children[26];
+    bool isTerminal;
+    int childCount;
+    
+    TrieNode(char ch)
+    {
+        data=ch;
+
+        for(int i=0;i<26;i++)
+        {
+            children[i]=NULL;
+        }
+
+        childCount=0;
+        isTerminal=false;
+    }    
+    
+};
+
+class Trie
+{
+    public:
+    TrieNode* root;
+
+    Trie(char ch)
+    {
+        root=new TrieNode(ch);
+    }    
+
+    void insertUtil(TrieNode* root, string word)
+    {
+        // base case
+        if(word.length()==0)
+        {
+            root->isTerminal=true;
+            return;
+        }
+        
+        int index=word[0]-'a';
+        TrieNode* child;
+        
+        // present
+        if(root->children[index]!=NULL)
+        {
+            child=root->children[index];
+        }
+        else
+        {
+            // absent
+            child=new TrieNode(word[0]);
+            root->childCount++;
+            root->children[index]=child;
+        }
+        
+        // Recursion
+        insertUtil(child, word.substr(1));
+    }
+    
+    void insertWord(string word)
+    {
+        insertUtil(root, word);
+    }
+
+    void lcp(string str, string &ans)
+    {
+        for(int i=0;i<str.size();i++)
+        {
+            char ch=str[i];
+            
+            if(root->childCount==1)
+            {
+                ans+=ch;
+                // aage badh jao
+                int index=ch-'a';
+                root=root->children[index];
+            }
+            else
+            {
+                break;
+            }
+            
+            if(root->isTerminal)
+            {
+                break;
+            }
+        }
+    }
+};
+
+string longestCommonPrefix(vector<string> &arr, int n)
+{
+    // Write your code here
+    Trie *t=new Trie('\0');
+    
+    // insert kardo all strings
+    for(int i=0;i<n;i++)
+    {
+        t->insertWord(arr[i]);
+    }
+
+    string first=arr[0];
+    string ans="";
+
+    t->lcp(first, ans);
+
+    return ans;
+}
