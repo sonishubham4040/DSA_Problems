@@ -1,0 +1,48 @@
+			// Maximum Identical Bowls (GFG) POTD (24-5-23) //
+			// In one operation, you can take one cookie from any of the non-empty bowls and put it into another bowl //
+			// If the bowl becomes empty you discard it //
+			// Find maximum no. of bowls with an identical (same) number of cookies //
+			// arr = [3, 1, 5] => 3 (3,3,3) //
+			// arr = [1, 2, 6, 5] => 2 (7,7) //
+			// 2 Approaches //
+			// T.C = O(n), S.C = O(1) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+// Approach-1
+int getMaximum(int N, vector<int> &arr)
+{
+    long sum=0;
+    
+    for(int i:arr)
+    {
+        sum+=i;
+    }
+    
+    while(sum%N != 0)
+    {
+        N--;
+    }
+    
+    return N;
+}
+
+// Approach-2
+int getMaximum(int N, vector<int> &arr) 
+{
+    long long sum=0;
+    
+    for(auto i:arr)
+    {
+        sum+=i;
+    }
+        
+    for(long long i=N; i>=1; i--)
+    {
+        if(sum%i==0)
+        {
+            return i;
+        }
+    }
+}

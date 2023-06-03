@@ -1,0 +1,28 @@
+ 			// Convert Sorted Array To Binary Search Tree (Leetcode-108) //
+			
+#include <bits/stdc++.h>
+using namespace std;
+
+TreeNode* solve(vector<int>& nums, int s, int e)
+{
+    if(s>e)
+    {
+        return NULL;
+    }
+
+    int mid=s+(e-s)/2;
+
+    TreeNode* newRoot=new TreeNode(nums[mid]);
+    newRoot->left=solve(nums, s, mid-1);
+    newRoot->right=solve(nums, mid+1, e);
+    
+    return newRoot;
+}
+
+TreeNode* sortedArrayToBST(vector<int>& nums)
+{
+    int s=0;
+    int e=nums.size()-1;
+
+    return solve(nums, s, e);
+}

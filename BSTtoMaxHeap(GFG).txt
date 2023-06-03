@@ -1,0 +1,46 @@
+			// BST To Max Heap (GFG) //
+			// Using Inorder and Postorder //
+			// L<R<N //
+			// T.C = O(n), S.C = O(n) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+// L R N
+void postorderFill(Node* root, int &index, vector<int> &ans)
+{
+    // base case
+    if(root==NULL)
+    {
+        return;
+    }
+    
+    postorderFill(root->left, index, ans);
+    postorderFill(root->right, index, ans);
+    root->data=ans[index++];
+}
+
+// L N R
+void inorder(Node* root, vector<int> &ans)
+{
+    // base case
+    if(root==NULL)
+    {
+        return;
+    }
+    
+    inorder(root->left, ans);
+    ans.push_back(root->data);
+    inorder(root->right, ans);
+}
+
+void convertToMaxHeapUtil(Node* root)
+{
+    // Your code goes here
+    vector<int> ans;
+    
+    inorder(root, ans);
+    
+    int index=0;
+    postorderFill(root, index, ans);
+}

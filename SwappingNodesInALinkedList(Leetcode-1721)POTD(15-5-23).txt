@@ -1,0 +1,61 @@
+			// Swapping Nodes In A Linked List (Leetcode-1721) POTD (15-5-23) //
+			// 2 Approaches: 
+			// Array Store, T.C = O(n), S.C = O(n) //
+			// 2 Pointers, T.C = O(n), S.C = O(1) //
+
+// Approach-1
+ListNode* swapNodes(ListNode* head, int k) 
+{
+        
+     vector<int> arr;
+
+     ListNode* temp=head;
+     while(temp!=NULL)
+     {
+         arr.push_back(temp->val);
+         temp=temp->next;
+     }
+
+     int n=arr.size();
+     swap(arr[k-1], arr[n-k]);
+
+     temp=head;
+     for(auto i:arr)
+     {
+         temp->val=i;
+         temp=temp->next;
+     }
+        
+     return head;
+}
+
+// Approach-2
+ListNode* swapNodes(ListNode* head, int k) 
+{
+        
+     ListNode* slow=head;
+     ListNode* fast=head;
+     int cnt=0;
+
+     while(slow!=NULL)
+     {
+         cnt++;
+         if(cnt==k)
+         {
+             break;
+         }
+
+         slow=slow->next; // kth node
+     }
+
+     ListNode* temp=slow;
+     while(temp->next!=NULL)
+     {
+         temp=temp->next;
+         fast=fast->next;
+     }
+
+     swap(slow->val, fast->val);
+
+     return head;
+}

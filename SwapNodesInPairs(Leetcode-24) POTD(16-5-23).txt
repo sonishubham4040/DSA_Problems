@@ -1,0 +1,47 @@
+			// Swap Nodes In Pairs (Leetcode-24) POTD (16-5-23) //
+			// Pairwise swap elements of a linked list (GFG) //
+			// 2 Approaches: 1) Using Swap Recursion, T.C = O(n), S.C = O(n) 
+				      // 2) Using Shifting Node Links, T.C = O(n), S.C = O(1) //
+
+// Approach-1
+ListNode* swapPairs(ListNode* head) 
+{
+        
+     // base case
+     if(head==NULL || head->next==NULL)
+     {
+         return head;
+     }
+
+     ListNode* temp=head->next;
+     head->next=swapPairs(temp->next);
+     temp->next=head;
+
+     return temp;
+}
+
+// Approach-2
+ListNode* swapPairs(ListNode* head) 
+{
+     // T.C = O(n), S.C = O(1)
+     if(head==NULL || head->next==NULL)
+     {
+         return head;
+     }
+
+     ListNode* temp=new ListNode();
+     ListNode* curr=head;
+     ListNode* prev=temp;
+
+      while(curr!=NULL && curr->next!=NULL)
+      {
+          prev->next=curr->next;
+          curr->next=curr->next->next;
+          prev->next->next=curr;
+
+          prev=curr;
+          curr=curr->next;
+      }
+        
+     return temp->next;
+}

@@ -1,0 +1,67 @@
+			// Nth Node From End Of Linked List (GFG) POTD (28-5-23) //
+			// LinkedList: 1->2->3->4->5->6->7->8->9, n=2 => 8 //
+			// LinkedList: 10->5->100->5 , n=5 => -1 //
+			// T.C = O(n), S.C = O(1) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+Node* reverse(Node* head)
+{
+    if(head==NULL || head->next==NULL)
+    {
+        return head;
+    }
+    
+    Node* curr=head;
+    Node* forward=NULL;
+    Node* prev=NULL;
+    
+    while(curr!=NULL)
+    {
+        forward=curr->next;
+        curr->next=prev;
+        prev=curr;
+        curr=forward;
+    }
+    
+    return prev;
+}
+
+int countNodes(Node* head)
+{
+    Node* temp=head;
+    int cnt=0;
+    
+    while(temp!=NULL)
+    {
+        cnt++;
+        temp=temp->next;
+    }
+    
+    return cnt;
+}
+
+int getNthFromLast(Node *head, int n)
+{
+    // Your code here
+    int size=countNodes(head);
+    
+    if(n>size)
+    {
+        return -1;
+    }
+    
+    Node* rev=reverse(head);
+    int cnt=0;
+    
+    while(rev!=NULL)
+    {
+        cnt++;
+        if(cnt==n)
+        {
+            return rev->data;
+        }
+        rev=rev->next;
+    }
+}

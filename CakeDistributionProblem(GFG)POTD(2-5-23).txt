@@ -1,0 +1,71 @@
+			// Cake Distribution Problem (GFG) POTD (2-5-23) //
+			// Using Binary Search //
+			// Find maximum of minimum sweetness after distributed to k+1 people //
+			// Input: N =6, K=2, sweetness[]={6 3 2 8 7 5} => Output: 9 ([6,3], [2,8], [7,5]) so, min is 6+3 => 9 //
+			// Input:N=7, K=3, sweetness[]={1 2 4 7 3 6 9} => Output: 7 ([1,2,4], [7], [3,6], [9]) so, min is 1+2+4 => 7 //
+			// T.C = O(nlogm), S.C = O(1) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+bool isPossible(int mid, vector<int>& sweetness, int N, int K)
+{
+    int count=0;
+    int sum=0;
+    
+    for(int i=0;i<N;i++)
+    {
+        sum+=sweetness[i];
+        if(sum>=mid)
+        {
+            count++;
+            sum=0;
+        }
+    }
+    
+    if(count>=K+1)
+    {
+        return true;
+    }
+    
+    return false;
+}
+
+int maxSweetness(vector<int>& sweetness, int N, int K)
+{
+    // Write your code here.
+    int s=INT_MAX;
+    int e=0;
+    int ans=0;
+    
+    for(int i=0;i<N;i++)
+    {
+        s=min(sweetness[i],s);
+        e+=sweetness[i];
+    }
+    
+    while(s<=e)
+    {
+        int mid=s+(e-s)/2;
+        if(isPossible(mid, sweetness, N, K))
+        {
+            ans=mid;
+            s=mid+1;
+        }
+        else
+        {
+            e=mid-1;
+        }
+    }
+    
+    return ans;
+}
+
+int main()
+{
+    int N=7;
+    vector<int> sweetness={1,2,4,7,3,6,9};
+    int K=3;
+    
+    cout<<"Maximum of minimum sweetness: "<<maxSweetness(sweetness,N,K);
+}

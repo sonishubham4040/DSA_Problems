@@ -1,0 +1,43 @@
+			// String Mirror (GFG) POTD (7-5-23) //
+			// Take the prefix of the string of length k and append the reverse of it to itself //
+			// Find the lexicographically smallest string you can get //
+			// str = "bvdfndkn" => bb, str = "casd" => caac //
+			// T.C = O(|str|), S.C = O(|str|) lentgh of string //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+string stringMirror(string str)
+{
+    string temp="";
+    temp+=str[0]; // first value store karke compare karenge
+    
+    for(int i=1;i<str.size();i++)
+    {
+        if(str[i]<temp[i-1]) // 'ca' to a ko add karo kyoki vo chota hai
+        {
+            temp+=str[i];
+        }
+        else if(str[i]==temp[i-1] && i!=1) // beech me mila equal to add karo
+        {
+            temp+=str[i];
+        }
+        else
+        {
+            break; // 'aa' starting me dono euqal hai ya
+                    // starting wala chota or aage wala bada to break mardo 'bv'
+        }
+    }
+    
+    string rev=temp;
+    reverse(rev.begin(),rev.end()); // reverse karke aage append kardo
+    temp+=rev;
+    
+    return temp;
+}
+
+int main()
+{
+    string str="bvdfndkn";
+    cout<<"String Mirror: "<<stringMirror(str);
+}

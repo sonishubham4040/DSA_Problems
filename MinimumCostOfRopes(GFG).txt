@@ -1,0 +1,36 @@
+			// Minimum Cost Of Ropes (GFG) //
+			// Using Min Heap Priority Queue //
+			// Connect these ropes into one rope //
+			// Cost to connect two ropes = sum of their lengths. The task is to connect the ropes with minimum cost //
+			// arr[] = {4, 3, 2, 6} => 29 (2+3=5 => 4,5,6 , 4+5=9 => 9,6, 9+6=15 => 15) (one element left), ans=5+9+15 => 29 //
+			// T.C = O(nlogn), S.C = O(n) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+long long minCost(long long arr[], long long n) 
+{
+    long long ans=0;
+    priority_queue<long long, vector<long long>, greater<long long>> pq;
+    
+    for(int i=0;i<n;i++)
+    {
+        pq.push(arr[i]);
+    }
+    
+    while(pq.size()>1)
+    {
+        long long a=pq.top();
+        pq.pop();
+        
+        long long b=pq.top();
+        pq.pop();
+        
+        long long sum=a+b;
+        ans+=sum;
+        
+        pq.push(sum);
+    }
+    
+    return ans;
+}

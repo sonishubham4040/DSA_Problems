@@ -1,0 +1,47 @@
+			// Make Palindrome (GFG) POTD (3-5-23) //
+			// n=4, arr={"djfh", "gadt", "hfjd", "tdag"} => True ("djfhgadttdaghfjd") //
+			// n=3, arr={"jhjdf", "sftas", "fgsdf"} => false //
+			// n=4, arr={"ab", "ba", "cc", "dd"} => false // 
+			// Using Map //
+			// T.C = O(n*len(arr[i])), S.C = O(n*len(arr[i])) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+bool makePalindrome(int n,vector<string> &arr)
+{
+    unordered_map<string,int> mp;
+    
+    for(auto i:arr)
+    {
+        mp[i]++;
+    }
+    
+    int odd=0;
+    for(auto i: mp)
+    {
+        string temp=i.first;
+        reverse(temp.begin(),temp.end());
+        
+        if(i.first==temp)
+        {
+            if(i.second%2) // odd
+            {
+                odd++;
+            }
+            if(odd>1)
+            {
+                return false;
+            }
+        }
+        else
+        {
+            if(i.second!=mp[temp])
+            {
+                return false;
+            }
+        }
+    }
+    
+    return true;
+}

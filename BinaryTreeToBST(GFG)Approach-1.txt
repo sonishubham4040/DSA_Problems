@@ -1,0 +1,51 @@
+	        	// Binary Tree To BST (GFG) //
+	        	// Using Sorted Inorder and Solve Function //
+			// Approach-1 //
+			// T.C = O(n), S.C = O(n) //
+			
+#include <bits/stdc++.h>
+using namespace std;
+
+void inorder(Node *root, vector<int> &ans)
+{
+    // base case
+    if(root==NULL)
+    {
+        return;
+    }
+
+    inorder(root->left, ans);
+    ans.push_back(root->data);
+    inorder(root->right, ans);
+}
+
+Node* solve(vector<int> &ans, int s, int e)
+{
+    if(s>e)
+    {
+        return NULL;
+    }
+    
+    int mid=s+(e-s)/2;
+    
+    Node* newRoot=new Node(ans[mid]);
+    newRoot->left=solve(ans, s, mid-1);
+    newRoot->right=solve(ans, mid+1, e);
+    
+    return newRoot;
+}
+
+Node *binaryTreeToBST (Node *root)
+{
+    //Your code goes here
+    
+    vector<int> ans;
+    inorder(root, ans);
+    
+    sort(ans.begin(), ans.end());
+    
+    int s=0;
+    int e=ans.size()-1;
+    
+    return solve(ans, s, e);
+}

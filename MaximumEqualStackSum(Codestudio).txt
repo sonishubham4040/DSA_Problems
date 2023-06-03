@@ -1,0 +1,51 @@
+			// Maximum Equal Stack Sum (Codestudio) //
+			// Find the possible equal maximum sum of the stacks with the removal of top elements allowed //
+			// S1={4,2,3}, S2={1,1,2,3}, S3={1,4} => 5 (pop 1 element from 1st stack and pop 2 elements from 2nd stack, then all have equal sum=>5) //
+			// S1={4,7}, S2={10}, S3={1,2,3} => 0 (Not Possible) //
+			// T.C = O(n1+n2+n3), S.C = O(1) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+long stackSum(stack<int> st)
+{
+    long sum=0;
+    
+    while(!st.empty())
+    {
+        sum+=st.top();
+        st.pop();
+    }
+
+    return sum;
+}
+
+int maxSum(stack<int> &stk1, stack<int> &stk2, stack<int> &stk3) 
+{
+    // Write your code here
+
+    long sum1=stackSum(stk1);
+    long sum2=stackSum(stk2);
+    long sum3=stackSum(stk3);
+
+    while(sum1!=sum2 || sum2!=sum3 || sum3!=sum1)
+    {
+        if(sum1>sum2)
+        {
+            sum1-=stk1.top();
+            stk1.pop();
+        }
+        else if(sum2>sum3)
+        {
+            sum2-=stk2.top();
+            stk2.pop();
+        }
+        else if(sum3>sum1)
+        {
+            sum3-=stk3.top();
+            stk3.pop();
+        }
+    }
+
+    return sum1;
+}

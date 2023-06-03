@@ -1,0 +1,32 @@
+			// Day 20 : Check Subset (Codestudio) //
+			// Return true if arr2 is subset of arr1 else return false //
+			// arr1[] = [1 2 3], arr2[] = [1 2] => true //
+			// arr1[] = [1 2 3], arr2[] = [1 2 2] => false //
+			// T.C = O(n+m), S.C = O(n) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+bool checkSubset(vector <int> &arr1, vector<int> &arr2, int n, int m) 
+{
+    unordered_map<int,int> mp;
+
+    for(auto i:arr1)
+    {
+        mp[i]++;
+    }
+
+    for(auto i:arr2)
+    {
+        if(mp[i])
+        {
+            mp[i]--;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    return true;
+}

@@ -1,0 +1,93 @@
+			// Palindrome With Minimum Sum (GFG) POTD (11-5-23) //
+			// S = a???c??c???? => 4 (aaaaccccaaaa) (0+0+0+2+0+0+0+2+0+0+0) =>4 //
+			// S = a???c??c???c => -1 (Not Palindrome) //
+			// Using Two Pointer //
+			// T.C = O(n), S.C = O(1) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+char solve(string s)
+{
+    int i=0;
+    int j=s.size()-1;
+    
+    while(i<=j)
+    {
+        if(s[i]!='?')
+        {
+            return s[i];
+        }
+        
+        if(s[j]!='?')
+        {
+            return s[j];
+        }
+        
+        i++;
+        j--;
+    }
+    
+    return '#';
+}
+
+int minimumSum(string s) {
+    // code here
+    
+    int i=0;
+    int j=s.size()-1;
+    int ans=0;
+    char prev='#';
+    
+    while(i<=j)
+    {
+        if(s[i]=='?' && s[j]=='?')
+        {
+            if(prev=='#')
+            {
+                prev=solve(s);
+                
+                if(prev=='#')
+                {
+                    return 0;
+                }
+            }
+        }
+        else if(s[i]=='?')
+        {
+            if(prev!='#')
+            {
+                ans+=2*abs(prev-s[j]);
+            }
+            
+            prev=s[j];
+        }
+        else if(s[j]=='?')
+        {
+            if(prev!='#')
+            {
+                ans+=2*abs(prev-s[i]);    
+            }
+            
+            prev=s[i];
+        }
+        else if(s[i]==s[j])
+        {
+            if(prev!='#')
+            {
+                ans+=2*abs(prev-s[i]);    
+            }
+            
+            prev=s[i];
+        }
+        else
+        {
+            return -1;
+        }
+        
+        i++;
+        j--;
+    }
+    
+    return ans;
+}

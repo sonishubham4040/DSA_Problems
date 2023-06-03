@@ -1,0 +1,29 @@
+			// Binary Modulo (GFG) POTD (8-5-23) //
+            		// s="101", m=2 => 1 (5%2=1) //
+            		// s="1000", m=4 => 0 (8%4=0) //
+            		// T.C = O(n), S.C = O(1) //
+            
+#include <bits/stdc++.h>
+using namespace std;
+
+int modulo(string s,int m)
+{
+    //code here
+    int k=0;
+    int n=s.size();
+    
+    for(int i=0;i<n;i++)
+    {
+        k=(k*2+(s[i]-'0'))%m;    
+    }
+    
+    return k;
+}
+
+int main()
+{
+    string s="101";
+    int m=2;
+    
+    cout<<"binary to decimal % m: "<<modulo(s,m);
+}

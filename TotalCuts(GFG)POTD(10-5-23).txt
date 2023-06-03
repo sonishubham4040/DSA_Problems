@@ -1,0 +1,41 @@
+			// Total Cuts (GFG) POTD (10-5-23) //]
+			// Find Total number of cuts siuch that: //
+			// 1) Cut divides an array into two parts equal or unequal length (non-zero) //
+			// 2) leftMax + rightMin >= k //
+			// A[]={1,2,3}, k=3 => 2 ({1},{2,3} 1+2>=3 and {1,2},{3} 2+3>=3) //
+			// A[]={1,2,3,4,5}, k=5 => 3 ({1,2},{3,4,5} and {1,2,3},{4,5} and {1,2,3,4},{5}) //
+			// T.C = O(n), S.C = O(n) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int totalCuts(int N,int K,vector<int> &A)
+{
+     // leftMax + rightMin >= k // POTD
+    
+    int left[N];
+    int right[N];
+    
+    left[0]=A[0]; // first element will be max at first
+    for(int i=1;i<N;i++)
+    {
+        left[i]=max(left[i-1], A[i]);
+    }
+    
+    right[N-1]=A[N-1]; // last element will be min at first
+    for(int i=N-2;i>=0;i--)
+    {
+        right[i]=min(right[i+1], A[i]);
+    }
+    
+    int ans=0;
+    for(int i=1;i<N;i++)
+    {
+        if(left[i-1] + right[i] >= K)
+        {
+            ans++;
+        }
+    }
+    
+    return ans;
+} 

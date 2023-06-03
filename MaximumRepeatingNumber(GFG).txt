@@ -1,0 +1,38 @@
+			// Maximum Repeating Number (GFG) // 
+			// arr[] = {2, 2, 1, 0, 0, 1} => 0 (highest freq with least value) //
+ 			// T.C = O(n), S.C = O(n) //
+                
+#include <bits/stdc++.h>
+using namespace std;
+
+int maxRepeating(int *arr, int n, int k)
+{
+    unordered_map<int,int> mp;
+    
+    for(int i=0;i<n;i++)
+    {
+        mp[arr[i]]++;
+    }
+    
+    int ans=-1;
+    int maxi=-1;
+    
+    for(auto i:mp)
+    {
+        if(i.second>=maxi)
+        {
+            if(i.second==maxi)
+            {
+                ans=min(ans, i.first);
+            }
+            else
+            {
+                ans=i.first;
+            }
+            
+            maxi=i.second;
+        }
+    }
+    
+    return ans;
+}

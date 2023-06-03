@@ -1,0 +1,87 @@
+			// Smallest Range From K Sorted List (Codestudio) //
+			// Smallest range in K lists (GFG) //
+			// Each list of size 'n', same size lists present //
+			// Using Min Heap (priority queue) //
+			// a[][] = [1,10,11], [2,3,20], [5,6,12] => [1,5] (1 to 5 is the range which includes 1 from list1, 2 from list2, 5 from list3, and diff. of range is smallest 5-1 = 4) //
+			// T.C = O(n*k logk), S.C = O(k) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+class node
+{
+    public:
+    int data;
+    int row;
+    int col;
+
+    node(int d, int r, int c)
+    {
+        data=d;
+        row=r;
+        col=c;
+    }
+};
+
+class compare
+{
+    public:
+    bool operator()(node*a, node*b)
+    {
+        return a->data > b->data;
+    }
+};
+
+int kSorted(vector<vector<int>> &a, int k, int n)
+{
+    // Write your code here.
+    priority_queue<node*, vector<node*>, compare> pq;
+
+    int mini=INT_MAX;
+    int maxi=INT_MIN;
+
+    // step-1: create a min heap for starting element of each list
+    // and track maxi/mini
+    for(int i=0;i<k;i++)
+    {
+        int element=a[i][0];
+        maxi=max(maxi, element);
+        mini=min(mini, element);
+        pq.push(new node(element, i, 0));
+    }
+
+    int start=mini;
+    int end=maxi;
+
+    // process ranges
+    while(!pq.empty())
+    {
+        // mini fetch
+        node* temp=pq.top();
+        pq.pop();
+
+        mini=temp->data;
+
+        // range or ans updation
+        if(maxi-mini < end-start)
+        {
+            start=mini;
+            end=maxi;
+        }
+
+        // next element exits
+        if(temp->col+1 < n)
+        {
+            maxi=max(maxi, a[temp->row][temp->col+1]);
+            pq.push(new node(a[temp->row][temp->col+1], temp->row, temp->col+1));
+        }
+        else
+        {
+            // next element doesn't exits
+            break;
+        }
+    }
+
+    // returning diff. of range values
+    return (end-start+1);
+}

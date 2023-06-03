@@ -1,0 +1,63 @@
+              		// Trie | (Insert and Search) (GFG) //
+              		// Insertion, Search //
+              		// T.C = O(l), S.C = O(l), l=length //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void insert(struct TrieNode *root, string key)
+{
+    // code here
+    // base case
+    if(key.size()==0)
+    {
+        root->isLeaf=true;
+        return;
+    }
+    
+    int index=key[0]-'a';
+    TrieNode* child;
+    
+    // present
+    if(root->children[index]!=NULL)
+    {
+        child=root->children[index];
+    }
+    else
+    {
+        // absent
+        child=new TrieNode();
+        root->children[index]=child;
+    }
+    
+    // Recursion
+    insert(child, key.substr(1));
+}
+
+//Function to use TRIE data structure and search the given string.
+bool search(struct TrieNode *root, string key) 
+{
+    // code here
+    // base case
+    if(key.size()==0)
+    {
+        return root->isLeaf;
+    }
+    
+    int index=key[0]-'a';
+    TrieNode* child;
+    
+    // present
+    if(root->children[index]!=NULL)
+    {
+        child=root->children[index];
+    }
+    else
+    {
+        // absent
+        return false;
+    }
+    
+    // Recursion
+    return search(child, key.substr(1));
+}

@@ -1,0 +1,44 @@
+			// Good Subtrees (GFG) POTD (5-5-23) //
+			// Return the count of Good subtrees, Good subtree is a subtree such that the number of distinct values in this subtree is less than or equal to k. //
+			// T.C = O(n*k), S.C = O(n*k) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+unordered_set<int> solve(Node *root,int k, int &ans)
+{
+    if(root==NULL)
+    {
+        return {};
+    }
+    
+    unordered_set<int> left=solve(root->left, k, ans);
+    unordered_set<int> right=solve(root->right, k, ans);
+    unordered_set<int> subtree;
+    
+    for(auto x:left)
+    {
+        subtree.insert(x);
+    }
+    for(auto x:right)
+    {
+        subtree.insert(x);
+    }
+    
+    subtree.insert(root->data);
+    
+    if(subtree.size()<=k)
+    {
+        ans++;
+    }
+    
+    return subtree;
+}
+
+int goodSubtrees(Node *root,int k)
+{
+    // Code here
+    int ans=0;
+    solve(root, k, ans);
+    return ans;
+}

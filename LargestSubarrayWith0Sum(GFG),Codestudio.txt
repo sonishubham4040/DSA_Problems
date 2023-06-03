@@ -1,0 +1,32 @@
+			// Largest Subarray With 0 Sum (GFG), Codestudio //
+			// A[]={15,-2,2,-8,1,7,10,23} => 5 length (-2 +2 -8 +1 +7) //
+			// Using Map //
+			// T.C = O(n), S.C = O(n) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int maxLen(vector<int>&A, int n)
+{   
+    unordered_map<int,int> mp; // <sum, index>
+    
+    int sum=0;
+    int maxi=0;
+    mp[0]=-1;
+    
+    for(int i=0;i<n;i++)
+    {
+        sum+=A[i];
+        
+        if(mp.find(sum)!=mp.end()) // pehle se pada hai map me
+        {
+            maxi=max(maxi, i-mp[sum]);
+        }
+        else
+        {
+            mp[sum]=i; // map me dal diya
+        }
+    }
+    
+    return maxi;
+}

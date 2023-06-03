@@ -1,0 +1,56 @@
+                		// Hashmaps C++ //
+                		// map - O(logn) BST based order wise
+                		// unordered_map - O(1) random order
+                
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    // creation
+    map<string,int> mp;
+    
+    // insertion
+    // 1
+    pair<string,int> p1=make_pair("shubham", 2);
+    mp.insert(p1);
+    
+    // 2
+    pair<string,int> p2("soni", 3);
+    mp.insert(p2);
+    
+    // 3
+    mp["the"]=1;
+    
+    // update hojayegi value
+    mp["the"]=5;
+    
+    // search
+    cout<<mp["the"]<<endl;
+    cout<<mp.at("shubham")<<endl;
+    
+    // value nahi di hui to zero dal dega aise
+    cout<<mp["unknown"]<<endl;
+    cout<<mp.at("unknown")<<endl;
+    
+    // size
+    cout<<"size: "<<mp.size()<<endl;
+    
+    // to check presence
+    cout<<"present or not: "<<mp.count("soni")<<endl;
+    cout<<"present or not: "<<mp.count("loni")<<endl;
+    
+    // erase
+    mp.erase("soni");
+    cout<<"size after delete: "<<mp.size()<<endl;
+    
+    // itrerator
+    map<string,int> :: iterator it=mp.begin();
+    
+    while(it!=mp.end())
+    {
+        cout<<it->first<<" "<<it->second<<endl;
+        it++;
+    }
+     
+}

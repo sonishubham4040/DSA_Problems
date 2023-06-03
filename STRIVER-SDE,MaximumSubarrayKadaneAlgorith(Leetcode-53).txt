@@ -1,0 +1,27 @@
+			// Maximum Subarray (Leetcode-53) //
+			// Kadane's Algorithm STRIVER-SDE Q4 //
+			// T.C = O(n), S.C = O(1) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int maxSubArray(vector<int>& nums) 
+{
+    int sum=0;
+    int maxi=INT_MIN;
+
+    for(int i=0;i<nums.size();i++)
+    {
+        sum+=nums[i];
+
+        if(sum>maxi)
+        {
+            maxi=max(sum,maxi);            
+        }
+        if(sum<0)
+        {
+            sum=0;
+        }
+    }
+    return maxi;
+}

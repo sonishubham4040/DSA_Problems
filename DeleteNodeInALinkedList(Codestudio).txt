@@ -1,0 +1,23 @@
+			// Delete Node In A Linked List (Codestudio) //
+			// Only node to be deleted is passed in argument //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void deleteNode(LinkedListNode<int>* node) 
+{
+    if(!node) // NULL
+    {
+        return;
+    }
+    
+    if(!node->next) // last node
+    {
+        node=NULL;
+        return;
+    }
+    
+    //copy data of next node in the given node and move to its next->next node
+    node->data=node->next->data;
+    node->next=node->next->next;
+}

@@ -1,0 +1,36 @@
+			// Frequency Game (GFG) POTD (31-5-23) //
+			// Find The Largest Element With Minimum Frequency //
+			// arr[] = 2 2 5 50 1 => 50 (with freq 1 and max element) //
+			// arr[] = 1 2 3 50 50 => 3 (with freq 1 and max among them) //
+			// T.C = O(n), S.C = O(n) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int LargButMinFreq(int arr[], int n)
+{
+    map<int,int> mp;
+    
+    for(int i=0;i<n;i++)
+    {
+        mp[arr[i]]++;
+    }
+    
+    int freq=INT_MAX;
+    int ans=0;
+    
+    for(auto i:mp)
+    {
+        if(i.second<freq)
+        {
+            ans=i.first;
+            freq=i.second;
+        }
+        else if(i.second==freq)
+        {
+            ans=max(ans, i.first);
+        }
+    }
+    
+    return ans;
+}

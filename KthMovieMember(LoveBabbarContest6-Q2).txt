@@ -1,0 +1,49 @@
+	        	// Kth Movie Member (Codestudio) //
+			// Love Babbar Contest-6, Q-2 //
+			// T.C = O(n), S.C = O(n) //
+			
+#include <bits/stdc++.h>
+using namespace std;
+
+List* reverseList(List *head)
+{
+   if(head==NULL || head->next==NULL)
+   {
+      return NULL;
+   }
+
+   List* forward=NULL;
+   List* prev=NULL;
+   List* curr=head;
+
+   while(curr!=NULL)
+   {
+      forward=curr->next;
+      curr->next=prev;
+      prev=curr;
+      curr=forward;
+   }
+
+   return prev;
+}
+
+int kthMoney(List *head , int k)
+{
+   // Write your code here.
+   List *head1=reverseList(head);
+
+   List* temp=head1;
+   int cnt=0;
+
+   while(temp!=NULL)
+   {
+      cnt++;
+      
+      if(cnt==k)
+      {
+         return temp->data;
+      }
+
+      temp=temp->next;
+   }
+}

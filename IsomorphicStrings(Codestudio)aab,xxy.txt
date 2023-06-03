@@ -1,0 +1,68 @@
+				// Isomorphic Strings (Codestudio) //
+				// str1 = aab, str2 = xxy => true //
+				// str1 = abc, str2 = msm => false //
+				// 2 Approaches //
+				// T.C = O(n), S.C = O(n) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+// Approach-1: O(n)
+bool areIsomorphic(string &str1, string &str2)
+{
+    int n=str1.size();
+    int m=str2.size();
+
+    if(n!=m)
+    {
+        return false;
+    }
+
+    unordered_map<char,int> mp1;
+    unordered_map<char,int> mp2;
+
+    for(int i=0;i<n;i++)
+    {
+        if(++mp1[str1[i]]!=++mp2[str2[i]])
+        {
+            return false;
+        }
+    }
+    
+    return true;
+}
+
+/*
+// Approach-2: O(n*n)
+bool areIsomorphic(string &str1, string &str2)
+{
+    int n=str1.size();
+    int m=str2.size();
+
+    if(n!=m)
+    {
+        return false;
+    }
+
+    for(int i=0;i<n;i++)
+    {
+        char first=str1[i];
+        char second=str2[i];
+
+        for(int j=0;j<n;j++)
+        {
+            if(str1[j]==first && str2[j]!=second)
+            {
+                return false;
+            }
+
+            if(str1[j]!=first && str2[j]==second)
+            {
+                return false;
+            }
+        }
+    }
+    
+    return true;
+}
+*/
