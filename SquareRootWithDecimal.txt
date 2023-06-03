@@ -1,0 +1,58 @@
+                    // Square Root using Binary Search With Decimal Part //
+                    // 64 = 8, 65 = 8, 16 = 4 //
+#include <iostream>
+using namespace std;
+
+int root(int n)
+{
+    int s=0;
+    int e=n;
+    int ans=-1;
+    int mid=s+(e-s)/2;
+    while(s<=e)
+    {
+        int square=mid*mid;
+        if(square==n)
+        {
+            return mid;
+        }
+        else if(square<n)
+        {
+            ans=mid;
+            s=mid+1;
+        }
+        else 
+        {
+            e=mid-1;
+        }
+        mid=s+(e-s)/2;
+    }
+    return ans;
+}
+
+double decimalPart(int n, int precision, int tempSol)
+{
+   double ans=tempSol;
+   double factor=1;
+   for(int i=0; i<precision; i++)
+   {
+       factor=factor/10;
+       
+       for(double j=ans; j*j<n; j=j+factor)
+       {
+           ans=j;
+       }
+   }
+   return ans;
+}
+
+int main() {
+
+int n;
+cout<<"enter no. ";
+cin>>n;
+
+int tempSol = root(n);
+
+ cout<<"square root is: "<<decimalPart(n,3,tempSol);    
+}

@@ -1,0 +1,37 @@
+            		// Maximum Occuring Character (GFG) //
+            		// output = t, testsample = e //
+
+#include<bits/stdc++.h>
+using namespace std;
+
+char maxOcc(string s, int n)
+{
+    // count store karo
+    int arr[26]={0};
+    for(int i=0;i<n;i++)
+   {
+       int number=0;
+       number=s[i]-'a';
+       arr[number]++; 
+   }
+    
+    int maxi=-1,ans=0;
+    for(int i=0;i<26;i++)
+    {
+        if(maxi<arr[i])
+        {
+            ans=i;
+            maxi=arr[i];
+        }
+    }
+    return ans+'a';
+}
+
+int main() 
+{
+   string s="testsample";
+   int n=s.length();
+
+   cout<<"Maximum Occuring Character: "<<maxOcc(s,n);
+}
+  

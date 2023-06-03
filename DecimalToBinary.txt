@@ -1,0 +1,23 @@
+                        // Decimal To Binary //
+                         // 8 = 1000 //
+ #include<iostream>
+ #include<math.h>
+ using namespace std;
+ int main()
+ {
+     
+     int n,sol=0,i=0;
+     cout<<"enter Decimal no."<<endl;
+     cin>>n;
+     while(n!=0)
+     {
+         int bit = n & 1;
+         if(bit==1)
+         {
+             sol = (bit*pow(10,i))+sol;
+         }
+          n = n>>1;
+          i++;
+     }
+     cout<<"It's binary form is : "<<sol;
+ }

@@ -1,0 +1,35 @@
+			// Pyramid Pattern * //
+
+#include<bits/stdc++.h>
+using namespace std;
+
+void printPattern(int n) {
+
+    int i=1;
+    while(i<=n)
+    {
+        int space=n-i;
+        while(space)
+        {
+            cout<<" ";
+            space--;
+        }
+        int j=1;
+        while(j<=2*i-1)
+        {
+            cout<<"*";
+            j++;
+        }
+        cout<<endl;
+        i++;
+    }
+}
+
+int main()
+{
+    int n;
+    cout<<"enter n: ";
+    cin>>n;
+   
+    printPattern(n);
+}

@@ -1,0 +1,36 @@
+			// Count Primes (Leetcode-204) //
+			// Sieve Of Eratosthenes Approach //
+			// 1) Mark All Number As Prime //
+			// 2) Remove all Those Number In Its Table //
+			// 10 = 2 3 5 7 => 4 (total count) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+ int countPrimes(int n) {
+ 
+        int count=0;
+        vector<bool> prime(n+1,true);
+        
+        prime[0] = prime[1] = false;
+        
+        for(int i=2;i<n;i++)
+        {
+            if(prime[i])
+            {
+                count++;
+                for(int j=2*i;j<n;j=j+i)
+                {
+                    prime[j]=0;
+                }
+            }     
+        }
+        return count;
+    }
+int main() {
+  
+  int n;
+  cout<<"enter n: ";
+  cin>>n;
+  cout<<"total number of prime less than n: "<<countPrimes(n)<<endl;
+}

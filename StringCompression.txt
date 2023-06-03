@@ -1,0 +1,49 @@
+				// String Compression (Leetcode-443) //
+				// aabbccc = a2b2c3 = 6//
+				// abbbbbbbbbbbb = ab12 = 4 //    
+                                              
+#include <bits/stdc++.h>
+using namespace std;
+
+ int compress(char chars[]) {
+        
+        int ansIndex=0;
+        int i=0;
+        int n=strlen(chars);
+        
+       while(i<n)
+       {
+           int j=i+1;
+           while(j<n && chars[i]==chars[j])
+           {
+               j++;
+           }
+          //  ab ya to vector pura traverse ho gaya
+          // ya to new character agya
+           
+           // old character store karlo
+           chars[ansIndex++]=chars[i];
+           
+           int count=j-i;
+           
+           if(count>1)
+           {
+               // converting ans into single digit and saving
+               string cnt=to_string(count);
+               for(char ch: cnt)
+               {
+                   chars[ansIndex++]=ch;
+                   
+               }
+           }
+           i=j;
+       }
+        return ansIndex;
+    }
+
+int main() 
+{
+     char chars[]={"aabbccc"};
+     cout<<compress(chars);
+}
+  

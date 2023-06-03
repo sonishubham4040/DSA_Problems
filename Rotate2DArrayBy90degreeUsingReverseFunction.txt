@@ -1,0 +1,39 @@
+			// Rotate Image (Leetcode-48) //
+			// Rotate 2D Array By 90 Degree Using Reverse Function //
+			// 1 2 3 4 5 6 7 8 9 = 7 4 1 8 5 2 9 6 3b //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void rotateBy90(vector<vector<int>>& matrix) {
+        
+        for(int i=0;i<matrix.size();i++)
+        {
+            for(int j=i;j<matrix.size();j++)
+            {
+                swap(matrix[i][j],matrix[j][i]);
+            }
+        }
+        for(int i=0;i<matrix.size();i++)
+        {
+           reverse(matrix[i].begin(),matrix[i].end());
+        }
+    }
+
+int print(vector<vector<int>> matrix)
+{
+    for(int i=0;i<matrix.size();i++)
+    {
+        for(int j=0;j<matrix.size();j++)
+        {
+            cout<<matrix[i][j]<<" ";
+        }
+        cout<<endl;
+    }
+}
+
+int main() {
+    vector<vector<int>> matrix={{1,2,3},{4,5,6},{7,8,9}};
+    rotateBy90(matrix);
+    print(matrix);
+}

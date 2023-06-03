@@ -1,0 +1,20 @@
+              //subt the prod nd sum of no.
+              // 234= (2*3*4) - (2+3+4) => 24-9=>15
+    
+
+#include<iostream>
+using namespace std;
+int main()
+{
+   int n,p=1,s=0;
+   cout<<"entere no"<<endl;
+   cin>>n;
+   while(n!=0)
+   {
+      int digit = n % 10;
+       p = p*digit;
+       s = s+digit;
+       n = n/10;
+   }
+    cout<<p-s;
+}

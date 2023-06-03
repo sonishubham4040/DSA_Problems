@@ -1,0 +1,46 @@
+			// Playing With Pointers Part - 1 //
+                        // Number //
+#include<bits/stdc++.h>
+using namespace std;;
+
+int main() 
+{
+    int num=5;
+    int *ptr=&num;
+    
+    cout<<"num: "<<num<<endl;
+    cout<<"address of num: "<<&num<<endl;
+    cout<<"address of num through ptr: "<<ptr<<endl;
+    cout<<"value at ptr: "<<*ptr<<endl;
+    cout<<"ptr size: "<< sizeof(ptr)<<endl;
+
+    int i=1;
+    int *p=&i;
+    /* Or 
+    int *p=0; 
+    p=&i  (Same) */
+    
+    int a=num;
+    cout<<"before any change: "<<num<<endl;
+    a++;
+    cout<<"after: still same:  "<<num<<endl;
+    
+    int *pt=&num;
+    cout<<"before pointer pt change: "<<num<<endl;
+    (*pt)++;
+    cout<<"value after pointer pt change: "<<num<<endl;
+    
+    int *q=p; //Copy Pointer
+    cout<<"address of p: "<<p<<" "<<"address of q: "<<q<<endl;
+    cout<<"value  at p: "<<*p<<" "<<"value at q: "<<*q<<endl;
+    
+    int j=3;
+    int *t=&j;
+    *t=*t+1;
+    cout<<"*t: "<<*t<<endl;
+    cout<<"before address of t: "<<t<<endl;
+    t=t+1;
+    cout<<"after address of t increased by 4(size of int): "<<t<<endl;
+    
+}
+    

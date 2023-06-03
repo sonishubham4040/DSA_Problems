@@ -1,0 +1,11 @@
+                   // Boiler plate of inputting elements in array //
+
+int i, n, arr[100];
+    cout<<"Enter size of array: "<<endl;
+    cin>>n;
+    
+    cout<<"Enter elements of array: "<<endl;
+    for(i = 0; i < n; i++)
+    {
+        cin>>arr[i];
+    }

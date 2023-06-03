@@ -1,0 +1,32 @@
+             // Combination Formula nCr = n!/(r! * (n-r)! ) //
+             // 8 C 2 = 28, 2 C 0 = 1 //
+#include <iostream>
+using namespace std;
+
+int fctrl(int n)
+{
+    int fct = 1;
+    for(int i=1;i<=n;i++)
+    {
+        fct = fct*i;
+    }
+    return fct;
+}
+
+int nCr(int n, int r)
+{
+    int num = fctrl(n);
+    int denom = fctrl(r) * fctrl(n-r);
+    return num/denom;
+    
+}
+
+int main()
+{
+    int n , r;
+    cout<<"enter n & r: "<<endl;
+    cin>>n>>r;
+    
+   cout<< "Solution is: " <<nCr(n,r) <<endl;
+    
+}

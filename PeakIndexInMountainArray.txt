@@ -1,0 +1,31 @@
+                  // Peak Index in Mountain Array //
+                  // 1 1 2 44 4 4 9 = at index 3 (44) //
+             
+#include <iostream>
+#include<climits>
+using namespace std;
+
+int peakIndex(int arr[], int n)
+{
+  int s=0, e=n-1;
+        int mid=s+(e-s)/2;
+        while(s<e){
+            if(arr[mid]<arr[mid+1])
+            {
+                s=mid+1;
+            }
+            else
+            {
+                e=mid;
+            }
+            mid=s+(e-s)/2;
+        }
+        return s;
+}
+
+int main() 
+{
+    int arr[7]={1,1,2,44,4,4,9};
+
+   cout<<"peak index in mountain array is at index : "<<peakIndex(arr,7);
+}

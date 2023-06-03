@@ -1,0 +1,38 @@
+                 //  Calculator Using Switch Case // 
+#include <iostream>
+using namespace std;
+
+int main() {
+    
+    int a,b;
+    cout<<"enter the value of a: "<<endl;
+    cin>>a;
+    
+    cout<<"enter the value of b: "<<endl;
+    cin>>b;
+    
+    char ch;
+    
+    cout<<"enter the value of ch (operation) : "<<endl;
+    cin>>ch;
+    
+    switch(ch)
+    {
+        case '+' : cout<<a+b;
+                   break;
+        
+        case '-' : cout<<a-b;
+                   break;
+        
+        case '*' : cout<<a*b;
+                   break;
+        
+        case '/' : cout<<a/b;
+                   break;
+        
+        case '%' : cout<<a%b;
+                   break;
+        
+        default : cout<<"wrong operation."<<endl;
+    }
+}

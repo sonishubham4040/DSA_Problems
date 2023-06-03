@@ -1,0 +1,37 @@
+			// Playing With Pointers Part - 3 //
+			// character array ///
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int getSum(int arr[], int n)
+// Or int getSum(int *arr, int n)
+{
+    int sum=0;
+    for(int i=0;i<n;i++)
+    {  
+        sum+=arr[i];
+        // Or sum+=i[arr];
+    }
+}
+
+
+int main() 
+{
+   int arr[4]={11,22,33,44};
+   char ch[6]="abcde";
+   
+   cout<<"address of arr: "<<arr<<endl;
+   cout<<"print entire content ch: "<<ch<<endl;
+   char *c=&ch[0];
+   cout<<"c pointer: "<<c<<endl;
+   
+   char temp='z'; // print until it find null character
+   char*p=&temp;
+   cout<<"p: "<<p<<endl;
+   
+   char *d="abcde";
+   cout<<d;
+}
+ 
+ 

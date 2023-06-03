@@ -1,0 +1,36 @@
+			// Move All Positive To Left Side And Negative To Right Side //
+			// 5 4 -9 -6 8 2 -77 = 5 4 8 2 -9 -6 -77 //
+			// With Extra Space And Without Changing Order Of Element //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+   
+   int arr[]={1,-9,-6,2,-7,55,6};
+   int n=sizeof(arr)/sizeof(arr[0]);
+   
+   vector<int> v;
+   for(int i=0;i<n;i++)
+   {
+       if(arr[i]>0)
+       {
+           v.push_back(arr[i]);
+       }
+   }
+    for(int i=0;i<n;i++)
+   {
+       if(arr[i]<0)
+       {
+           v.push_back(arr[i]);
+       }
+   }
+   for(int i=0;i<n;i++)
+   {
+       arr[i]=v[i];
+   }
+   for(int i=0;i<n;i++)
+   {
+       cout<<arr[i]<<" ";
+   }
+}

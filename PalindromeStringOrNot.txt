@@ -1,0 +1,45 @@
+			// Palindrome Or Not (Case Sensitive) //
+			// shubham = mahbuhs =>0, noon = noon =>1, Noon=nooN => 0 //
+                    
+#include <bits/stdc++.h>
+using namespace std;
+
+bool palindrome(char name[], int n)
+{
+   int i=0,j=n-1;
+   while(i<=j)
+   {
+      if(name[i]!=name[j]){
+         return 0;
+      }
+      else if(name[i]==name[j])
+      {
+          i++;
+          j--;
+      }
+   }
+  return true; 
+}
+  
+int len(char name[])
+{
+    int count=0;
+    for(int i=0;name[i]!='\0';i++)
+    {
+        count++;
+    }
+    return count;
+}
+
+int main() 
+{
+    char name[20];
+    cout<<"enter name: ";
+    cin>>name;
+    int n=len(name);
+    cout<<"your name is: "<<name<<endl;
+    
+    cout<<"length of name: "<<n<<endl;
+    cout<<"palindrome or not: "<<palindrome(name,n); 
+}
+   

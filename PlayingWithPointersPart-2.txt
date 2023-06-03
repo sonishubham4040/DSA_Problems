@@ -1,0 +1,44 @@
+			// Playing With Pointers Part - 2 //
+                        // Array //
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int main() 
+{
+   int arr[10]={11,22,33,44,55,66,77};
+   cout<<"address of arr 0 index: "<<arr<<endl;
+   cout<<"&arr[0]: "<<&arr[0]<<endl;
+   cout<<"value at arr[0]: "<<arr[0]<<endl;
+   cout<<"*arr: "<<*arr<<endl;
+   cout<<"value at (arr) +1, *arr +1: "<<*arr+1<<endl;
+   cout<<"value at (arr+1), *(arr +1): "<<*(arr+1)<<endl;
+   cout<<"arr[2]: "<<arr[2]<<endl;
+   cout<<"*(arr+2): "<<*(arr+2)<<endl;
+    // Formula: //
+    // arr[i] = *(arr + i), i[arr] = *(i + arr) //
+    
+    int i=3;
+    cout<<"arr[i]: "<<arr[i]<<endl;
+    cout<<"i[arr]: "<<i[arr]<<endl;
+    
+    int temp[10];
+    cout<<"size of temp: "<<sizeof(temp)<<endl;
+    cout<<"size of *temp: "<<sizeof(*temp)<<endl;
+    cout<<"size of &temp: "<<sizeof(&temp)<<endl;
+    
+    int *p=&temp[0];
+    cout<<"size of pointer (fixed) p: "<<sizeof(p)<<endl;
+    cout<<"size of pointer *p: "<<sizeof(*p)<<endl;
+    cout<<"size of pointer &p: "<<sizeof(&p)<<endl;
+    
+    int brr[10];
+    cout<<"adress of brr: "<<brr<<endl;
+    // Error
+    // brr = brr + 1 ;
+    // Alternate
+    int *t=&brr[0];
+    t=t+1;
+    cout<<"next block of brr, t: "<<t<<endl;
+}
+ 

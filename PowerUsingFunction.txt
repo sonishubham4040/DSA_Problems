@@ -1,0 +1,29 @@
+                  // Power Of Number Using Function //
+                  // 2 3 = 8, 12 2 = 144 //
+#include <iostream>
+using namespace std;
+
+int power()
+{
+int a,b;
+    cout<<"enter a ,b: "<<endl;
+    cin>>a>>b;
+ int i;
+ int ans = 1;
+    for(i = 0; i < b; i++)
+    {
+        ans = ans*a;
+        
+    }
+    cout<<ans<<endl;
+}
+
+
+int main(){
+   
+   
+  power();
+  power();
+ 
+}
+  

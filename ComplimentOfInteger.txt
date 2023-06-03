@@ -1,0 +1,29 @@
+                      // complement of integer //
+                      // 5 = 2, 101 = 010 //
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    
+    int n;
+    cout<<"enter no to find its compliment: "<<endl;
+    cin>>n;
+
+        int m=n;
+int demo = 0;
+if(m==0) {
+
+cout<<"1";
+}
+
+else {
+
+while(m!=0){
+    demo = (demo << 1) | 1;
+    m= m >> 1;
+}
+int sol =  (~n) & demo ;
+cout<<"Its compliment is : "<<sol;
+}
+}

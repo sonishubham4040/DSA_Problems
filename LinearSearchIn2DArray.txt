@@ -1,0 +1,57 @@
+			// Linear Search In 2D Array //
+			// 1 2 3 4 , 3 = yes, 5 = no //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+bool isPoss(int arr[][3],int n, int row, int col)
+{
+     for(int i=0;i<row;i++)
+    {
+        for(int j=0;j<col;j++)
+        {
+            if(arr[i][j]==n)
+            {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+int main()
+{
+    int arr[3][3];
+   
+    cout<<"enter elements of 2d array: "<<endl;
+    for(int i=0;i<3;i++)
+    {
+        for(int j=0;j<3;j++)
+        {
+            cin>>arr[i][j];
+        }
+    }
+
+    cout<<"Row-wise: "<<endl;
+    for(int i=0;i<3;i++)
+    {
+        for(int j=0;j<3;j++)
+        {
+            cout<<arr[i][j]<<" ";
+        }
+        cout<<endl;
+    }
+    cout<<endl;
+    int n;
+    cout<<"enter element to search: "<<endl;
+    cin>>n;
+ 
+ if(isPoss(arr,n,3,3))
+ {
+     cout<<"Found"<<endl;
+ }
+ else
+ {
+     cout<<"Not Found"<<endl;
+ }
+}

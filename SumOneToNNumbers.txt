@@ -1,0 +1,19 @@
+                      // Sum 1 to N  //
+                      // 5 = 1+2+3+4+5 = 15 //
+#include <iostream>
+using namespace std;
+
+int main() {
+    
+    int n;
+    cout<<"enter no. "<<endl;
+    cin>>n;
+    int i, sum=0;
+ for(i=0;i<=n;i++)
+ {
+ 
+   sum = sum +i;
+ }
+ cout<<"sum: "<<sum;
+
+}

@@ -1,0 +1,29 @@
+                        //  Reversed Integer  //
+                        // 123 = 321 , 78945612337479 = 0 //
+#include <iostream>
+#include <climits>
+using namespace std;
+
+int main() {
+    
+    int n;
+    cout<<"enter no. to be reversed"<<endl;
+    cin>>n;
+    int sol=0;
+    while(n!=0)
+    {
+        int digit = n%10;
+        sol= (sol*10) + digit;
+        n=n/10;    
+        
+    }
+    if((sol<INT_MIN/10) || (sol>INT_MAX/10))
+    {
+        cout<<"0";
+    }
+    else
+    {
+        cout<<sol;
+    }
+}
+    

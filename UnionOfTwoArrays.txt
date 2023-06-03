@@ -1,0 +1,26 @@
+                		// Union Of Arrays //
+                		// 1 2 3 4 5 , 1 2 3 = 5 // 
+               			// 2 4 5 6 8 , 4 7 = 6 //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+   
+   int arr[]={1,2,3,4,5};
+   int n=sizeof(arr)/sizeof(arr[0]);
+   
+   int brr[]={1,2,3};
+   int m=sizeof(brr)/sizeof(brr[0]);
+   
+    set<int> s;
+        for(int i=0;i<n;i++)
+        {
+            s.insert(arr[i]);
+        }
+        for(int j=0;j<m;j++)
+        {
+            s.insert(brr[j]);
+        }
+    cout<<"Union of Two arrays: "<<s.size();
+}

@@ -1,0 +1,19 @@
+                      // Factorial Of No //
+                      // 5 = 5*4*3*2*1 = 120 //
+#include <iostream>
+using namespace std;
+
+int main() {
+    
+    int n;
+    cout<<"Enter no. to find factorial "<<endl;
+    cin>>n;
+    int i, fct = 1;
+    for(i=1;i<=n;i++)
+    {
+        fct = fct*i;
+    
+    }
+    cout<<"factorial: "<<fct;
+    }
+ 

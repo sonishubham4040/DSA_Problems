@@ -1,0 +1,68 @@
+                     // Eko Eko SPOJ //
+                     // Wood Cut //
+                     // {20,10,17,15} , 7 = 15 , As after 15 length 20-15 + 17-15 = 7 //
+
+#include <iostream>
+using namespace std;
+
+bool isPossible(int arr[], int n, int m, int mid)
+{
+    int wood=0;
+    int val=0;
+    for(int i=0;i<n;i++)
+    {
+        if(arr[i]<mid)
+        {
+            continue;
+        }
+        val=arr[i]-mid;
+        wood=wood+val;    
+        
+    }
+    if(wood<m)
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
+
+int woodKato(int arr[], int n, int m)
+{
+    int s=0;
+    int maxi=-1;
+    for(int i=0;i<n;i++)
+    {
+        maxi=max(maxi,arr[i]);
+    }
+    int e=maxi;
+    int mid=s+(e-s)/2;
+    int ans=0;
+    
+    while(s<=e)
+    {
+        if(isPossible(arr,n,m,mid))
+        {
+            ans=mid;
+            s=mid+1;
+        }
+        else
+        {
+            e=mid-1;
+        }
+        mid=s+(e-s)/2;
+    }
+    return ans;
+}
+
+int main() 
+{
+    int arr[]={20,10,17,15};
+    int n=sizeof(arr)/sizeof(arr[0]);
+    int m=7;
+    
+    cout<<"Iske bad wood kat do: "<<woodKato(arr,n,m);
+}
+   

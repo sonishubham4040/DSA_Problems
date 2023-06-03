@@ -1,0 +1,24 @@
+                      // Fibonacci Series //
+                      // 8 = 0 1 1 2 3 5 8 13 21 34 //
+                      
+#include <iostream>
+using namespace std;
+
+int main() {
+    
+    int n, i, next;
+    int a=0, b=1;
+    cout<<"Enter no. for Fibonacci Series"<<endl;
+    cin>>n;
+
+cout<<a<<" "<<b<<" ";
+
+for(i=1; i<=n; i++)
+ {
+     next = a+b;
+     cout<<next<<" ";
+     a=b;
+     b=next;
+ }
+ 
+}

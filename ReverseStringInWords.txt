@@ -1,0 +1,25 @@
+            		// Reverse String In Words //
+            		// my name is shubham = ym eman si mahbuhs //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+ string s="my name is shuham ";
+
+ cout<<"reverse in words: "<<endl;
+ s.push_back(' ');
+
+ int j=0;
+ for(int i=0;i<s.length();i++)
+ {
+     if(s[i]==' ')
+     {
+         reverse(s.begin()+j,s.begin()+i);
+         j=i+1;
+     }
+    
+ }
+ s.pop_back();
+ cout<<s;
+}

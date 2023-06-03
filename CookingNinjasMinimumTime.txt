@@ -1,0 +1,66 @@
+                     // Cooking Ninjas //
+                     // Minimumm time in cooking dish //    
+                     // {1 2 3 4} = R,2R,3R... = 1+2+3+4, 2+4+6, 3+6+9... // 
+
+#include <iostream>
+using namespace std;
+
+int isPossible(int arr[], int n,  int m, int mid)
+{
+    int timeTaken=0;
+    int dish=0;
+    for(int i=0;i<n;i++)
+    {
+        timeTaken=arr[i];
+        int j=2;
+        while(timeTaken<=mid)
+        {
+            dish++;
+            timeTaken+=arr[i]*j;
+            j++;
+        }
+        
+    }
+    if(dish<m)
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+   
+}
+
+int cooking(int arr[], int n, int m)
+{
+    int s=0;
+    int e=1e8;
+    int mid=s+(e-s)/2;
+    int ans=0;
+    
+    while(s<=e)
+    {
+        if(isPossible(arr,n,m,mid))
+        {
+            ans=mid;
+            e=mid-1;
+        }
+        else
+        {
+            s=mid+1;
+        }
+        mid=s+(e-s)/2;
+    }
+    return ans;
+}
+
+int main()
+{
+    int arr[]={1, 2, 3 ,4};
+    int n=sizeof(arr)/sizeof(arr[0]);
+    int m=10;
+    
+    cout<<"Min Time To Cook Dish: "<<cooking(arr,n,m);
+    
+}

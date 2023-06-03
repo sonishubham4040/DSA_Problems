@@ -1,0 +1,52 @@
+			// Maximum Sum of Row And Its Index //
+			// 1 2 3 4 5 6 7 8 9 = 24, 2 //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int printSum(int arr[][3], int row, int col)
+{
+    int maxi=0,rowIndex=0;
+    for(int i=0;i<row;i++)
+    {
+        int sum=0;
+        for(int j=0;j<col;j++)
+        {
+            sum+=arr[i][j];
+        }
+        if(sum>maxi)
+        {
+            maxi=sum;
+            rowIndex=i;
+        }
+    }
+   cout<<"maximum sum of row: "<<maxi<<endl;
+   cout<<"row index is: "<<rowIndex<<endl;
+}
+
+int main()
+{
+    int arr[3][3];
+   
+    cout<<"enter elements of 2d array: "<<endl;
+    for(int i=0;i<3;i++)
+    {
+        for(int j=0;j<3;j++)
+        {
+            cin>>arr[i][j];
+        }
+    }
+
+    for(int i=0;i<3;i++)
+    {
+        for(int j=0;j<3;j++)
+        {
+            cout<<arr[i][j]<<" ";
+        }
+        cout<<endl;
+    }
+    cout<<endl;
+    
+ printSum(arr,3,3);
+ 
+}

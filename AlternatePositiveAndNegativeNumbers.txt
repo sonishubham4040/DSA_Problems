@@ -1,0 +1,42 @@
+			// Alternate Positive And Negative Numbers In Array //
+			// 5 -9 -7 4 -2 3 = 5 -9 4 -7 3 -2
+
+#include <bits/stdc++.h> 
+using namespace std;
+
+void posAndNeg(vector<int> &arr)
+{
+    vector<int> positive;
+    vector<int> negative;
+    int n=arr.size();
+    
+    for(int i=0;i<n;i++)
+    {
+        if(arr[i]<0)
+        {
+            negative.push_back(arr[i]);
+        }
+        else
+        {
+            positive.push_back(arr[i]);
+        }
+    }
+    bool pos=true;
+    int a=0;
+    int b=0;
+    for(int i=0;i<n;i++)
+    {
+        if(pos && a<positive.size())
+        {
+            arr[i]=positive[a++];
+            if(b<negative.size())
+                pos=false;
+        }
+        else if(b<negative.size())
+        {
+            arr[i]=negative[b++];
+            if(a<positive.size())
+                pos=true;
+        }
+    }
+}

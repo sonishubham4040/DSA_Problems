@@ -1,0 +1,24 @@
+                                // Replace Space With @40 (Another Method) //
+                		// my name is soni = my@40name@40is@40soni //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+string replace(string str) {
+
+   string rep="@40";
+   for(int i=0;i<str.length();i++)
+   {
+       if(str[i]==' ')
+       {
+           str.replace(i,1,rep);
+       }
+   }
+    return str;
+}
+
+int main()
+{
+    string str="my name is shubham";
+    cout<<replace(str);
+}

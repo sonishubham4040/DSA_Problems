@@ -1,0 +1,40 @@
+        			// Minimum Sum SubArray Of Given Size //
+        			// Sliding Window //
+        			//  10 4 2 5 6 3 8 1 = 4+2+5 => 11 (min sum) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int minSumSubarray(int arr[], int n, int k)
+{
+    int i=0,j=0;
+    int sum=0;
+    int mini=INT_MAX;
+    
+    while(i<n && j<n)
+    {
+        sum+=arr[j];
+        
+        if((j-i+1)<k)
+        {
+            j++;
+        }
+        else if((j-i+1)==k)
+        {
+            mini=min(mini,sum);
+            sum-=arr[i];
+            i++;
+            j++;
+        }
+    }
+    return mini;
+}
+
+int main() {
+  
+    int arr[]={10 ,4, 2, 5 ,6 ,3, 8 ,1};
+    int n=sizeof(arr)/sizeof(arr[0]);
+    int k=3;
+    
+    cout<<minSumSubarray(arr,n,k);
+}

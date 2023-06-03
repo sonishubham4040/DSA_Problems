@@ -1,0 +1,28 @@
+				// Remove All Adjacent Duplicates In String //
+				// abbaca = aaca = ca //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    string s="abbaca";
+    int n=s.length();
+    
+    string ans;
+    ans.push_back(s[0]);
+    
+    for(int i=1;i<n;i++)
+    {
+        if(s[i]==ans.back())
+        {
+            ans.pop_back();
+        }
+        else
+        {
+            ans.push_back(s[i]);
+        }
+    }
+    cout<< ans;
+}
+   

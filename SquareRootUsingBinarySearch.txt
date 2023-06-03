@@ -1,0 +1,42 @@
+                       // Square Root using Binary Search //
+                       // 64 = 8, 65 = 8, 16 = 4 //
+#include <iostream>
+using namespace std;
+
+long long int root(int n)
+{
+    int s=0;
+    int e=n;
+    long long int ans=-1;
+    long long int mid=s+(e-s)/2;
+    while(s<=e)
+    {
+        long long int square=mid*mid;
+        if(square==n)
+        {
+            return mid;
+        }
+        else if(square<n)
+        {
+            ans=mid;
+            s=mid+1;
+        }
+        else 
+        {
+            e=mid-1;
+        }
+        mid=s+(e-s)/2;
+    }
+    return ans;
+}
+
+int main() {
+
+int n;
+cout<<"enter no. ";
+cin>>n;
+
+cout<<"its square root is: "<<root(n);
+    
+    
+}
