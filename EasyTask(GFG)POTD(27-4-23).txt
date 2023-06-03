@@ -1,0 +1,59 @@
+			// Easy Task (GFG) POTD (27-4-23) //
+			// Query type 1 : ["1",ind,char] -> ('1' -> type 1 query, 'ind' -> replaces char on index strinfg s) //
+			// Query Type 2: ["2",left,right,k] -> ('2' -> type 2 query, in left to right index find kth lexographically largest character  in the subtring of s) //
+			// Input => n=4, s="abab", q=2, queries={{"1","2","d"},{"2","1","3","1"}} // 
+			// Output => 'd' (for query1 -> abab to abdb then for query2 ->  from bdb 1st largest character is 'd' so, ans => d) // 
+			// T.C = O(Q*N) Without using segmented tree //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+char solve(int freq[], int k)
+{
+    int cnt=0;
+    for(int i=25;i>=0;i--)
+    {
+        cnt+=freq[i];
+        if(cnt>=k)
+        {
+            return i+'a';
+        }
+    }
+}
+
+vector<char> easyTask(int n,string s,int q,vector<vector<string>> &queries)
+{
+    // Code here
+    
+    vector<char> ans;
+    
+    for(int i=0;i<q;i++)
+    {
+        int queryNo=stoi(queries[i][0]);
+        
+        if(queryNo==1)
+        {
+            int ind=stoi(queries[i][1]);
+            char ch=queries[i][2][0];
+            s[ind]=ch;
+        }
+        else
+        {
+            int left=stoi(queries[i][1]);
+            int right=stoi(queries[i][2]);
+            int k=stoi(queries[i][3]);
+            
+            int freq[26]={0};
+            for(int i=left;i<=right;i++)
+            {
+                int element=s[i]-'a';
+                freq[element]++;
+            }
+            
+            char ch=solve(freq,k);
+            ans.push_back(ch);
+        }
+    }
+    
+    return ans;
+}

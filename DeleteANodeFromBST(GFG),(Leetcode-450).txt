@@ -1,0 +1,90 @@
+			// Delete a node from BST (GFG), (Leetcode-450) //
+/*
+            1
+             \
+              2
+                \
+                 8 
+               /    \
+              5      11
+            /  \    /  \
+           4    7  9   12
+*/
+			// X=9 => Output: 1 2 4 5 7 8 11 12 //
+			// T.C = O(n), S.C = O(1) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+Node* minValue(Node* root)
+{
+    Node* temp=root;
+    
+    while(temp->left)
+    {
+        temp=temp->left;
+    }
+    
+    return temp;
+}
+
+Node *deleteNode(Node *root, int X)
+{
+    // your code goes here
+    
+    // base case
+    if(root==NULL)
+    {
+        return root;
+    }
+    
+    if(root->data==X)
+    {
+        // 0 child
+        if(root->left==NULL && root->right==NULL)
+        {
+            delete root;
+            return NULL;
+        }
+        
+        // 1 child
+        
+        // left part
+        if(root->left!=NULL && root->right==NULL)
+        {
+            Node* temp=root->left;
+            delete root;
+            return temp;
+        }
+        
+        // right part
+        if(root->left==NULL && root->right!=NULL)
+        {
+            Node* temp=root->right;
+            delete root;
+            return temp;
+        }
+        
+        // 2 child
+        if(root->left!=NULL && root->right!=NULL)
+        {
+            int mini=minValue(root->right)->data;
+            root->data=mini;
+            root->right=deleteNode(root->right, mini);
+            return root;
+        }
+        
+    }
+    else if(root->data > X)
+    {
+        // left part me jao
+        root->left=deleteNode(root->left, X);
+    }
+    else
+    {
+        // right part me jao
+        root->right=deleteNode(root->right, X);
+    }
+
+    return root;
+}

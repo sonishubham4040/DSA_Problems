@@ -1,0 +1,43 @@
+			// Search A Node In BST (GFG), Codestudio, Leetcode-700 //
+/*
+                2
+                \
+                 81 
+               /    \ 
+             42      87 
+              \       \ 
+               66      90 
+              / 
+            45
+*/
+			// x=87 => 1 (True) [Recursive] //
+			// T.C = O(height of tree), S.C = O(1) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+bool search(Node* root, int x) 
+{
+    // base case
+    if(root==NULL)
+    {
+        return false;
+    }
+
+    if(root->data==x)
+    {
+        return true;
+    }
+
+    if(root->data > x)
+    {
+        // left part me
+        return search(root->left, x);
+    }
+    else
+    {
+        // right part me
+        return search(root->right, x);
+    }
+    
+}

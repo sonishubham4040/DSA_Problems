@@ -1,0 +1,45 @@
+			// Predecessor And Successor (GFG) //
+			// Using Sorted Property Of Inorder //
+			// Approach:1 -> T.C = O(H), S.C = O(n) //
+			// sorted tree: [1 2 5 8 10], k=8 => pre=5, suc=10 //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void inOrderTraversal(Node* root, vector<Node*> &inOrder)
+{
+    if(root==NULL)
+    {
+        return;
+    }
+    
+    inOrderTraversal(root->left, inOrder);
+    inOrder.push_back(root);
+    inOrderTraversal(root->right, inOrder);
+}
+
+void findPreSuc(Node* root, Node*& pre, Node*& suc, int key)
+{
+    // Your code goes here
+
+    vector<Node*> inOrder;
+    pre=NULL;
+    suc=NULL;
+    
+    inOrderTraversal(root, inOrder);
+    
+    int n=inOrder.size();
+    
+    for(int i=0;i<n;i++)
+    {
+        if(inOrder[i]->key < key)
+        {
+            pre=inOrder[i];
+        }
+        
+        if(inOrder[n-i-1]->key > key)
+        {
+            suc=inOrder[n-i-1];
+        }
+    }
+}

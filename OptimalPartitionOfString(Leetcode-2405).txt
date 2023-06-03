@@ -1,0 +1,32 @@
+		// Optimal Partition of String (Leetcode-2405) //
+		// partition the string into one or more substrings such that the characters in each substring are unique //
+		// Return the minimum number of substrings in such a partition //
+		// Input: s = "abacaba" , Output: 4 (Two possible partitions are ("a","ba","cab","a") and ("ab","a","ca","ba")) //
+		// Input: s = "ssssss", Output: 6 (The only valid partition is ("s","s","s","s","s","s") )//
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int partitionString(string s) 
+{
+    map<char,int> mp;
+    int cnt=1;
+
+    for(int i=0;i<s.size();i++)
+    {
+        if(mp[s[i]-'a']==1)
+        {
+            cnt++;
+            mp.clear();
+        }
+        mp[s[i]-'a']=1;
+    }
+    return cnt;
+}
+    
+int main()
+{
+    string s="abacaba";
+    
+    cout<<"Minimum Number Of Unique Substrings In A Partition: "<<partitionString(s);
+}

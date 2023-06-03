@@ -1,0 +1,54 @@
+			// Reverse Level Order Traversal (GFG) //
+			// i/p: 1 2 4 -1 -1 5 -1 -1 3 -1 -1
+			// o/p: 4 5 2 3 1 //
+			// Using Stack And Queue //
+			// T.C = O(n), S.C = O(n) //
+    
+#include<bits/stdc++.h>
+using namespace std;
+
+/*   
+struct Node
+{
+    int data;
+    Node* left;
+    Node* right;
+}; */
+
+vector<int> reverseLevelOrder(Node *root)
+{
+    vector<int> ans;
+    
+    if(root==NULL)
+    {
+        return ans;
+    }
+    
+    queue<Node*> q;
+    stack<Node*> s;
+    q.push(root);
+    
+    while(!q.empty())
+    {
+        Node* temp=q.front();
+        q.pop();
+        s.push(temp);
+        
+        if(temp->right)
+        {
+            q.push(temp->right);
+        }
+        if(temp->left)
+        {
+            q.push(temp->left);
+        }
+    }
+    
+    while(!s.empty())
+    {
+        Node* temp=s.top();
+        ans.push_back(temp->data);
+        s.pop();
+    }
+    return ans;
+}

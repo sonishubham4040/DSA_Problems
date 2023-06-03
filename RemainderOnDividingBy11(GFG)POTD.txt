@@ -1,0 +1,25 @@
+		// Remainder on dividing by 11 (GFG) POTD //
+		// x=1345 => 3, x=231456786543567898765 => 1 //
+		// x is in string //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int xmod11(string x)
+{
+    int curr=0;
+    int rem=0;
+       
+    for(int i=0;i<x.size();i++)
+    {
+        curr=(rem*10)+(x[i]-'0');
+        rem=curr%11;
+    }
+    return rem;
+}
+
+int main() 
+{
+   string x="1345";
+   cout<<"x%11: "<<xmod11(x);
+}

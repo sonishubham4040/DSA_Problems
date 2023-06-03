@@ -1,0 +1,45 @@
+		// Check For Balanced Tree (GFG), Leetcode-110 //
+		// A tree is height balanced if difference between heights of left and right subtrees is not more than one for all nodes of tree //
+		// Approach-2 Using pair <bool,int> bool for balance, int for height //
+		// T.C = O(n), S.C = O(n) //
+
+#include<bits/stdc++.h>
+using namespace std
+
+pair<bool,int> balanceFast(Node *root)
+{
+    if(root==NULL)
+    {
+        pair<bool,int> p=make_pair(true,0);
+        return p;
+    }
+        
+    pair<bool,int> left=balanceFast(root->left);
+    pair<bool,int> right=balanceFast(root->right);
+        
+    bool leftAns=left.first;
+    bool rightAns=right.first;
+        
+    bool diff=abs(left.second - right.second) <= 1;
+        
+    pair<bool,int> ans;
+    ans.second=max(left.second, right.second) + 1;
+        
+    if(leftAns && rightAns && diff)
+    {
+        ans.first=true;
+    }
+    else
+    {
+        ans.first=false;
+    }
+        
+    return ans;
+}
+    
+//Function to check whether a binary tree is balanced or not.
+bool isBalanced(Node *root)
+{
+    //  Your Code here
+    return balanceFast(root).first;
+}

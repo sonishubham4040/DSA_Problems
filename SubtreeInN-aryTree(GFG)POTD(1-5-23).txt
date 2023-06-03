@@ -1,0 +1,41 @@
+			// Subtree In N-ary Tree (GFG) POTD (1-5-23) //
+			// Given the root of a n-ary tree find the number of duplicate subtrees in the n-ary tree. Two trees are duplicates if they have the same structure with the same node values. //
+			// T.C = O(n), S.C = O(n*n) //
+			// TO-DO //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+unordered_map<string,int> mp;
+
+string help(Node* root)
+{
+    string temp=to_string(root->data);
+    
+    for(auto x:root->children)
+    {
+        string t=help(x);
+        temp=temp+t+"*";
+    }
+    
+    mp[temp]++;
+    return temp;
+}
+
+int duplicateSubtreeNaryTree(Node *root)
+{
+    // Code here
+    mp.clear();
+    help(root);
+    
+    int ans=0;
+    for(auto x:mp)
+    {
+        if(x.second>1)
+        {
+            ans++;
+        }
+    }
+    
+    return ans;
+}

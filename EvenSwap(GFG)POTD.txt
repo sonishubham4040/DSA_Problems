@@ -1,0 +1,24 @@
+			// Even Swap (GFG) POTD //
+			// swap a[i], a[i+1] if a[i]+a[i+1] is even //
+			// Answer array should be lexicographically the largest //
+			// a[]={1,3,5} => {5,3,1} (As, Possible orders: [1,3,5],[1,5,3],[3,1,5],[3,5,1], [5,1,3],[5,3,1]) // 
+			// T.C = O(nlogn), S.C = O(1) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<int>lexicographicallyLargest(vector<int> &a,int n)
+{
+    int i=0;
+    while(i<n)
+    {
+        int j=i+1;
+        while(j<n && a[j]%2==a[j-1]%2)
+        {
+            j++;
+        }
+        sort(a.begin()+i,a.begin()+j,greater<int>());
+        i=j;
+    }
+    return a;
+}

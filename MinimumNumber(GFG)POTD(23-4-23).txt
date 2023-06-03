@@ -1,0 +1,26 @@
+			// Minimum Number (GFG) POTD (23-4-23) //
+			// If arr[i] >= arr[j] then replace the value of arr[i] with (arr[i] - arr[j]). Minimize the values of the array after performing operations //
+			// Return maximum element after operations //
+			// arr = {3,2,4} => 1 ({0,0,1} As, Left with element 1) //
+			// arr = {2,4} => 2 (0,2) //
+			// Using GCD //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int minimumNumber(int n,vector<int> &arr)
+{ 
+    int ans=0;
+    for(auto i:arr)
+    {
+        ans=__gcd(ans,i);
+    }
+    return ans;
+}
+
+int main()
+{
+    int n=3;
+    vector<int> arr={3,2,4};
+    cout<<"Max element left: "<<minimumNumber(n,arr);
+}

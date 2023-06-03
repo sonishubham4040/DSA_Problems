@@ -1,0 +1,44 @@
+			// Smaller Sum (GFG) POTD (22-4-23) //
+			// For each index i, find sum of all integers present in the array with a value less than arr[i] //
+			// arr={1 2 3} => {0 1 3} (As, 0<1, 1<2, 1+2<3) //
+			// arr={3 5 1 8 9} => {1 4 0 9 17} (As, 1<3, 1+3<5, 0<1, 3+5+1<8, 3+5+1+8<9) //
+			// Using 2 Approaches: unordered map and binary search //
+			// T.C = O(nlogn), S.C = O(n) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+// Approach:1 Using Unordered Map
+vector<long long> smallerSum(int n,vector<int> &arr)
+{
+    vector<int> temp=arr;
+    sort(arr.begin(),arr.end());
+        
+    unordered_map<long,long> mp;
+    mp[arr[0]]=0;
+        
+    long long sum=0;
+        
+    vector<long long> ans;
+        
+    for(int i=1;i<n;i++)
+    {
+        sum+=arr[i-1];
+            
+        if(arr[i]>arr[i-1])
+        {
+            mp[arr[i]]=sum;
+        }
+        else
+        {
+            mp[arr[i]]=mp[arr[i-1]];
+        }
+    }
+        
+    for(int i=0;i<n;i++)
+    {
+        ans.push_back(mp[temp[i]]);
+    }
+        
+    return ans;
+}

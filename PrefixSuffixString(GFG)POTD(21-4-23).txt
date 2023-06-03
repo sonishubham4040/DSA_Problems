@@ -1,0 +1,47 @@
+		// Prefix Suffix String (GFG) POTD (21-4-23) //
+		// Count the number of strings in s2 which is either a suffix or prefix of at least one string of s1 //
+		// s1=["cat", "catanddog", "lion"], s2=["cat", "dog", "rat"] //
+		// Output: 2 ("cat" of s2 is prefix of "catanddog", string "dog" of s2 is suffix of "catanddog" ) //
+		// s1=["jrjiml", "tchetn", "ucrhye", "ynayhy", "cuhffd", "cvgpoiu", "znyadv"], s2=["jr", "ml", "cvgpoi", "gpoiu", "wnmkmluc", "geheqe", "uglxagyl", "uyxdroj"] //
+		// Output: 4 ( "jr" of "jrjiml", "ml" of "jrjiml", "cvgpoi" of "cvgpoiu" & "gpoiu" of "cvgpoiu") //
+		// Using unordered map //
+		// T.C = O(max(len(s1), len(s2))), S.C = O(n) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int prefixSuffixString(vector<string> &s1,vector<string> s2)
+{
+    unordered_map<string,bool> mp;
+    
+    for(auto x:s1)
+    {
+        string temp="";
+        
+        // mapping of prefix
+        for(int i=0;i<x.size();i++)
+        {
+            temp=temp+x[i];
+            mp[temp]=true;
+        }
+        
+        // mapping of suffix
+        temp="";
+        for(int i=x.size()-1;i>=0;i--)
+        {
+            temp=x[i]+temp; // to add in front of string
+            mp[temp]=true;
+        }
+    }
+    
+    int ans=0;
+    for(auto x:s2)
+    {
+        if(mp[x]) // if it exist in map
+        {
+            ans++;
+        }
+    }
+    
+    return ans;
+}

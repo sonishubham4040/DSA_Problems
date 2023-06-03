@@ -1,0 +1,32 @@
+			// Add Digits (Leetcode-258) POTD (26-4-23) //
+			// Repeatedly add all its digits until the result has only one digit, and return it //
+			// num = 38 => 2 (3+8=11, 1+1=2) //
+			// num = 44 => 8 (4+4=8) // 
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int addDigits(int num)
+{
+    int sum=0;
+    while(num!=0)
+    {
+        sum+=num%10;
+        num=num/10;
+    }
+    
+    if(sum<10)
+    {
+        return sum;
+    }
+    else
+    {
+        return addDigits(sum);
+    }
+}
+
+int main() 
+{
+    int num=38;
+    cout<<"Sum till one digit left: "<<addDigits(num);
+}

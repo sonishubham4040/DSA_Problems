@@ -1,0 +1,49 @@
+			// Queue Reversal (GFG) //
+			// 4 3 1 10 2 6 => 6 2 10 1 3 4 //
+			// T.C = O(n), S.C = O(n) // 
+
+#include <bits/stdc++.h>
+using namespace std;
+
+// Approach-1: Using Stack
+queue<int> rev(queue<int> q)
+{
+    stack<int> s;
+    
+    while(!q.empty())
+    {
+        int element=q.front();
+        q.pop();
+        s.push(element);
+    }
+    
+    while(!s.empty())
+    {
+        int element=s.top();
+        s.pop();
+        q.push(element);
+    }
+    return q;
+}
+/* Approach-2: Using Recursion
+void solve(queue<int> &q)
+{
+    // base case
+    if(q.empty())
+    {
+        return;
+    }
+    
+    int element=q.front();
+    q.pop();
+    solve(q);
+    
+    q.push(element);
+}
+
+queue<int> rev(queue<int> q)
+{
+    solve(q);
+    return q;
+}
+*/

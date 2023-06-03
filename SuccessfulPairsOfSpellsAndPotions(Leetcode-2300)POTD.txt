@@ -1,0 +1,47 @@
+	// Successful Pairs of Spells and Potions (Leetcode-2300) POTD 2-4-23 //
+	// spell and potion pair is considered successful if the product of their strengths is at least success //
+	// spells[i] * potions[j] >= success //
+	// Input: spells = [5,1,3], potions = [1,2,3,4,5], success = 7 //
+	// Output: [4,0,3] //
+	//Input: spells = [3,1,2], potions = [8,5,8], success = 16 //
+	// Output: [2,0,2] //
+	// Using Binary search, Sorting //
+	// T.C = O((m+n)logm)), S.C = O(logm) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<int> successfulPairs(vector<int>& spells, vector<int>& potions, long long success)
+{
+    int n=spells.size();
+    int m=potions.size();
+
+    vector<int> ans(n,0);
+
+    sort(potions.begin(),potions.end());
+
+    for(int i=0;i<n;i++)
+    {
+        int spell=spells[i];
+        int s=0;
+        int e=m-1;
+
+        while(s<=e)
+        {
+            int mid=s+(e-s)/2;
+
+            long long product=(long long)spell*(long long)potions[mid];
+
+            if(product>=success)
+            {
+                e=mid-1;
+            }
+            else
+            {
+                s=mid+1;
+            }
+        }
+        ans[i]=m-s;
+    }
+    return ans;
+}

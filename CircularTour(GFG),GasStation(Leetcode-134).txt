@@ -1,0 +1,44 @@
+		// Circular Tour (GFG), Gas Station (Leetcode-134), Codestudio //
+		// N petrol Pumps:
+		// 1) Amount of petrol //
+		// 2) Distance from that petrol pump to the next petrol pump //
+		// Find a starting point where truck can start to get through the complete circle without exhausting its petrol in between //
+		// N = 4, Petrol = 4 6 7 4, Distance = 6 5 3 5 => 1(index) i.e second petrol pump //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+/*
+struct petrolPump
+{
+    int petrol;
+    int distance;
+};
+*/
+
+int tour(petrolPump p[],int n)
+{
+    int deficit=0;
+    int balance=0;
+    int start=0;
+    
+    for(int i=0;i<n;i++)
+    {
+        balance += p[i].petrol - p[i].distance;
+        
+        if(balance<0)
+        {
+            deficit+=balance;
+            start=i+1;
+            balance=0;
+        }
+    }
+    if(deficit+balance>=0)
+    {
+        return start;
+    }
+    else
+    {
+        return -1;
+    }
+}

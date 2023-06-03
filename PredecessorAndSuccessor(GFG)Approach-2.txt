@@ -1,0 +1,59 @@
+			// Predecessor And Successor (GFG) //
+			// Approach:2 ->  T.C = O(H), S.C = O(1) //
+			// sorted tree: [1 2 5 8 10], k=8 => pre=5, suc=10 //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void findPreSuc(Node* root, Node*& pre, Node*& suc, int key)
+{
+    // base case
+    if(root==NULL)
+    {
+        return;
+    }
+    
+    if(root->key==key)
+    {
+        // Maximum value in left subtree is predecessor
+        if(root->left)
+        {
+            Node* temp1=root->left;
+            
+            while(temp1->right)
+            {
+                temp1=temp1->right;
+            }
+            
+            pre=temp1;
+        }
+        
+        // Minimum value in right subtree is successor
+        if(root->right)
+        {
+            Node* temp2=root->right;
+            
+            while(temp2->left)
+            {
+                temp2=temp2->left;
+            }
+            
+            suc=temp2;
+        }
+        
+        return;
+    }
+    
+    if(root->key > key)
+    {
+        // left part me jao
+        suc=root;
+        findPreSuc(root->left, pre, suc, key);
+    }
+    else
+    {
+        // right part me jao
+        pre=root;
+        findPreSuc(root->right, pre, suc, key);
+    }
+}

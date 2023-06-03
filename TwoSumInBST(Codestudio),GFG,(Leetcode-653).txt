@@ -1,0 +1,60 @@
+			// Two Sum IV - Input is a BST (Codestudio), Two Sum In A BST //
+			// Find a pair with given target in BST (GFG) //
+			// Two Sum IV - Input is a BST (Leetcode-653) //
+/*
+          10
+        /   \
+       6    12
+      / \   / \
+    2    8 11 15
+*/
+			// Target = 14, Ans => True (2+12) //
+			// Target = 20, Ans => True (8+12) //
+			// T.C = O(n), S.C = O(n) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void inorderTraversal(BinaryTreeNode<int>* root, vector<int> &ans)
+{
+    // base case
+    if(root==NULL)
+    {
+        return;
+    }
+
+    inorderTraversal(root->left, ans);
+    ans.push_back(root->data);
+    inorderTraversal(root->right, ans);
+}
+
+
+bool twoSumInBST(BinaryTreeNode<int>* root, int target) 
+{
+	//Write your code here
+    vector<int> ans;
+    inorderTraversal(root, ans);
+
+    int n=ans.size();
+
+    int i=0,j=n-1;
+
+    while(i<j)
+    {
+        int sum=ans[i]+ans[j];
+        if(sum==target)
+        {
+            return true;
+        }
+        else if(sum>target)
+        {
+            j--;
+        }
+        else
+        {
+            i++;
+        }
+    }
+    
+    return false;
+}

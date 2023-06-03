@@ -1,0 +1,43 @@
+		// Boats To Save People (Leetcode-881) POTD //
+		// Boat Can Carry Atmost 2 Person At A Time //
+		// Return Minimum Number Of Boats To Carry Every Given Person //
+		// people = [1,2], limit = 3 => 1, people = [3,2,2,1], limit = 3 => 3, people = [3,5,3,4], limit = 5 => 4 //
+		// T.C= O(nlogn), S.C = O(1) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int numRescueBoats(vector<int>& people, int limit)
+{
+    sort(people.begin(),people.end()); // sorting
+
+    int count=0;
+    int i=0, j=people.size()-1; // Two pointer
+    int sum=0;
+
+    while(i<=j)
+    {
+        sum=people[i]+people[j];
+
+        if(sum<=limit)
+        {
+            count++;
+            i++;
+            j--;
+        }
+        else
+        {
+            count++;
+            j--;
+        }
+    }
+    return count;
+}
+
+int main() 
+{
+    vector<int> people={3,2,2,1};
+    int limit=3;
+    
+    cout<<"Minimum Boats To Carry Persons: "<<numRescueBoats(people,limit);
+}

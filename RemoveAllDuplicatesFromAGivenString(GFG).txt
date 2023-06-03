@@ -1,0 +1,37 @@
+			// Remove All Duplicates From A Given String (GFG) //
+			// Str = geeksforgeeks, Output: geksfor //
+			// Order should be same //
+			// Using Map //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+string removeDuplicates(string str) 
+{
+    unordered_map<char,int> m;
+	string ans="";
+	    
+	// Frequency store    
+	for(int i=0;i<str.size();i++)
+	{
+        m[str[i]]++;
+	}
+	    
+    for(int i=0;i<str.size();i++)
+	{
+	   if(m.count(str[i])>0)
+	   {
+	       ans+=str[i];
+	       m.erase(str[i]);
+	   }
+	}
+	
+    return ans;
+}
+
+int main() 
+{
+    string str="geeksforgeeks";
+
+    cout<<"Remove Duplicates: "<<removeDuplicates(str);
+}

@@ -1,0 +1,36 @@
+		// Add Minimum Characters (GFG) POTD, Codestudio //
+		// Find the minimum characters to be added at front of the string to make it a palindrome //
+		// str = ABCD => 3 (DCB_ABCD), str = ABA => 0 (Already palindrome) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int addMinChar(string str)
+{    
+    int cnt=0;
+    int i=0;
+    int j=str.size()-1;
+        
+    while(i<=j)
+    {
+        if(str[i]==str[j])
+        {
+            i++;
+            j--;
+        }
+        else
+        {
+            cnt++;
+            i=0;
+            j=str.size()-1-cnt;
+        }
+    }
+    return cnt;
+}
+    
+int main()
+{
+    string str="ABCD";
+    
+    cout<<"Minimum characters to be added to make string palindrome: "<<addMinChar(str);
+}

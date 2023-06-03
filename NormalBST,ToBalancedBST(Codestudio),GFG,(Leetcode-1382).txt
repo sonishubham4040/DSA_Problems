@@ -1,0 +1,66 @@
+			// Normal BST To Balanced BST (Codestudio), GFG //
+			// Balance a Binary Search Tree (Leetcode-1382) //
+/*
+Input: 
+              10
+            /   \
+           8    12
+          /       \
+        4         16
+       /            \
+      2            20
+*/
+/*
+Output: 
+              10
+            /   \
+           4    16
+          / \   / \
+        2    8 12  20
+*/
+			// Using Inorder Property of BST create new node by finding mid of array and Recursion //
+			// T.C = O(n), S.C = O(n) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void inorder(TreeNode<int>* root, vector<int> &ans)
+{
+    // base case
+    if(root==NULL)
+    {
+        return;
+    }
+
+    inorder(root->left, ans);
+    ans.push_back(root->data);
+    inorder(root->right, ans);
+}
+
+TreeNode<int>* inorderToBST(int s, int e, vector<int> &ans)
+{
+    if(s>e)
+    {
+        return NULL;
+    }
+
+    int mid=(s+e)/2;
+
+    TreeNode<int>* newRoot=new TreeNode<int> (ans[mid]);
+    newRoot->left=inorderToBST(s, mid-1, ans);
+    newRoot->right=inorderToBST(mid+1, e, ans);
+
+    return newRoot;
+}
+
+TreeNode<int>* balancedBst(TreeNode<int>* root) 
+{
+    // Write your code here.
+
+    vector<int> ans;
+    inorder(root, ans);
+
+    int n=ans.size();
+
+    return inorderToBST(0, n-1, ans);
+}

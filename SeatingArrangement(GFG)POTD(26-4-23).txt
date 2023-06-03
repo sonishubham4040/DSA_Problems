@@ -1,0 +1,58 @@
+			// Seating Arrangement (GFG) POTD (26-4-23) // 
+			// n = no. of people, m = no. of seats, seats array (0-vacant, 1-occuipied) //
+			// No two people can sit next to each other, return true/false all n can be seated or not //
+			// n = 2, m = 7, seats[] = {0 0 1 0 0 0 1} => True //
+			// n = 1, m = 3, seats[] = {0 1 0} => False //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+bool is_possible_to_get_seats(int n, int m, vector<int>& seats)
+{
+    for(int i=0;i<m;i++)
+    {
+        // at first index
+        if(i==0)
+        {
+            if(seats[i]==0 && seats[i+1]==0)
+            {
+                seats[i]=1;
+                n--;
+            }
+        }
+        // at last index
+        else if(i==m-1)
+        {
+            if(seats[i]==0 && seats[i-1]==0)
+            {
+                seats[i]=1;
+                n--;
+            }
+        }
+        // at middle
+        else
+        {
+            if(seats[i]==0 && seats[i+1]==0 && seats[i-1]==0)
+            {
+                seats[i]=1;
+                n--;
+            }
+        }
+    }
+    
+    if(n<=0)
+    {
+        return true;
+    }
+    
+    return false;
+}
+
+int main()
+{
+    int n=2;
+    int m=7;
+    vector<int> seats={0,0,1,0,0,0,1};
+    
+    cout<<"Seating Possible Or Not: "<<is_possible_to_get_seats(n,m,seats);
+}

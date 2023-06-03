@@ -1,0 +1,50 @@
+			//  Spiral Matrix II (Leetcode-59) //
+			// Input: n = 3, Output: [[1,2,3],[8,9,4],[7,6,5]] //
+
+#include<bits/stdc++.h>
+using namespace std;
+
+vector<vector<int>> generateMatrix(int n)
+{
+    vector<vector<int>> ans(n,vector<int>(n,0));
+
+    int startingRow=0;
+    int startingCol=0;
+    int endingRow=n-1;
+    int endingCol=n-1;
+        
+    int count=1;
+    int total=n*n;
+        
+    while(startingRow<=endingRow && startingCol<=endingCol)
+    {
+        // print starting row
+        for(int index=startingCol; index<=endingCol; index++)
+        {
+            ans[startingRow][index]=count++;
+        }
+        startingRow++;
+            
+        // print ending col
+        for(int index=startingRow; index<=endingRow; index++)
+        {
+            ans[index][endingCol]=count++;
+        }
+        endingCol--;
+            
+        //print ending row
+        for(int index=endingCol; index>=startingCol; index--)
+        {
+            ans[endingRow][index]=count++;
+        }
+        endingRow--;
+            
+        // print starting col
+        for(int index=endingRow; index>=startingRow; index--)
+        {
+            ans[index][startingCol]=count++;
+        }
+        startingCol++;
+    }
+    return ans;
+}

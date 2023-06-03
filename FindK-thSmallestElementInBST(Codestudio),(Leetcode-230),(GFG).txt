@@ -1,0 +1,34 @@
+			// Find K-th Smallest Element In BST (Codestudio), (Leetcode-230), (GFG) //
+			// Approach-1: Using vector array space //
+			// T.C = O(n), S.C = O(n) //
+
+#include<bits/stdc++.h>
+using namespace std;
+
+void inorderTraversal(BinaryTreeNode<int>* root, vector<int> &ans)
+{
+    if(root==NULL)
+    {
+        return;
+    }
+
+    inorderTraversal(root->left, ans);
+    ans.push_back(root->data);
+    inorderTraversal(root->right, ans);
+}
+
+int kthSmallest(BinaryTreeNode<int>* root, int k)
+{
+    // Write your code here.
+
+    vector<int> ans;
+    inorderTraversal(root,ans);
+
+    if(ans.size()<k)
+    {
+        return -1;
+    }
+    
+    return ans[k-1];
+
+}

@@ -1,0 +1,39 @@
+			// Last Stone Weight (Leetcode-1046) POTD (24-4-23) //
+			// we choose the heaviest two stones and smash them together //
+			// If x == y, both stones are destroyed //
+			// If x != y, the stone of weight x is destroyed, and the stone of weight y has new weight y - x //
+			// Return the weight of the last remaining stone. If there are no stones left, return 0 //
+			// Input: stones = [2,7,4,1,8,1] => Output: 1 //
+			// Using Priority Queue //
+			// T.C = O(nlogn), S.C = O(n) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int lastStoneWeight(vector<int>& stones)
+{
+    priority_queue<int> p(stones.begin(),stones.end());
+
+    while(p.size()>1)
+    {
+        int a=p.top();
+        p.pop();
+
+        int b=p.top();
+        p.pop();
+
+        if(a!=b)
+        {
+            p.push(abs(a-b));
+        }
+    }
+
+    return p.empty() ? 0 : p.top();
+}
+
+int main()
+{
+    vector<int> stones={2,7,4,1,8,1};
+    
+    cout<<"Weight of the last remaining stone: "<<lastStoneWeight(stones);
+}

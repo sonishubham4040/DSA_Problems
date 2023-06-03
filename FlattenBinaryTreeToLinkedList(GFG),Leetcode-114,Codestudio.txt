@@ -1,0 +1,55 @@
+			// Flatten Binary Tree To Linked List (GFG), (Leetcode-114), (Codestudio) //
+			// Tree's right child points to the next node in the list //
+			// The left child pointer is always null. //
+			// linked list should be in the same order as a pre-order traversal of the binary tree //
+/* i/p:
+          1
+        /   \
+       2     5
+      / \     \
+     3   4     6
+*/
+			// Ans: 1 2 3 4 5 6 //
+/*
+After Flattening
+o/p: 
+    1
+     \
+      2
+       \
+        3
+         \
+          4
+           \
+            5
+             \
+              6 
+*/
+			// T.C = O(n), S.C = O(1) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void flatten(Node *root)
+{
+    Node* curr=root;
+        
+    while(curr!=NULL)
+    {
+        if(curr->left)
+        {
+            Node* pred=curr->left;
+                
+            while(pred->right)
+            {
+                pred=pred->right;
+            }
+                
+            pred->right=curr->right;
+            curr->right=curr->left;
+            curr->left=NULL;
+        }
+            
+        curr=curr->right;
+    }
+}

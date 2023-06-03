@@ -1,0 +1,84 @@
+			// Flatten BST To A Sorted List (Codestudio) //
+/*
+          10
+        /   \
+       6    12
+      / \   / \
+    2    8 11 15
+*/
+			// Sorted Linked List => 2->6->8->10->11->12->15 //
+			// Two Approaches: 1) Using vector array 2) Using Node itself //
+			// T.C  = O(n), S.C = O(H) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+// Using Vector Array
+void inorderTraversal(TreeNode<int>* root, vector<int> &ans)
+{
+    // base case
+    if(root==NULL)
+    {
+        return;
+    }
+
+    inorderTraversal(root->left, ans);
+    ans.push_back(root->data);
+    inorderTraversal(root->right, ans);
+}
+
+TreeNode<int>* flatten(TreeNode<int>* root)
+{
+    // Write your code here
+    vector<int> ans;
+    inorderTraversal(root, ans);
+
+    int n=ans.size();
+    
+    TreeNode<int>* newRoot=new TreeNode<int>(ans[0]);
+    TreeNode<int>* curr=newRoot;
+
+    for(int i=1;i<n;i++)
+    {
+        TreeNode<int>* temp=new TreeNode<int>(ans[i]);
+        
+        curr->left=NULL;
+        curr->right=temp;
+        curr=temp;
+    }
+
+    curr->left=NULL;
+    curr->right=NULL;
+
+    return newRoot;
+}
+/*
+// Using Node Itself
+void inorder(TreeNode<int>* root, TreeNode<int>* &ans)
+{
+    // base case
+    if(root==NULL)
+    {
+        return;
+    }
+
+    inorder(root->left, ans);
+
+    TreeNode<int>* temp=new TreeNode<int>(root->data);
+    ans->right=temp;
+    ans=temp;
+
+    inorder(root->right, ans);
+}
+
+TreeNode<int>* flatten(TreeNode<int>* root)
+{
+    // Write your code here
+    TreeNode<int>* ans=new TreeNode<int>(-1);
+    TreeNode<int>* node=ans;
+    inorder(root, node);
+
+    ans=ans->right;
+    return ans;
+}
+*/

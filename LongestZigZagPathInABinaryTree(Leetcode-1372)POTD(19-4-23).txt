@@ -1,0 +1,47 @@
+			// Longest ZigZag Path in a Binary Tree (Leetcode-1372) POTD (19-4-23) //
+/*
+        1
+         \
+         (1)
+         / \          // right
+        1  (1)
+          /  \        // left
+        (1)    1
+          \           // right    
+          (1)
+            \
+             1
+*/
+			// Ans=> 3 (Longest zigzag path right->left->right) //
+			// T.C = O(n), S.C = O(n) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int maxi=0;
+
+void solve(TreeNode* root,int c,int l)
+{
+    if(root)
+    {
+        maxi=max(maxi,l);
+        if(c==1)
+        {
+            solve(root->right,-1,l+1);
+            solve(root->left,1,1);
+        }
+        else
+        {
+            solve(root->left,1,l+1);
+            solve(root->right,-1,1);
+        }
+    }
+}
+    
+int longestZigZag(TreeNode* root)
+{
+    solve(root->left,1,1);
+    solve(root->right,-1,1);
+        
+    return maxi;
+}

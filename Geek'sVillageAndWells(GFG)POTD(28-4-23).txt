@@ -1,0 +1,90 @@
+			// Geek's Village And Wells (GFG) POTD (28-4-23) //
+/*
+Input: n = 5, m = 5
+c[][]: H N H H H
+       N N H H W
+       W H H H H
+       H H H H H
+       H H H H H
+Output:
+    -1 0 6 4 2 
+    0 0 4 2 0 
+    0 2 4 4 2 
+    2 4 6 6 4 
+    4 6 8 8 6
+*/
+			// House to Well and back to house distance //
+			// Direction can be: up, down, left, right //
+			// 'N', 'W' and '.' our answer should be 0 // 
+			// Houses where is no possibility of taking water our answer should be -1 //
+			// Using Matrix, BFS (Min. distance, Min. time), Queue //
+			// T.C = O(n*m), S.C = O(n*m) // 
+
+#include <bits/stdc++.h>
+using namespace std;
+
+// x,y => (x-1,y), (x+1,y), (x,y-1), (x,y+1)
+int dx[4]={-1,1,0,0};
+int dy[4]={0,0,-1,1};
+
+vector<vector<int>> chefAndWells(int n,int m,vector<vector<char>> &c)
+{
+    // Code here
+    
+    vector<vector<int>> ans(n, vector<int>(m,-1)); // set all to -1
+    vector<vector<bool>> vis(n, vector<bool>(m,false));
+    
+    queue<pair<int,int>> q;
+    
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<m;j++)
+        {
+            if(c[i][j]=='W')
+            {
+                q.push({i,j});
+                vis[i][j]=true;
+            }
+            if(c[i][j]=='W' || c[i][j]=='N' || c[i][j]=='.')
+            {
+                ans[i][j]=0;
+            }
+        }
+    }
+    
+    int dis=2;
+    while(!q.empty())
+    {
+        int size=q.size();
+        
+        while(size--)
+        {
+            auto temp=q.front();
+            q.pop();
+            
+            int i=temp.first;
+            int j=temp.second;
+            
+            for(int k=0;k<4;k++)
+            {
+                int curri=i+dx[k];
+                int currj=j+dy[k];
+                
+                if(curri>=0 && curri<n && currj>=0 && currj<m && !vis[curri][currj] && c[curri][currj]!='N')
+                {
+                    vis[curri][currj]=true;
+                    q.push({curri,currj});
+                    
+                    if(c[curri][currj]=='H')
+                    {
+                        ans[curri][currj]=dis;
+                    }
+                }
+            }
+        }
+        
+        dis+=2;
+    }
+    
+    return ans;
+}

@@ -1,0 +1,60 @@
+			// Kth Largest Element In BST (GFG) //
+			// Using Morris Traversal //
+			// T.C = O(n), S.C = O(1) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void morrisTraversal(Node *root, int K, int &ans)
+{
+    Node* curr=root;
+    int cnt=0;
+    
+    while(curr!=NULL)
+    {
+        if(curr->right==NULL)
+        {
+            cnt++;
+            if(cnt==K)
+            {
+                ans=curr->data;
+                break;
+            }
+            curr=curr->left;
+        }
+        else
+        {
+            Node* pred=curr->right;
+            
+            while(pred->left!=NULL && pred->left!=curr)
+            {
+                pred=pred->left;
+            }
+            
+            if(pred->left==NULL)
+            {
+                pred->left=curr;
+                curr=curr->right;
+            }
+            else
+            {
+                pred->left=NULL;
+                cnt++;
+                if(cnt==K)
+                {
+                    ans=curr->data;
+                    break;
+                }
+                curr=curr->left;
+            }
+        }
+    }
+}
+
+int kthLargest(Node *root, int K)
+{
+    //Your code here
+   int ans=-1;
+   morrisTraversal(root, K, ans);
+   return ans;
+}

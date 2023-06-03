@@ -1,0 +1,64 @@
+		// Magnetic Force Between Two Balls (Leetcode-1552) //
+		// Same as Aggressive Cows Binary Search //
+
+#include<bits/stdc++.h>
+using namespace std;
+
+bool isPossible(vector<int>& position, int n, int m, int mid)
+{
+    int count=1;
+    int lastPos=position[0];
+
+    for(int i=0;i<n;i++)
+    {
+        if(position[i]-lastPos>=mid)
+        {
+            count++;
+            if(count==m)
+            {
+                return true;
+            }
+            lastPos=position[i];
+        }
+    }
+    return false;
+}
+
+int maxDistance(vector<int>& position, int m)
+{
+    sort(position.begin(),position.end());
+
+    int n=position.size();
+    int s=0;
+    int maxi=-1;
+    for(int i=0;i<n;i++)
+    {
+        maxi=max(maxi,position[i]);
+    }
+    int e=maxi;
+    int ans=-1;
+
+    int mid=s+(e-s)/2;
+
+    while(s<=e)
+    {
+        if(isPossible(position,n,m,mid))
+        {
+            ans=mid;
+            s=mid+1;
+        }
+        else
+        {
+            e=mid-1;
+        }
+        mid=s+(e-s)/2;
+    }
+    return ans;
+}
+
+int main() 
+{
+    vector<int> position={4,2,1,3,6};
+    int m=2;
+    cout<<"Largest Minimum magnetic force between any two balls is: "<<maxDistance(position,m);
+}

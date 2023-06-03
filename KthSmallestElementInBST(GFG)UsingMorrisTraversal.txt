@@ -1,0 +1,59 @@
+	        	// Kth Smallest Element In BST (GFG) //
+			// Using Morris Traversal //
+			// T.C = O(n), S.C = O(1) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void morrisTraversal(Node *root, int K, int &ans)
+{
+    Node* curr=root;
+    int cnt=0;
+    
+    while(curr!=NULL)
+    {
+        if(curr->left==NULL)
+        {
+            cnt++;
+            if(cnt==K)
+            {
+                ans=curr->data;
+            }
+            curr=curr->right;
+        }
+        else
+        {
+            Node* pred=curr->left;
+            
+            while(pred->right!=NULL && pred->right!=curr)
+            {
+                pred=pred->right;
+            }
+            
+            if(pred->right==NULL)
+            {
+                pred->right=curr;
+                curr=curr->left;
+            }
+            else
+            {
+                pred->right=NULL;
+                
+                cnt++;
+                if(cnt==K)
+                {
+                    ans=curr->data;
+                }
+                curr=curr->right;
+            }
+        }
+    }
+}
+  
+int KthSmallestElement(Node *root, int K) 
+{
+    // add code here.
+    int ans=-1;
+    morrisTraversal(root, K, ans);
+    return ans;
+}

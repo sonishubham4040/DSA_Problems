@@ -1,0 +1,20 @@
+			// Height Of Binary Tree (GFG), Leetcode-104,111, Codestudio //
+			// T.C = O(n), S.C = O(n), Using Recursion //
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int height(struct Node* node)
+{
+    if(node==NULL)
+    {
+        return 0;
+    }
+        
+    int left=height(node->left);
+    int right=height(node->right);
+        
+    int ans=max(left,right)+1;  
+        
+    return ans;
+}

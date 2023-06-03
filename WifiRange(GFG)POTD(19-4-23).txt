@@ -1,0 +1,58 @@
+			// Wifi Range (GFG) POTD 19-4-23 //
+			// S[i] = '1' represents that there is a wifi in ith room or S[i] = '0' represents no wifi //
+			// X = range of wifi from room to left/right //
+			// S="010", X=0 => 0(False) As, 1 can't reach left or right room //
+			// S="10010", X=1 => 1(True) As, every 1 can reach nearby 0 within range //
+			// T.C = O(n), S.C = O(1) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+bool wifiRange(int N, string S, int X)
+{
+    int zero=0;
+    int one=0;
+        
+    for(int i=0;i<N;i++)
+    {
+        if(S[i]=='1')
+        {
+            if(zero>0)
+            {
+                if(one==0 && zero>X)
+                {
+                    return false;
+                }
+                else if(zero>X*2)
+                {
+                    return false;
+                }
+            }
+            zero=0;
+            one=1;
+        }
+        else
+        {
+            zero++;
+        }
+    }
+        
+    if(zero>0)
+    {
+        if(one==0 || zero>X)
+        {
+            return false;
+        }
+    }
+        
+    return true;
+}
+
+int main()
+{
+    int N=5;
+    int X=1;
+    string S="10010";
+    
+    cout<<"Wifi can reach every room or not: "<<wifiRange(N,S,X);
+}

@@ -1,0 +1,30 @@
+		// Delete Columns to Make Sorted (Leetcode-944), Codestudio //
+		// Input: strs = ["cba","daf","ghi"], Output: 1 //
+		// Input: strs = ["zyx","wvu","tsr"], Output: 3 //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int minDeletionSize(vector<string>& strs) 
+{
+    int count=0;
+    for(int i=0;i<strs[0].size();i++)
+    {
+        for(int j=0;j<strs.size()-1;j++)
+        {
+            if(strs[j][i]>strs[j+1][i])
+            {
+                count++;
+                break;
+            }
+        }
+    }
+    return count;
+}
+
+int main() 
+{
+    vector<string> strs={"cba","daf","ghi"};
+    
+    cout<<"Number Of Deleted Columns to Make Sorted: "<<minDeletionSize(strs);
+}

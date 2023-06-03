@@ -1,0 +1,49 @@
+				// Preorder traversal Of A BST (Codestudio) //
+				// Construct Binary Search Tree from Preorder Traversal (Leetcode-1008) //
+/*
+Input: [20,10,5,15,13,35,30,42]
+Output: 
+              20
+            /   \
+           10    35
+          / \    / \
+        5   15  30  42     
+            /            
+          13            
+*/
+				// Approach-2: Using INT_MAX AND INT_MIN //
+				// T.C = O(n), S.C = O(n) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+BinaryTreeNode<int>* solve(vector<int> &preorder, int mini, int maxi, int &i)
+{
+    // base case
+    if(i>=preorder.size())
+    {
+        return NULL;
+    }
+
+    if(preorder[i]<mini || preorder[i]>maxi)
+    {
+        return NULL;
+    }
+
+    BinaryTreeNode<int>* newRoot=new BinaryTreeNode<int> (preorder[i++]);
+    newRoot->left=solve(preorder, mini, newRoot->data, i);
+    newRoot->right=solve(preorder, newRoot->data, maxi, i);
+    
+    return newRoot;
+}
+
+BinaryTreeNode<int>* preorderToBST(vector<int> &preorder) 
+{
+    // Write your code here.
+
+    int mini=INT_MIN;
+    int maxi=INT_MAX;
+    int i=0;
+    
+    return solve(preorder, mini, maxi, i);
+}

@@ -1,0 +1,61 @@
+		// Fold and Merge Linked List (Codestudio Love babbar contest-5) //
+		// list = 1->2->3->4->NULL, Divide into 2 halves //
+		// 1->2->NULL, 3->4->NULL, Reverse first half //
+		// 2->1->NULL, 3->4->NULL, Now Multiply both data and return //
+		// Answer: 6->4->NULL //
+		// i/p: 4->5->3->1->2->6->-1 => o/p: 3->10->24->-1 // 
+
+#include<bits/stdc++.h>
+using namespace std;
+
+List* reverse(List *head)
+{
+    List* curr=head;
+    List* prev=NULL;
+    List* forward=NULL;
+
+    while(curr!=NULL)
+    {
+        forward=curr->next;
+        curr->next=prev;
+        prev=curr;
+        curr=forward;
+    }
+    
+    return prev;
+}
+
+List* middle(List *head)
+{
+    List* slow=head;
+    List* fast=head->next;
+
+    while(fast->data!=-1 && fast->next->data!=-1)
+    {
+        fast=fast->next->next;
+        slow=slow->next;
+    }
+    
+    return slow;
+}
+
+List* foldAndMerge(List *head) 
+{
+   // Write your code here.
+
+    List* mid=middle(head);
+    List* head2=mid->next;
+    mid->next=NULL;
+
+    List* curr1=reverse(head);
+    List* curr2=head2;
+
+    while(curr2!=NULL && curr2->data!=-1)
+    {
+        curr2->data=(curr2->data * curr1->data);
+        curr2=curr2->next;
+        curr1=curr1->next;
+    }
+    
+    return head2;
+}

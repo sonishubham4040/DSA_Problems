@@ -1,0 +1,42 @@
+		// Equal Left and Right Subarray Sum (GFG) POTD //
+		// Equilibrium Point (GFG) (1 based indexing) //
+		// A[] = {1,3,5,2,2} => 3(index) (As, 1+3=4 and 2+2=4) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int equalSum(int N, vector<int> &A)
+{
+    int pos=1;
+    int sum=0;
+        
+    for(int i=0;i<N;i++)
+    {
+        sum+=A[i];
+    }
+        
+    int lSum=0;
+        
+    for(int i=0;i<N;i++)
+    {
+        if(sum-A[i]==lSum)
+        {
+            return pos;
+        }
+        else
+        {
+            lSum+=A[i];
+            sum-=A[i];
+            pos++;
+        }
+    }
+    return -1;
+}
+
+int main()
+{
+    int N=5;
+    vector<int> A={1,3,5,2,2};
+    
+    cout<<"Index where leftSum equals to rightSum: "<<equalSum(N,A);
+}

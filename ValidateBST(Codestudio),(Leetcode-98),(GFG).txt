@@ -1,0 +1,64 @@
+			// Validate BST (Codestudio), (Leetcode-98), (GFG) //
+			// Valid BST or Not Using Range Approach and Inorder Sorted Approach  //
+			// T.C = O(n), S.C = O(H) or O(n) //
+
+#include<bits/stdc++.h>
+using namespace std;
+
+// Approach-1: Using Range 
+bool isBST(BinaryTreeNode<int>* root, int min, int max)
+{
+    if(root==NULL)
+    {
+        return true;
+    }
+    
+    if(root->data > min && root->data < max)
+    {
+        bool left=isBST(root->left, min, root->data);
+        bool right=isBST(root->right, root->data, max);
+        return left && right;
+    }
+    
+    return false;
+}
+
+bool validateBST(BinaryTreeNode<int>* root) 
+{
+    // Write your code here
+    return isBST(root, INT_MIN, INT_MAX);
+}
+
+/*
+// Approach-2: Using Inorder Sorted Property
+void inorderTraversal(TreeNode* root, vector<int> &ans)
+{
+    if(root==NULL)
+    {
+        return;
+    }
+
+    inorderTraversal(root->left, ans);
+    ans.push_back(root->val);
+    inorderTraversal(root->right, ans);
+}   
+
+bool isValidBST(TreeNode* root) 
+{
+    vector<int> ans;
+
+    inorderTraversal(root,ans);
+
+    int n=ans.size();
+
+    for(int i=0;i<n-1;i++)
+    {
+        if(ans[i+1] <= ans[i])
+        {
+            return false;
+        }
+    }
+
+    return true;
+} 
+*/

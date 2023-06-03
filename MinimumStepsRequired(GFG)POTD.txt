@@ -1,0 +1,30 @@
+		// Minimum Steps Required (GFG) POTD 4-4-23 //
+		// string contains only 'a' and 'b' //
+		// Minimum steps required to make string empty by removing consecutive a's and b's //
+		// str = "bbaaabb" => 2 (remove a- bbbb, remove b- "") //
+		// str = "aababaa" => 3 (remove a- aabbaa, remove b- aaaa, remove a- "") Total counts => 3 //
+		// T.C = O(n), S.C = O(1) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int minSteps(string str)
+{
+    int cnt=1;
+    
+    for(int i=1;i<str.size();i++)
+    {
+        if(str[i]!=str[i-1])
+        {
+            cnt++;
+        }
+    }
+    return (cnt/2)+1;
+}
+int main() 
+{
+    string str="bbaaabb";
+    
+    cout<<"Minimum Steps Required To Make String Empty By Removing Consecutive a's and b's: "<<endl;
+    cout<<minSteps(str);
+}	

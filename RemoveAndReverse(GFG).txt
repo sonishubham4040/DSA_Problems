@@ -1,0 +1,82 @@
+		// Remove and Reverse (GFG) POTD //
+		// Input: S = "abab", Output: ba //
+		// Remove 'a' then reverse so, 'bab', then remove 'b' and reverse so, 'ba' //
+		// Using Map and Two Pointer Approach //
+		// T.C=O(S), S.C=O(k) constant space //
+
+#include<bits/stdc++.h>
+using namespace std;
+
+string removeReverse(string S) 
+{
+    // code here
+    int arr[26]={0};
+        
+    bool ghumi=false;
+        
+    unordered_map<int,int> m;
+        
+    string ans="";
+        
+    // Character ka count store kro array me
+    for(int i=0;i<S.length();i++)
+    {
+        arr[S[i]-'a']++;
+    }
+        
+    int i=0, j=S.length()-1;
+        
+    // reverse hui ya nahi, to delete kro or reverse kro
+    while(i<=j)
+    {
+        if(ghumi)
+        {
+            if(arr[S[j]-'a']>1)
+            {
+                arr[S[j]-'a']--;
+                ghumi=false;
+            }
+            else
+            {
+                m[j]++;
+            }
+            j--;
+        }
+        else
+        {
+            if(arr[S[i]-'a']>1)
+            {
+                arr[S[i]-'a']--;
+                ghumi=true;
+            }
+            else
+            {
+                m[i]++;
+            }
+            i++;
+        }
+    }
+    // agar map ka index array me hai to store karo    
+    for(int i=0;i<S.length();i++)
+    {
+        if(m[i]!=0)
+        {
+            ans+=S[i];
+        }
+    }
+    // ghumi thi to reverse kardo    
+    if(ghumi)
+    {
+        reverse(ans.begin(),ans.end());
+    }
+    
+    return ans;
+}
+
+int main()
+{
+    string S="abab";
+    
+    cout<<"After Removing Repeating Characters And Reverse The Final String: "<<endl;
+    cout<<removeReverse(S);
+}

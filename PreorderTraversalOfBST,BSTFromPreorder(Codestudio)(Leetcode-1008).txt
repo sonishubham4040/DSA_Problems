@@ -1,0 +1,42 @@
+			// Preorder Traversal Of A BST (Codestudio), (Leetcode-1008) //
+/*
+Input: [20,10,5,15,13,35,30,42]
+Output: 
+              20
+            /   \
+           10    35
+          / \    / \
+        5   15  30  42     
+            /            
+          13            
+*/
+			// BST From Preorder (Approach-1) Using Sort The Preorder //
+			// T.C = O(nlogn), S.C = O(n) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+BinaryTreeNode<int>* inorderToBST(int s, int e, vector<int> &inorder)
+{
+    if(s>e)
+    {
+        return NULL;
+    }
+
+    int mid=(s+e)/2;
+
+    BinaryTreeNode<int>* newRoot= new BinaryTreeNode<int>(inorder[mid]);
+    newRoot->left=inorderToBST(s, mid-1, inorder);
+    newRoot->right=inorderToBST(mid+1, e, inorder);
+    
+    return newRoot;
+}
+
+BinaryTreeNode<int>* preorderToBST(vector<int> &preorder) 
+{
+    // Write your code here.
+
+    sort(preorder.begin(), preorder.end());
+
+    return inorderToBST(0,preorder.size()-1, preorder);
+}

@@ -1,0 +1,31 @@
+			// C++ STL Doubly Ended Queue //
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    deque<int> d;
+    
+    d.push_front(13);
+    d.push_back(14);
+    
+    cout<<"Front: "<<d.front()<<endl;
+    cout<<"Back: "<<d.back()<<endl;
+    
+    d.pop_front();
+        
+    cout<<"Front: "<<d.front()<<endl;
+    cout<<"Back: "<<d.back()<<endl;
+    
+    d.pop_back();
+    
+    if(d.empty())
+    {
+        cout<<"Doubly ended queue is empty"<<endl;
+    }
+    else
+    {
+        cout<<"Doubly ended queue is not empty"<<endl;
+    }
+}

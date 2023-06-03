@@ -1,0 +1,79 @@
+            		// Design Circular Queue (Leetcode-622) //
+
+class MyCircularQueue 
+{
+    int *arr;
+    int size;
+    int front;
+    int rear;
+
+public:
+    MyCircularQueue(int k) 
+    {
+        size=k;
+        arr=new int[size];
+        front=rear=-1;    
+    }
+    
+    bool enQueue(int value) 
+    {
+        // to check if queue is full
+        if(isFull())
+        {
+            return false;
+        }
+        if(isEmpty()) // first element to push
+        { 
+            front=0;
+        }
+        rear=(rear+1)%size;
+        arr[rear]=value; // push inside the queue
+        return true;
+    }
+    
+    bool deQueue() 
+    {
+        if(isEmpty()) // to check queue is empty
+        {
+            return false;
+        }
+
+        if(front==rear) // single element
+        {
+            front=rear=-1;
+        }
+        else
+        {
+            front=(front+1)%size; // normal flow
+        }
+        return true;
+    }
+    
+    int Front() 
+    {
+        if(isEmpty()) 
+        {
+            return -1;
+        }
+        return arr[front];
+    }
+    
+    int Rear() 
+    {
+        if(isEmpty())
+        {
+            return -1;
+        }
+        return arr[rear];
+    }
+    
+    bool isEmpty()
+    {
+        return front==-1;
+    }
+    
+    bool isFull()
+    {
+        return ((rear + 1) % size) == front;
+    }
+};
