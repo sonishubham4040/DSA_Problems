@@ -1,0 +1,26 @@
+               		// Class Test Rank //
+               		// 2 5 4 4 5, k=3 => 5 5 4 4 2 => Marks = 4 //
+                
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    vector<int> a={2,5,4,4,5}; // 5 4 2 1
+    int n=a.size();
+    int k=3;
+    int ans=-1;
+
+    sort(a.begin(),a.end());
+    reverse(a.begin(),a.end());
+    
+    // Simply Return a[k-1]; // 
+    
+    int i=0;
+    while(i<n)
+    {
+        ans=a[k-1];
+        i++;
+    }
+    cout<<ans;
+}

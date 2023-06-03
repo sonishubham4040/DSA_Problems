@@ -1,0 +1,33 @@
+        		 // LCM (Lowest Common Multiple) //
+        		 // LCM(a,b) * GCD(a,b) = a*b; //
+        	         // Method 1 //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int LCM(int a, int b)
+{
+    int maxi;
+    maxi = (a>b) ? a : b; 
+    do
+    {
+        if(maxi%a==0 && maxi%b==0)
+        {
+            return maxi;
+            break;
+        }
+        else
+        {
+            ++maxi;
+        }
+    }
+    while(true);
+}
+
+int main() {
+   
+   int a=12;
+   int b=16;
+   cout<<"LCM: "<<LCM(a,b);
+   
+}

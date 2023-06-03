@@ -1,0 +1,32 @@
+			// Reverse String Using Recursion //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void reverseString(string &s, int i, int j)
+{
+    // Base Case 
+    if(i>j)
+    return ;
+    
+    // Processing 
+    swap(s[i],s[j]);
+    i++;
+    j--;
+    
+    // R.R
+    reverseString(s,i,j);
+    
+}
+
+int main() {
+    string s="abcde";
+    int n=s.length();
+    
+    int i=0;
+    int j=n-1;
+    
+    cout<<"Reversed string: "<<endl;
+    reverseString(s,i,j);
+    cout<<s<<endl;
+}

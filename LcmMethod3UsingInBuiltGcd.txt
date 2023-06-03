@@ -1,0 +1,15 @@
+        			// LCM (Lowest Common Multiple) //
+        			// LCM(a,b) * GCD(a,b) = a*b; //
+        			// Method 3, Using In Built GCD ( __gcd(a,b) ) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+   
+   int a=12;
+   int b=18;
+   int ans=(a*b) / __gcd(a,b); 
+   cout<<"LCM = a*b / GCD : "<<ans;
+   
+}

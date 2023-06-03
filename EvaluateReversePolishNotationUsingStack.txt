@@ -1,0 +1,46 @@
+			// Evaluate Reverse Polish Notation (leetcode-150) //
+			// {"4","13","5","/","+"} = 6 //
+			// Using Stack //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int RPN (vector<string> &s)
+{
+    stack<int> st;
+    
+    for(auto i:s)
+    {
+        if(i.size()==1 && !isdigit(i[0])) // operator
+        // if(i=="+" || i=="-" || i=="*" || i=="/" )
+        {
+            long long int b=st.top();
+            st.pop();
+            long long int a=st.top();
+            st.pop();
+            
+            if(i[0]=='+')
+            st.push(a+b);
+            
+            else if(i[0]=='-')
+            st.push(a-b);
+            
+            else if(i[0]=='*')
+            st.push(a*b);
+            
+            else
+            st.push(a/b);
+        }
+        else
+        {
+            st.push(stoi(i)); // string to integer
+        }
+    }
+    return st.top();
+}
+
+int main() {
+   vector<string> s={"4","13","5","/","+"};
+   
+   cout<<"Reverse Polish Notation Answer: "<<RPN(s);
+}

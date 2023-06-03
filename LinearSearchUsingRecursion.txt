@@ -1,0 +1,38 @@
+				// Linear Search Using Recursion //
+
+#include <bits/stdc++.h> 
+using namespace std;
+
+bool search(int arr[], int n, int k)
+{
+    // Base Case
+    if(n==0)
+    return false;
+    
+    if(arr[0]==k)
+    return true;
+    
+    // R.R
+    else
+    {
+        bool ans=search(arr+1,n-1,k);
+        return ans;
+    }
+    
+}
+
+int main() {
+    
+  int arr[]={1,2,3,4,5,6,7,8};
+  int n=sizeof(arr)/sizeof(arr[0]);
+  int k=3; 
+  
+  if(search(arr,n,k))
+  {
+      cout<<"Element Found"<<endl;
+  }
+  else
+  {
+      cout<<"Element Not Found"<<endl;
+  }
+}

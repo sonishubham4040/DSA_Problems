@@ -1,0 +1,29 @@
+            			// Nth Fibonacci Number Using Recursion //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int fibo(int n)
+{  
+    // Base Case
+    if(n==0)
+    return 0;
+    
+    if(n==1)
+    return 1;
+    
+    // R.R
+    int ans = fibo(n-1)+fibo(n-2);
+    
+    return ans;
+}
+
+int main() {
+    
+    int n;
+    cout<<"enter n: "<<endl;
+    cin>>n;
+    
+    cout<<"Nth fibonacci no: "<<fibo(n);
+    
+}

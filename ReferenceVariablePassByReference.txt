@@ -1,0 +1,44 @@
+                          // Reference Variable //
+			  // Pass By Value And Pass By Reference //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int& func(int n) // Bad Practice
+{
+    int m=n;
+    int &ans=m;
+    return ans;
+}
+
+int update2(int &n) // Pass By Reference (Original, same memory)
+{
+    n++;
+}
+
+int update1(int n) // Pass By Value (Copy, new memory)
+{
+    n++;
+}
+
+int main() {
+    
+    /* int i=5;
+    // reference variable
+    
+    int &j=i;
+    cout<<i<<endl;
+    i++;
+    cout<<i<<endl;
+    j++;
+    cout<<i<<endl;
+    cout<<j<<endl;
+    */
+    
+    int n=5;
+    cout<<"Before: "<<n<<endl;
+    update2(n);
+    cout<<"After: "<<n<<endl;
+    
+    cout<<func(n);
+}

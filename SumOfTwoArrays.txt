@@ -1,0 +1,62 @@
+                  // Sum Of Two Arrays //
+                  // 1 2 3 + 4 5 6 = 5 7 9 //
+                
+#include<bits/stdc++.h>
+using namespace std;
+
+int add(vector<int> arr, int n, vector<int> brr, int m)
+{
+    vector<int> ans;
+    int i=n-1;
+    int j=m-1;
+    int carry=0;
+    
+    while(i>=0 && j>=0)
+    {
+        int val1 = arr[i];
+        int val2 = brr[j];
+        int sum = arr[i]+brr[j]+carry;
+        carry = sum/10;
+        sum = sum%10;
+        ans.push_back(sum);
+        i--;
+        j--;
+    }
+    while(i>=0)
+    {
+        int sum = arr[i]+carry;
+        carry = sum/10;
+        sum = sum%10;
+        ans.push_back(sum);
+        i--;
+    }
+    while(j>=0)
+    {
+        int sum = brr[j]+carry;
+        carry = sum/10;
+        sum = sum%10;
+        ans.push_back(sum);
+        j--;
+    }
+   while(carry!=0)
+    {
+        int sum = carry;
+        carry = sum/10;
+        sum = sum%10;
+        ans.push_back(sum);
+    } 
+    reverse(ans.begin(),ans.end());
+    return ans;
+}
+
+int main() 
+{
+    vector<int> arr={1,2,3};
+    int n=arr.size();
+    
+    vector<int> brr={1,2,3};
+    int m=brr.size();
+    
+    add(arr,n,brr,m);
+}
+    

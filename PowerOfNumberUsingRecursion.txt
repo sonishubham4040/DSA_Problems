@@ -1,0 +1,22 @@
+            		// Power Of Number Using Recursion //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int power(int n)
+{  
+    if(n==0)
+    return 1;
+    
+    return 2*power(n-1);
+}
+
+int main() {
+    
+    int n;
+    cout<<"enter n: "<<endl;
+    cin>>n;
+    
+    cout<<"2 raise to Power "<<n<<" = "<<power(n);
+    
+}

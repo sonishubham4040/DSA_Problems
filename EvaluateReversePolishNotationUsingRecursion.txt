@@ -1,0 +1,42 @@
+			// Evaluate Reverse Polish Notation (leetode-150) //
+			// Input: {"2", "1", "+", "3", "*"} = Output: 9 //
+			// Using Recursion //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int RPN (vector<string>& s)
+{
+    string t=s.back();
+    s.pop_back();
+    
+    if(t=="+" || t=="-" || t=="*" || t=="/") //operator
+    {
+        long long int b=RPN(s);
+        long long int a=RPN(s);
+        
+        if(t=="+")
+        return a+b;
+        
+        else if(t=="-")
+        return a-b;
+        
+        else if(t=="*")
+        return a*b;
+        
+        else
+        return a/b;
+    }
+    else // string to integer conversion (stoi) 
+    {
+        return stoi(t);
+    }
+}
+
+int main() 
+{
+   vector<string> s={"10","6","9","3","+","-11","*","/","*","17","+","5","+"};
+   
+   cout<<"Reverse Polish Notation Answer: "<<RPN(s);
+
+}

@@ -1,0 +1,45 @@
+				// Slot Game Color (codeStudio) //
+				// red green blue yellow , green green red red = 3 //
+
+#include <bits/stdc++.h> 
+using namespace std;
+
+int slotScore(string &original, string &guess)
+{
+    int point=0;
+    
+    for(int i=0;i<4;i++)
+    {
+        if(original[i]==guess[i])
+        {
+            point+=2;
+            original[i]='@';
+            guess[i]='@';
+        }
+    }
+    for(int i=0;i<4;i++)
+    {
+        if(guess[i]!='@')
+        {
+            for(int j=0;j<4;j++)
+            {
+                if(original[j]==guess[i])
+                {
+                    point+=1;
+                    original[j]='@';
+                    guess[i]='@';
+                    break;
+                }
+            }
+        }
+    }
+    return point;
+}
+
+int main() {
+    
+   string original={'r','g','y','b'};
+   string guess={'g','g','r','r'};
+   
+   cout<<"Total Points: "<<slotScore(original,guess);
+}

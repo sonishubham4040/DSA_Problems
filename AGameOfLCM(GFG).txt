@@ -1,0 +1,47 @@
+			// A Game of LCM (GFG) //
+			//  Find maximum LCM that can be obtained from four numbers less than or equal to N //
+			// n=5 => 60, n=4 => 12 //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+long long lcm(long long int N)
+{
+    if(N==4) return 12;
+        
+    long long a=N*(N-1);
+    long long b=a;
+        
+    b*=(N-2)/__gcd(b,N-2);
+    b*=(N-3)/__gcd(b,N-3);
+    long long c=a,f=0;
+        
+    for(long long int i=N-2;i>=1;i--)
+    {
+       if(__gcd(c,i)==1)
+           {
+              a*=i;
+              c*=i;
+              f++;
+           }
+        if(f==2)
+        break;
+    }
+    
+    return max(a,b);
+}
+
+long long maxGcd(long long int N)
+{
+    return max(lcm(N),lcm(N-1));
+}
+
+int main() 
+{
+    long long int N;
+    cout<<"Enter N: "<<endl;
+    cin>>N;
+    
+    cout<<"Answer: "<<maxGcd(N);
+   
+}

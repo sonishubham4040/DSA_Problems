@@ -1,0 +1,28 @@
+			 	// Palindrome String Or Not Using Recursion //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+bool palindrome(string& s, int i, int j)
+{
+    // base case
+    if(i>j)
+    return true;
+    
+    if(s[i]!=s[j])
+    return false;
+    
+    // R.R
+    else
+    {
+        return palindrome(s,i+1,j-1);
+    }    
+}
+
+int main() {
+    string s="abba";
+    int n=s.length();
+    
+    cout<<"True Or False: "<<palindrome(s,0,n-1);
+    
+}

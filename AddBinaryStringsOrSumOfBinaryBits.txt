@@ -1,0 +1,49 @@
+			// Add Binary Strings (gfg) //
+			// 1101 + 111 = 10100 //
+			// 10 + 01 = 11 //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+string BitSum(string s1, string s2)
+{
+    reverse(s1.begin(),s1.end());
+    reverse(s2.begin(),s2.end());
+    int n=s1.size();
+    int m=s2.size();
+    int i=0;
+    int j=0;
+    int carry=0;
+    string ans="";
+    
+    while(i<n || j<m || carry!=0)
+    {
+        int val1=(i<n)?s1[i]-'0':0;
+        int val2=(j<m)?s2[j]-'0':0;
+        int sum=val1+val2+carry;
+        if(sum%2==0)
+        {
+            ans+='0';
+        }
+        else
+        {
+            ans+='1';
+        }
+        carry=sum/2;
+        i++;
+        j++;
+    }
+    while(ans.back()==0)
+    {
+        ans.pop_back();
+    }
+    reverse(ans.begin(),ans.end());
+    return ans;
+}
+
+int main() 
+{
+    string s1="1101";
+    string s2="111";
+    cout<<"Sum Of Binary Bits: "<<BitSum(s1,s2);
+}

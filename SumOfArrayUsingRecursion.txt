@@ -1,0 +1,26 @@
+				// Sum Of Array Using Recursion //
+
+#include <bits/stdc++.h> 
+using namespace std;
+
+int sum(int arr[], int n)
+{
+    // Base Case
+    if(n==0)
+    return 0;
+    
+    if(n==1)
+    return arr[0];
+    
+    // R.R
+    int sumAll=arr[0]+sum(arr+1,n-1);
+    return sumAll;
+}
+
+int main() {
+    
+  int arr[]={1,2,3,4,5};
+  int n=sizeof(arr)/sizeof(arr[0]);
+   
+  cout<<"sum: "<<sum(arr,n);
+}

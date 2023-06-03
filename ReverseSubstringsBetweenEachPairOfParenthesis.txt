@@ -1,0 +1,42 @@
+			// Reverse Substrings Between Each Pair Of Parenthesis //
+			// (skeeg(for)skeeg) = geeksforgeeks, ((ng)ipm(ca)) = camping //
+			// ((ng)ipm(ca)) = (gnipmac) = camping //
+			// gfg, leetcode, codestudio //
+			// Using Stack //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+string reverseParenthesis(string s, int n)
+{
+    stack<int> st;
+    for(int i=0;i<n;i++)
+    {
+        if(s[i]=='(')
+        {
+            st.push(i);
+        }
+        else if(s[i]==')')
+        {
+            reverse(s.begin()+st.top()+1, s.begin()+i);
+            st.pop();
+        }
+    }
+    string ans="";
+    for(int i=0;i<n;i++)
+    {
+        if(s[i]!='(' && s[i]!=')')
+        {
+            ans+=s[i];
+        }
+    }
+    return ans;
+}
+
+int main() {
+
+   string s="((ng)ipm(ca))";
+   int n=s.size();
+   cout<<s<<endl;
+   cout<<"Final After Reverse Parenthesis: "<<reverseParenthesis(s,n);
+}

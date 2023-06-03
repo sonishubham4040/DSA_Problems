@@ -1,0 +1,30 @@
+                    // Pair Sum
+                    // k[] = 1 2 3 4 5 , T = 5 => 1 4, 2 3 //
+#include <iostream>
+using namespace std;
+
+int pairSum(int k[], int n, int t)
+{
+    
+    for(int i=0; i<n; i++)
+    {
+        for(int j=i+1; j<n; j++)
+        {
+            if(k[i] + k[j]==t)
+            {
+               cout<<k[i]<<" "<<k[j]<<" "<<endl;
+            }
+        }
+    }
+    
+}
+
+int main() 
+{
+    int k[5] = {1,2,3,4,5};
+    int t = 5;
+    cout<<"pair sum: "<<endl;
+    pairSum(k,5,t);
+    return 0;
+}
+   

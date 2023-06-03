@@ -1,0 +1,55 @@
+                        // Merging Two Sorted Array //
+                        // one in increasing and other in decreasing order //
+                        // {1 2 3 4 5 }, {6 5 4 3 } = {1 2 3 3 4 4 5 5 6} 
+       
+#include <iostream>
+using namespace std;
+
+int merge(int arr[], int n, int brr[], int m, int crr[])
+{
+  int i=0,j=m-1,k=0;
+  while(i<n && j>=0)
+  {
+      if(arr[i]<brr[j])
+      {
+          crr[k++]=arr[i++];
+      }
+      else
+      {
+          crr[k++]=brr[j--];
+      }
+  }
+  while(i<n)
+  {
+      crr[k++]=arr[i++];
+  }
+  while(j>=0)
+  {
+      crr[k++]=brr[j--];
+  }
+    
+}
+  
+int print(int crr[], int n)
+{
+    for(int i=0; i<n; i++)
+    {
+        cout<<crr[i]<<" ";
+    }
+}
+  
+int main()
+{
+    int arr[]={1,2,3,4,5,6};
+    int n = sizeof(arr) / sizeof(arr[0]);
+
+    int brr[]={9,8,7,5,3};
+    int m = sizeof(brr) / sizeof(brr[0]);
+
+    int crr[100];
+    merge(arr,n,brr,m,crr);
+    cout<<"Merged increasing sorted and decreasing sorted array:"<<endl;
+    print(crr, n+m);
+    
+}
+    

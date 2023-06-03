@@ -1,0 +1,27 @@
+            		// First Element To Occur k Times (GFG) //
+            		// {1, 7, 4, 3, 4, 8, 7}, k=2 = 4 //
+            
+#include <bits/stdc++.h>
+using namespace std;
+
+int firstOccur(int arr[], int n, int k)
+{
+    map<int ,int>mp;
+    for(int i=0;i<n;i++)
+    {
+        mp[arr[i]]++;
+        if(mp[arr[i]]==k)
+        {
+            return arr[i];
+        }
+    }
+    return -1;
+}
+
+int main() {
+    int arr[]={1, 7, 4, 3, 4, 8, 7};
+    int n=sizeof(arr)/sizeof(arr[0]);
+    int k=2;
+    
+    cout<<"first element to occur k times: "<<firstOccur(arr,n,k);
+}

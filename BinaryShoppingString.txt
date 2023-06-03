@@ -1,0 +1,48 @@
+               		// Binary Shopping // 
+               		// 01101 = 01000, String flip 2 times 0,1 //
+                
+#include<bits/stdc++.h> 
+using namespace std;
+
+string shopping(string S, int P)
+{
+    int n=S.size();
+    int count=0;
+    
+    if(n==0)
+    {
+        S[0]='1';
+        return S;
+    }
+    for(int i=n-1;i>=0;i--)
+    {
+        if(S[i]=='1')
+        {
+            S[i]='0';
+            count++;
+        }
+        if(count==2)
+        {
+            break;
+        }
+    }
+
+    if(count==2 || count==0)
+    {
+        return S;
+    }
+    if(count<2)
+    {
+        S[0]='1';
+        return S;
+    }
+}
+
+int main()
+{
+    string S = "01101";
+    int P=3;
+    
+    cout<<shopping(S,P);
+   
+}

@@ -1,0 +1,27 @@
+        	// Check If Array Is Sorted & Rotated Or Not //
+        	// 5 6 7 1 2 3 4 = Yes, true (1)
+        	// 8 9 5 1 2 3 4 = No, false (0)
+        
+#include<bits/stdc++.h>
+using namespace std;
+
+bool find(vector<int> arr, int n)
+{
+    int count=0;
+    for(int i=1;i<n;i++)
+    {
+       if(arr[i-1]>arr[i])
+       count++;
+    }
+    if(arr[n-1]>arr[0])
+    count++;
+   
+    return count<=1;
+}
+int main() {
+   
+   vector<int> arr={5,6,7,1,2,3,4};
+   int n=arr.size();
+   
+   cout<<find(arr,n);
+}

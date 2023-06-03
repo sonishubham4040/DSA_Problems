@@ -1,0 +1,45 @@
+                         // Square Root of number //
+                         // 25 = 5 //
+#include <iostream>
+using namespace std;
+
+int main()
+{
+ int ans=1;
+ int n=25;
+ int i=1;
+ while(ans<=n)
+ {
+     i++;
+     ans = i*i;
+     
+ }
+ cout<< i-1;
+}
+
+ 
+                                // Another approach //
+
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int main()
+{
+int n;
+cin>>n;
+cout<<"its square root is: ";
+cout<<pow(n,0.5); 
+}
+
+                               // Another approach //
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() 
+{
+   int n;
+   cin>>n;
+   cout<<sqrt(n);
+   
+}
