@@ -1,0 +1,17 @@
+			// Highest Power Of 2 Less Than Or Equal To Given Number ///
+			// n=14 => 8, n=17 => 16 //
+			// T.C = O(logn), S.C= O(1) // 
+
+#include <bits/stdc++.h>
+using namespace std; 
+
+int main() 
+{
+    int n;
+    cout<<"enter number: "<<endl;
+    cin>>n;
+    
+    int ans=(int)log2(n);
+    
+    cout<<"Answer: "<<(int)pow(2,ans);
+}

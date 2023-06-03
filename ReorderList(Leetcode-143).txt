@@ -1,0 +1,30 @@
+ 			// Reorder List (Leetcode-143) //
+ 			// L0 -> Ln -> L1 -> Ln-1 -> L2 -> Ln-2..... //
+ 			// Approach-1 //
+ 
+void reorderList(ListNode* head)
+{
+    // Base Case
+    if(head==NULL || head->next==NULL || head->next->next==NULL)
+    {
+        return;
+    }
+
+    // Find the Second Last Node of the linkedlist
+    ListNode* temp=head;
+    while(temp->next->next!=NULL)
+    {
+        temp=temp->next;
+    }
+
+    // Link the temp with the second element
+    temp->next->next=head->next;
+    head->next=temp->next;
+
+    // Again set the temp to the the last 
+    temp->next = NULL;
+
+    // recursive call
+    reorderList(head->next->next);
+
+}

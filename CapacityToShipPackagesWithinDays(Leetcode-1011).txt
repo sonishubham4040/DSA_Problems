@@ -1,0 +1,66 @@
+			// Capacity To Ship Packages Within D Days (Leetcode-1011) //
+			// Binary Search Approach //
+			// weights = [1,2,3,4,5,6,7,8,9,10], days = 5 => 15 //
+			// weights = [3,2,2,4,1,4], days = 3 => 6 //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+bool check(vector<int>& weights, int days, int mid)
+{
+    int reqDays=1;
+    int currWeight=0;
+    
+    for(int i:weights)
+    {
+        if(currWeight+i>mid)
+        {
+            reqDays++;
+            currWeight=0;
+        }
+        currWeight+=i;
+    }
+    if(reqDays>days)
+    return false;
+    
+    return true;
+}
+
+int shipWithinDays(vector<int>& weights, int days) 
+{
+    int left=0; // max element weight
+    int right=0; // total weight of array
+    
+    for(int i:weights)
+    {
+        left=max(left,i);
+        right+=i;
+    }
+    
+    int mid;
+    int ans=right;
+    
+    while(left<=right)
+    {
+        mid=left+(right-left)/2;
+        if(check(weights,days,mid))
+        {
+            ans=mid;
+            right=mid-1;
+        }
+        else
+        {
+            left=mid+1;
+        }
+    }
+    return ans;
+}
+
+int main()
+{
+    vector<int> weights={3,2,2,4,1,4};
+    int days=3;
+    
+    cout<<"Least Weight Capacity Of The Ship: "<<shipWithinDays(weights, days);
+    
+}

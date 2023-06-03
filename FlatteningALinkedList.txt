@@ -1,0 +1,65 @@
+			// Flattening a Linked List (GFG,Codestudio) //
+			// Using Merge Sort Concept //
+
+Node* merge(Node* head, Node* right)
+{
+    if(head==NULL)
+        return right;
+        
+    if(right==NULL)
+        return head;
+        
+    Node* ans=new Node(-1);
+    Node* temp=ans;
+    
+    while(head!=NULL && right!=NULL)
+    {
+        if(head->data < right->data)
+        {
+            temp->bottom=head;
+            temp=head;
+            head=head->bottom;
+        }
+        else
+        {
+            temp->bottom=right;
+            temp=right;
+            right=right->bottom;
+        }
+    }
+    
+    while(head!=NULL)
+    {
+        temp->bottom=head;
+        temp=head;
+        head=head->bottom;
+    }
+    
+    while(right!=NULL)
+    {
+        temp->bottom=right;
+        temp=right;
+        right=right->bottom;
+    }
+    
+    ans=ans->bottom;
+    return ans;
+}
+
+Node *flatten(Node *root)
+{
+   // Your code here
+   if(root==NULL || root->next==NULL)
+   {
+       return root;
+   }
+   
+   Node* head=root;
+   Node* right=head->next;
+   head->next=NULL;
+   
+   right=flatten(right);
+   head=merge(head, right);
+   
+   return head;
+}

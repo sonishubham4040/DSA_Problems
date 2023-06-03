@@ -1,0 +1,29 @@
+			// Detect Loop In Linked List Using Floyd's Cycle Detection 2 //
+    			// T.C = O(n) , S.C = O(1) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+node* floydDetectLoop(Node* head)
+{
+    if(head==NULL)
+        return false;
+    
+    Node* slow=head;
+    Node* fast=head;
+    
+    while(fast!=NULL && fast->next!=NULL)
+    {
+        fast=fast->next->next;
+        
+        slow=slow->next;
+        
+        if(slow==fast)
+        {
+            //cout<<"Present At: "<<slow->data<<endl;
+            return true;
+        }
+    }
+    
+    return false;
+}

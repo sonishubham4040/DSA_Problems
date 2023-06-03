@@ -1,0 +1,53 @@
+    			// Codestudio Contest-3 //
+    			// Q2 Catch Fish, Minimum Net //
+    			// {1, 0, 1, 1, 0, 0, 1, 1}, 3  = 4 , {1, 1, 1, 0, 0}, 3 = 3 //
+   			// {1, 0, 0, 0, 0}, 2 = -1 //
+    
+#include <bits/stdc++.h>
+using namespace std;
+
+int minimumNet(vector<bool> arr, int n, int k)
+{
+    // Checking Amount Of Fish Is Present Or Not
+    int count=0;
+    for(int i=0;i<n;i++)
+    {
+        if(arr[i])
+        {
+            count++;
+        }
+    }
+    if(count<k)
+    {
+        return -1;
+    }
+    
+    // Storing Index 
+    vector<int> pos;
+    for(int i=0;i<n;i++)
+    {
+        if(arr[i]==1)
+        {
+            pos.push_back(i);
+        }
+    }
+    
+    int ans=INT_MAX;
+    for(int i=0;i<pos.size();i++)
+    {
+        if(i+k-1 < pos.size())
+        {
+            ans=min(ans,pos[i+k-1]-pos[i]+1);
+        }
+    }
+    return ans;
+}
+
+int main() {
+   
+   vector<bool> arr={1, 1, 1, 0, 0};
+   int k=3;
+   int n=arr.size();
+   
+   cout<<"Minimum Net: "<<minimumNet(arr,n,k);
+}

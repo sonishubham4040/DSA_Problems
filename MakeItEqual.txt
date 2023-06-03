@@ -1,0 +1,40 @@
+    		// Codestudio Contest-3 //
+    		// Q4 Make It Equal //
+    		// a=2, b=3, c=5 , a=010 , b=011 , c=101 => change bits of a and b such that, a&b=c => 4//
+    		// a=3, b=1, c=2 => 2 //
+    		// changing each bit count one moves, return min moves //
+    
+#include <bits/stdc++.h>
+using namespace std;
+
+int makeItEqual(int a, int b, int c) {
+    
+    int count=0;
+    while(a>0 || b>0 || c>0)
+    {
+        // if C is Odd and a,b is even
+        if(c&1)
+        {
+            if((a&1)==0)
+                count++;
+            if((b&1)==0)
+                count++;
+        }
+        // if C is even and a,b is odd
+        else
+        {
+            if((a&1) && (b&1))
+                count++;
+        }
+        a=a>>1;
+        b=b>>1;
+        c=c>>1;
+    }
+    return count;
+}
+
+int main()
+{
+    int a=3, b=1, c=2;
+    cout<<"Minimum Number of bits flip: "<<makeItEqual(a,b,c);
+}

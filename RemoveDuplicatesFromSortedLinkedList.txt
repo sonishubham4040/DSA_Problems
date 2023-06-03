@@ -1,0 +1,29 @@
+        		// Remove Duplicates From Sorted List //
+        		// Codestudio, GFG, Leetcode //
+			// T.C = O(n), S.C = O(1) //
+        
+Node * uniqueSortedList(Node * head) 
+{
+    // empty list
+    if(head==NULL)
+    {
+        return NULL;
+    }
+
+    // non empty list
+    Node* curr=head;
+
+    while(curr!=NULL && curr->next!=NULL)
+    {
+        if(curr->data==curr->next->data)
+        {
+            delete curr->next;
+            curr->next=curr->next->next;
+        }
+        else // not equal
+        {
+            curr=curr->next;
+        }
+    }
+    return head;
+}

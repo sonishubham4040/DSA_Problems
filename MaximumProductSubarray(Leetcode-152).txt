@@ -1,0 +1,35 @@
+			// Maximum Product Subarray (Leetcode-152) //
+			// [2,3,-2,4] = 6 , [-2,0,-1] = 0 //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int maxProduct(vector<int> &arr)
+{
+    int n=arr.size();
+    int ans=arr[0];
+    int maxi=ans;
+    int mini=ans;
+    
+    for(int i=1;i<n;i++)
+    {
+        if(arr[i]<0)
+        {
+            swap(maxi,mini);
+        }
+        maxi=max(arr[i],maxi*arr[i]);
+	// maxi=max(arr[i]*1ll, maxi*arr[i]); 1ll to convert int to long long for big values //
+
+        mini=min(arr[i],mini*arr[i]);
+        ans=max(ans,maxi);
+    }
+    return ans;
+}
+  
+int main() 
+{
+    vector<int> arr={2,3,-2,4};
+    
+    cout<<"Maximum Product Subarray: "<<maxProduct(arr);
+    
+}

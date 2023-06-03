@@ -1,0 +1,30 @@
+			// Circular Linked List Or Not Approach-1 //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+bool isCircular(node* head)
+{
+    if(head==NULL)
+    {
+        return true;
+    }
+    
+    node* temp=head->next;
+    while(temp!=NULL && temp!=head)
+    {
+        temp=temp->next;
+    }
+    
+    if(temp==head)
+    {
+        return true;
+    }
+    
+    return false;
+}
+
+int main() 
+{
+    
+}

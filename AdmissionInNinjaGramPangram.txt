@@ -1,0 +1,46 @@
+		// Admission In Ninja Gram (CodeStudio) //
+		// Pangram = All Alphabet Letters Should Be Included In String //
+		// toosmallword = No, TheQuickBrownFoxJumpsOverTheLazyDog = Yes // 
+
+#include <bits/stdc++.h>
+using namespace std;
+
+bool pangram(string & str)
+{
+    vector<int>arr(26,false);
+    
+    for(int i=0;i<str.size();i++)
+    {
+        if(str[i]>='a' && str[i]<='z')
+        {
+            arr[str[i]-'a']++;
+        }
+        else if(str[i]>='A' && str[i]<='Z')
+        {
+            arr[str[i]-'A']++;
+        }
+    }
+    
+    for(int i=0;i<26;i++)
+    {
+        if(arr[i]==false)
+        return false;
+    }
+    return true;
+}
+
+int main()
+{
+    string str="TheQuickBrownFoxJumpsOverTheLazyDog";
+    
+    cout<<"Pangram Or Not: "<<endl;
+    
+    if(pangram(str))
+    {
+        cout<<"Yes, It's A Pangram"<<endl;
+    }
+    else
+    {
+        cout<<"No, It's Not A Pangram"<<endl;
+    }
+}

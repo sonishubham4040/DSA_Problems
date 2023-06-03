@@ -1,0 +1,50 @@
+			// Count Occurences of Anagrams (GFG) //
+			// Return the count of the occurences of anagrams of the word in the text //
+			// txt = forxxorfxdofr , pat = for => 3 //
+			// txt = aabaabaa , pat = aaba => 4 //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int search(string pat, string txt)
+{
+	int ans=0;
+    vector<int> freqP(26,0);
+    vector<int> window(26,0);
+    
+    int tLen=txt.length();
+    int pLen=pat.length();
+    
+    if(txt.size()<pat.size())
+    return {};
+    
+    // first window
+    for(int i=0;i<pLen;i++)
+    {
+        freqP[pat[i]-'a']++;
+        window[txt[i]-'a']++;
+    }
+    
+    if(freqP==window)
+    ans++;
+    
+    for(int i=pLen;i<tLen;i++)
+    {
+        window[txt[i-pLen]-'a']--;
+        window[txt[i]-'a']++;
+        
+        if(freqP==window)
+        ans++;
+    }
+    
+    return ans;
+}
+
+int main() 
+{
+    string txt="aabaabaa";
+    string pat="aaba";
+    
+    cout<<"Total Occurences Of Anagram: "<<search(pat,txt);
+   
+}

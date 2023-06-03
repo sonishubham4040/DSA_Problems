@@ -1,0 +1,59 @@
+			// Number Of Subarrays Of 0's //
+			// arr={0, 0, 1, 0}, output => 4 ((0,0),(0),(0),(0)) //
+// arr={0, 0, 0, 0}, output => 10 ((0),(0),(0),(0),(0,0),(0,0),(0,0),(0,0,0),(0,0,0),(0,0,0,0)) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+/*
+long long int no_of_subarrays(int n, vector<int> &arr) 
+{
+    long long int ans=0;
+    int cnt=0;
+    
+    for(int i=0;i<n;i++)
+    {
+        if(arr[i]==0)
+        {
+            cnt++;
+        }
+        else
+        {
+            ans+=((long)(cnt*(cnt+1))/2);
+            cnt=0;
+        }
+    }
+    if(cnt!=0)
+    {
+        ans+=((long)(cnt*(cnt+1))/2);
+    }
+    return ans;
+}
+*/
+long long int no_of_subarrays(int n, vector<int> &arr) 
+{
+    long long int ans=0;
+    int cnt=0;
+    
+    for(int i=0;i<n;i++)
+    {
+        if(arr[i]==0)
+        {
+            cnt++;
+        }
+        else
+        {
+            cnt=0;
+        }
+        ans+=cnt;
+    }
+    return ans;
+}
+
+int main() 
+{
+    vector<int> arr={0,0,0,0};
+    int n=arr.size();
+    
+    cout<<"Number of subarrays of 0's: "<<no_of_subarrays(n,arr);
+}

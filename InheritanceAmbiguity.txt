@@ -1,0 +1,36 @@
+            			// Inheritance Ambiguity //
+            			// Using Scope Resolution Operator //
+            
+#include <bits/stdc++.h>
+using namespace std;
+
+class A
+{
+    public:
+    void func()
+    {
+        cout<<"class A function "<<endl;
+    }
+};
+
+class B
+{
+    public:
+    void func()
+    {
+        cout<<"class B function "<<endl;
+    }
+};
+
+
+class C : public A, public B
+{
+    
+};
+int main() 
+{
+    C obj;
+    // obj.func();
+    obj.A::func();
+    obj.B::func();
+}

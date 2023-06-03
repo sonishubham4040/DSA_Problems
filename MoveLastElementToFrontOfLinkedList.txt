@@ -1,0 +1,25 @@
+			// Move Last Element To Front Of A Linked List //
+			// 1->2->3->4->5->NULL => 5->1->2->3->4->NULL //
+
+ListNode *moveToFront(ListNode *head)
+{
+    if(head==NULL || head->next==NULL)
+    {
+        return head;
+    }
+        
+    ListNode* prev=NULL;
+    ListNode* temp=head;
+        
+    while(temp->next!=NULL)
+    {
+        prev=temp;
+        temp=temp->next;
+    }
+        
+    prev->next=NULL;
+    temp->next=head;
+    head=temp;
+        
+    return head;
+}

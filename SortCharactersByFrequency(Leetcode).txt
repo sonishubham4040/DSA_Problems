@@ -1,0 +1,39 @@
+			// Sort Characters By Frequency (Leetcode-451) //
+			// "tree" = "eert" , "cccaaa" = "cccaaa" and "aaaccc" //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+string frequencySort(string str)
+{
+    unordered_map<char,int> m;
+    vector<pair<int,char>> v;
+    string ans="";
+    
+    for(auto i:str)
+    {
+        m[i]++;
+    }
+    
+    for(auto j:m)
+    {
+        v.push_back(make_pair(j.second,j.first));
+    }
+    
+    sort(v.begin(),v.end());
+    
+    for(int k=v.size()-1;k>=0;k--)
+    {
+        ans.insert(ans.size(),v[k].first,v[k].second);
+    }
+    
+    return ans;
+}
+
+int main()
+{
+    string str="tree";
+    
+    cout<<"Sort By Frequency Of Letters: "<<frequencySort(str);
+    
+}

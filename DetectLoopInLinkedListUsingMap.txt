@@ -1,0 +1,29 @@
+            		// Detect Loop In Linked List Using Map //
+            		// T.C = O(n) , S.C = O(n) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+bool detectLoop(node* head)
+{
+    if(head==NULL)
+    return false;
+    
+    map<node*, bool> visited;
+    
+    node* temp=head;
+    
+    while(temp!=NULL)
+    {
+        // loop is present
+        if(visited[temp]==true)
+        {
+            cout<<"Present On Element: "<<temp->data<<endl;
+            return true;
+        }
+        
+        visited[temp]=true;
+        temp=temp->next;
+    }
+    return false;
+}

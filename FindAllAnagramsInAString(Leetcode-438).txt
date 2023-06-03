@@ -1,0 +1,51 @@
+			// Find All Anagrams in a String (Leetcode-438) //
+			// return an array of all the start indices of p's anagrams in s //
+			// s = "cbaebabacd", p = "abc" => [0,6] //
+			// s = "abab", p = "ab" => [0,1,2] //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<int> findAnagrams(string s, string p) 
+{
+    vector<int> ans;
+    vector<int> freqP(26,0);
+    vector<int> window(26,0);
+    
+    int sLen=s.length();
+    int pLen=p.length();
+    
+    if(s.size()<p.size())
+    return {};
+    
+    // first window
+    for(int i=0;i<pLen;i++)
+    {
+        freqP[p[i]-'a']++;
+        window[s[i]-'a']++;
+    }
+    
+    if(freqP==window)
+    ans.push_back(0);
+    
+    for(int i=pLen;i<sLen;i++)
+    {
+        window[s[i-pLen]-'a']--;
+        window[s[i]-'a']++;
+        
+        if(freqP==window)
+        ans.push_back(i-pLen+1);
+    }
+    return ans;
+}
+
+int main() 
+{
+    string s="cbaebabacd";
+    string p="abc";
+    
+    cout<<"Starting Indices are: ";
+    
+    // Don't know how to call vector function
+    findAnagrams(s,p);
+}

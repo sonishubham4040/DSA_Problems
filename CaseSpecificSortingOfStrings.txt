@@ -1,0 +1,58 @@
+			// Case-Specific Sorting Of Strings (GFG) //
+			// sort uppercase and lowercase letters separately such that if the ith place in the original string had an Uppercase character then it should not have a lowercase character after being sorted and vice versa. //
+			// "defRTSersUXI" = "deeIRSfrsTUX" , "srbDKi" = "birDKs" //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+string caseSort(string str, int n)
+{
+    // create strings for storing small and capital letter
+    string small="";
+    string capital="";
+    
+    vector<int> arr(n,0);
+    
+    for(int i=0;i<n;i++)
+    {
+        if(str[i]>='a' && str[i]<='z')
+        {
+            small+=str[i];
+            arr[i]=1;
+        }
+        else
+        {
+            capital+=str[i];
+            arr[i]=2;
+        }
+    }
+    
+    sort(small.begin(),small.end());
+    sort(capital.begin(),capital.end());
+    
+    string ans="";
+    int s=0;
+    int c=0;
+    
+    for(int i=0;i<n;i++)
+    {
+        if(arr[i]==1)
+        {
+            ans+=small[s++];
+        }
+        else
+        {
+            ans+=capital[c++];
+        }
+    }
+    return ans;
+}
+
+int main()
+{
+    string str="defRTSersUXI";
+    int n=str.size();
+    
+    cout<<"Case Sort: "<<caseSort(str,n);
+    
+}

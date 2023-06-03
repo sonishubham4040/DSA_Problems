@@ -1,0 +1,72 @@
+        		// Reorder List (Leetcode-143), GFG, Codestudio //
+			// L0 -> Ln -> L1 -> Ln-1 -> L2 -> Ln-2..... //
+        		// Approach 2  //
+
+Node* getMid(Node* head)
+{
+    Node* slow=head;
+    Node* fast=head;
+        
+    while(fast!=NULL && fast->next!=NULL)
+    {
+        fast=fast->next->next;
+        slow=slow->next;
+    }
+    return slow;
+}
+
+void reorderList(Node* head) 
+{
+    // Your code here
+        
+    // 1. Find the mid of the linked list
+    // 2. Reverse the linked list about the mid node
+    // 3. Make two pointer l and r (l=head->next and r = mid)
+    // 4. while l is not equal to r keep on adding l and r to the main list.
+        
+    if(head==NULL || head->next==NULL || head->next->next==NULL)
+    {
+        return;
+    }
+        
+    // mid
+    Node* mid=getMid(head);
+        
+    // reverse about mid
+    Node* curr=mid;
+    Node* prev=NULL;
+    Node* forward=NULL;
+        
+    while(curr!=NULL)
+    {
+        forward=curr->next;
+        curr->next=prev;
+        prev=curr;
+        curr=forward;
+    }
+        
+    mid=prev;
+        
+    Node* left=head->next;
+    Node* right=mid;
+    Node* temp=head;
+    int bit=0;
+        
+    while(left!=right)
+    {
+        if(bit==1)
+        {
+            temp->next=left;
+            temp=temp->next;
+            bit=0;
+            left=left->next;
+        }
+        else
+        {
+            temp->next=right;
+            temp=temp->next;
+            bit=1;
+            right=right->next;
+        }
+    }
+}

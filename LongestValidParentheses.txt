@@ -1,0 +1,42 @@
+        			// Longest Valid Parentheses (Leetcode-32) //
+        			// "(()" = 2, ")()())" = 4, Using Stack //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int longestValidParentheses(string s)
+{
+    stack<int> st;
+    st.push(0);
+    
+    int ans=0;
+    
+    for(int i=0;i<s.size();i++)
+    {
+        if(s[i]=='(')
+        {
+            st.push(i+1);
+        }
+        else
+        {
+            st.pop();
+            if(st.size())
+            {
+                ans=max(ans,i+1-st.top());
+            }
+            else
+            {
+                st.push(i+1);
+            }
+        }
+    }
+    return ans;
+}
+
+int main() 
+{
+    string s="(()";
+    
+    cout<<"Longest Valid Parentheses: "<<longestValidParentheses(s);
+}
+    

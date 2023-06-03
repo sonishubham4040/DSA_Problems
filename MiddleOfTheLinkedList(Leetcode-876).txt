@@ -1,0 +1,32 @@
+        		// Middle of the Linked List (Leetcode-876) //
+        
+#include <bits/stdc++.h>
+using namespace std;
+
+int length(ListNode* &head)
+{
+    ListNode* temp=head;
+    int len=0;
+
+    while(temp!=NULL)
+    {
+        len++;
+        temp=temp->next;
+    }
+    return len;
+}
+
+ListNode* middleNode(ListNode* head) 
+{
+    int l=length(head);
+    int cnt=1;
+        
+    ListNode*temp=head;
+
+    while(cnt<=l/2)
+    {
+        temp=temp->next;
+        cnt++;
+    }
+    return temp;
+}

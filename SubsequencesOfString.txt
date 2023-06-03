@@ -1,0 +1,44 @@
+			// Subsequences (CodeStudio) For Strings //
+			// "abc" = "a", "b", "c", "a,b", "b,c", "a,c", "a,b,c", " "  //
+			// Total Subsequences = 2^n , 2^3 = 8 //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void solve(string str, string output, int index, vector<string> &ans)
+{
+    if(index>=str.size())
+    {   
+        // excluding empty/null string
+        if(output.length()>0)
+        {
+            ans.push_back(output);
+        }
+        return ;
+    }
+    
+    // exclude
+    solve(str,output,index+1,ans);
+    
+    // include
+    char element=str[index];
+    output.push_back(element);
+    solve(str,output,index+1,ans);
+}
+
+vector<string> subsequences(string str)
+{
+	vector<string> ans;
+    string output="";
+    int index=0;
+    solve(str,output,index,ans);
+    return ans;
+}
+
+int main() 
+{
+    string str="gfg";
+    cout<<"Subsequences are: "<<endl;
+    subsequences(str);
+    // Don't know how to print that //
+}

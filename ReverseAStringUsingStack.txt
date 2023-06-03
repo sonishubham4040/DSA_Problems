@@ -1,0 +1,26 @@
+			// Reverse a string using stack //
+			// T.C = O(n), S.C = O(n) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    string str="shubham";
+    
+    stack<char>st;
+    
+    for(int i=0;i<str.length();i++)
+    {
+        st.push(str[i]);
+    }
+    
+    string ans="";
+    
+    while(!st.empty())
+    {
+        ans.push_back(st.top());
+        st.pop();
+    }
+    cout<<"Reversed string using stack: "<<ans;
+}

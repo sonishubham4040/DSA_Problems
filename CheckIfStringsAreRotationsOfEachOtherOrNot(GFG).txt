@@ -1,0 +1,29 @@
+		// Check If Strings Are Rotations Of Each Other Or Not (GFG, Codestudio) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+bool areRotations(string s1,string s2)
+{
+    // check both length's are equal or not
+    if(s1.length()!=s2.length())
+        return false;
+            
+    string temp=s1+s1;
+    return (temp.find(s2)!=-1);
+}
+    
+int main() 
+{
+    string s1="geeksforgeeks";
+    string s2="forgeeksgeeks";
+    
+    if(areRotations(s1,s2))
+    {
+        cout<<"Yes, both are rotation of each other"<<endl;
+    }
+    else
+    {
+        cout<<"No, both are not rotation of each other"<<endl;
+    }
+}

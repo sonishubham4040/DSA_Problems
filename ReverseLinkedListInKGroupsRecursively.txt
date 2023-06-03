@@ -1,0 +1,39 @@
+			// Reverse Linked List In K Groups Recursively //
+			// {1 2 3 4 5 6 -1}, k=2 => {2 1 4 3 6 5} //
+			// {5 4 3 7 9 2 -1}, k=4 => {7 3 4 5 2 9} //
+
+#include<bits/stdc++.h>
+using namespace std;
+
+Node* kReverse(Node* head, int k) 
+{
+    // base case
+    if(head==NULL)
+    {
+        return NULL;
+    }
+    
+    // step-1 Reverse first k nodes
+    Node* forward=NULL;
+    Node* curr=head;
+    Node* prev=NULL;
+    int cnt=0;
+    
+    while(curr!=NULL && cnt<k)
+    {
+        forward=curr->next;
+        curr->next=prev;
+        prev=curr;
+        curr=forward;
+        cnt++;
+    }
+    
+    // step-2 recursion dekh lega
+    if(forward!=NULL)
+    {
+        head->next=kReverse(forward,k);
+    }
+    
+    // step-3 return head of reversed list
+    return prev;
+}

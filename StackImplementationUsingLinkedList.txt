@@ -1,0 +1,146 @@
+            		// Stack Implementation Using Linked List //
+            		// T.C = O(1) //
+            
+#include <bits/stdc++.h>
+using namespace std;
+
+class Node 
+{
+    public:
+    int data;
+    Node* next;
+    
+    // Constructor
+    Node(int data)
+    {
+        this->data=data;
+        this->next=NULL;
+    }
+};
+
+class Stack
+{
+    Node* top;
+    
+    public:
+    Stack()
+    {
+        top=NULL;
+    }
+    
+    void push(int val)
+    {
+        Node* temp=new Node(val);
+        
+        if(!temp)
+        {
+            cout<<"Stack Overflow";
+        }
+        
+        temp->data=val;
+        temp->next=top;
+        top=temp;
+    }
+    
+    void pop()
+    {
+        Node* temp;
+        
+        if(top==NULL)
+        {
+            cout<<"Stack Underflow"<<endl;
+        }
+        else
+        {
+            temp=top;
+            top=top->next;
+            delete(temp);
+        }
+    }
+    
+    bool isEmpty()
+    {
+        if(top==NULL)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    int peek()
+    {
+        if(top!=NULL)
+        {
+            return top->data;
+        }
+        else
+        {
+            cout<<"Stack is empty"<<endl;
+        }
+    }
+    
+    void display()
+    {
+        Node* temp;
+        
+        if(top==NULL)
+        {
+            cout<<"Stack is empty"<<endl;
+        }
+        else
+        {
+            temp=top;
+            while(temp!=NULL)
+            {
+                cout<<temp->data;
+                temp=temp->next;
+                
+                if(temp!= NULL)
+                {
+                    cout<<"->";
+                }
+            }
+            cout<<endl;
+        }
+    }
+};
+
+int main()
+{
+    // Creating a stack
+    Stack st;
+    
+    // Push the elements of stack
+    st.push(11);
+    st.push(22);
+    st.push(33);
+    st.push(44);
+
+    // Display stack elements
+    st.display();
+    
+    // Print top element of stack
+    cout<<"Top element is: "<<st.peek()<<endl;
+    
+    // Delete / Pop top elements of stack
+    st.pop();
+    st.pop();
+    
+    // Display stack elements
+    st.display();
+
+    // Print top element of stack
+    cout<<"Top element is: "<<st.peek()<<endl;
+    
+    if(st.isEmpty())
+    {
+        cout<<"Stack is Empty"<<endl;
+    }
+    else
+    {
+        cout<<"Stack is not Empty"<<endl;
+    }
+}

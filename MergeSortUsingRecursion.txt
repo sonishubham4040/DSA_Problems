@@ -1,0 +1,84 @@
+                		// Merge Sort Using Recursion //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void merge(int arr[], int s, int e)
+{
+    int mid=s+(e-s)/2;
+    
+    int len1=mid-s+1;
+    int len2=e-mid;
+    
+    int *first=new int [len1];
+    int *second=new int [len2];
+    
+    // Copy Values
+    int mainArrayIndex=s;
+    for(int i=0;i<len1;i++)
+    {
+        first[i]=arr[mainArrayIndex++];
+    }
+    
+    mainArrayIndex=mid+1;
+    for(int i=0;i<len2;i++)
+    {
+        second[i]=arr[mainArrayIndex++];
+    }
+    
+    // Merge 2 Sorted Arrays
+    int i=0,j=0;
+    mainArrayIndex=s;
+    while(i<len1 && j<len2)
+    {
+        if(first[i]<second[j])
+        {
+            arr[mainArrayIndex++]=first[i++];
+        }
+        else
+        {
+            arr[mainArrayIndex++]=second[j++];
+        }
+    }
+    while(i<len1)
+    {
+        arr[mainArrayIndex++]=first[i++];
+    }
+    while(j<len2)
+    {
+        arr[mainArrayIndex++]=second[j++];
+    }
+    delete [] first;
+    delete [] second;
+}
+
+void mergeSort(int arr[], int s, int e)
+{
+    // Base Case
+    if(s>=e)
+    return ;
+    
+    int mid=s+(e-s)/2;
+    
+    // Left Part Sort Karna Hai
+    mergeSort(arr,s,mid);
+    
+    // Right Part Sort Karna Hai
+    mergeSort(arr,mid+1,e);
+    
+    // Merge Kardo
+    merge(arr,s,e);
+}
+
+int main()
+{
+    int arr[]={9,8,7,6,9,6,5,4,3,2,1};
+    int n=sizeof(arr)/sizeof(arr[0]);
+    
+    mergeSort(arr,0,n-1);
+    
+    for(int i:arr)
+    {
+        cout<<i<<" ";
+    }
+}

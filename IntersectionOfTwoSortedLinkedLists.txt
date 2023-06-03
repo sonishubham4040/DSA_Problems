@@ -1,0 +1,35 @@
+			// Intersection Of Two Sorted Linked Lists // 
+			// L1 = 1->2->3->4->6, L2 = 2->4->6->8 => 2 4 6 //
+			// L1 = 10->20->40->50, L2 = 15->40 => 40 //
+
+Node* findIntersection(Node* head1, Node* head2)
+{
+    // Your Code Here
+    Node* head3=new Node(-1);
+    Node* temp=head3;
+    
+    while(head1!=NULL && head2!=NULL)
+    {
+        if(head1->data==head2->data)
+        {
+            head3->next=head1;
+            head3=head1;
+            head1=head1->next;
+            head2=head2->next;
+        }
+        else
+        {
+            if(head1->data < head2->data)
+            {
+                head1=head1->next;
+            }
+            else
+            {
+                head2=head2->next;
+            }
+        }
+    }
+    
+     head3->next=NULL;
+     return temp->next;
+}

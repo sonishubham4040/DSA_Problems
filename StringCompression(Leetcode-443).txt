@@ -1,0 +1,51 @@
+		// String Compression (Leetcode-443) //
+		// Input: chars = ["a","a","b","b","c","c","c"] //
+		// Output: Return 6, ["a","2","b","2","c","3"] ,"a2b2c3" //
+		// Input: chars = ["a","b","b","b","b","b","b","b","b","b","b","b","b"] //
+		// Output: Return 4, ["a","b","1","2"], "ab12" //
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int compress(vector<char>& chars)
+{
+    int n=chars.size();
+    int ans=0;
+    int i=0;
+    
+    while(i<n)
+    {
+        int j=i+1;
+        while(j<n && chars[i]==chars[j])
+        {
+            j++;
+        }
+        
+        //  ab ya to vector pura traverse ho gaya
+        // ya to new character agya
+           
+        // old character store karlo
+        chars[ans++]=chars[i];
+        
+        int count=j-i;
+        
+        if(count>1)
+        {
+            string cnt=to_string(count);
+            for(char ch:cnt)
+            {
+                chars[ans++]=ch;
+            }
+        }
+        
+        // to traverse from index j not from start
+        i=j;
+    }
+    return ans;
+}
+
+int main()
+{
+    vector<char> chars={'a','a','b','b','c','c','c'};
+    cout<<"Compressed String Length: "<<compress(chars)<<endl;
+}

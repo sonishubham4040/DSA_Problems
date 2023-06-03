@@ -1,0 +1,80 @@
+			// Add 1 To A Number Represented As Linked List //
+			// GFG, Just change carry=1 //
+
+Node* reverse(Node* head)
+{
+    Node* curr=head;
+    Node* prev=NULL;
+    Node* forward=NULL;
+        
+    while(curr!=NULL)
+    {
+        forward=curr->next;
+        curr->next=prev;
+        prev=curr;
+        curr=forward;
+    }
+    return prev;
+}
+    
+Node* add(Node* head)
+{
+    int carry=1;
+        
+    Node* ansHead=NULL;
+    Node* ansTail=NULL;
+        
+    while(head!=NULL || carry!=0)
+    {
+        int val=0;
+        if(head!=NULL)
+        {
+            val=head->data;
+        }
+            
+        int sum=carry+val;
+        int digit=sum%10;
+            
+        insertAtTail(ansHead, ansTail, digit);
+            
+        carry=sum/10;
+            
+        if(head!=NULL)
+            head=head->next;
+    }
+    return ansHead;
+}
+    
+void insertAtTail(Node* &head, Node* &tail, int value)
+{
+    Node* temp=new Node(value);
+        
+    if(head==NULL)
+    {
+        head=temp;
+        tail=temp;
+        return;
+    }
+    else
+    {
+        tail->next=temp;
+        tail=temp;
+    }
+}
+    
+Node* addOne(Node *head) 
+{
+    // Your Code here
+    // return head of list after adding one
+        
+    // step 1 - reverse LL
+    head=reverse(head);
+        
+    // step 2 - Add one to LL
+    Node* ans=add(head);
+        
+    // step 3 - reverse ans
+    ans=reverse(ans);
+        
+    return ans;
+}

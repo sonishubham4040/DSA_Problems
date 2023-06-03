@@ -1,0 +1,40 @@
+        	// Reverse A Linked List Recursive Approach-2 //
+        	// T.C = O(n), S.C = O(n) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+class node
+{
+    public:
+    int data;
+    node* next;
+    
+    // constructor
+    node(int d)
+    {
+        this->data=d;
+        this->next=NULL;
+    }
+};
+
+node* reverse1(node* head)
+{
+    // base case
+    if(head==NULL || head->next==NULL)
+    {
+        return head;
+    }
+    
+    node* chotaHead=reverse1(head->next);
+    
+    head->next->next=head;
+    head->next=NULL;
+    
+    return chotaHead;
+}
+
+node* reverseLinkedList(node* head)
+{
+    return reverse1(head);
+}
