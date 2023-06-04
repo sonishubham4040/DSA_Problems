@@ -1,0 +1,27 @@
+                                                        // Reversing The Equation (GFG) //
+                                                        // S = "20-3+5*2" => 2*5+3-20 //
+                                                        // S = "5+2*56-2/4" => 4/2-56*2+5 //
+                                                        // T.C = O(n), S.C = O(1) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+string reverseEqn (string s)
+{
+    reverse(s.begin(), s.end());
+    
+    int start=0;
+    
+    for(int i=0;i<s.size();i++)
+    {
+        if(s[i]=='+' || s[i]=='-' || s[i]=='*' || s[i]=='/')
+        {
+            int end=i;
+            reverse(s.begin()+start, s.begin()+end);
+            start=i+1;
+        }
+    }
+    
+    reverse(s.begin()+start, s.end());
+    return s;
+}
