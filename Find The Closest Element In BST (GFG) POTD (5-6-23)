@@ -1,0 +1,58 @@
+                                  // Find The Closest Element In BST (GFG) POTD (5-6-23) //
+                                  // Find the least absolute difference between any node value of the BST and the given integer //
+/*
+Input: 
+        10       , k=13
+      /   \
+     2    11
+   /  \ 
+  1    5
+      /  \
+     3    6
+      \
+       4
+*/
+                                // Output: => 2 (13-11=2) closest integer //
+                                // Input: 8 1 9 4 10 3, k=9 => 0 (9-9=0) //
+                                // Using Inorder Property and vector space //
+                                // T.C = O(n), S.C = O(H) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void inorder(Node* root, vector<int> &ans)
+{
+    // base case
+    if(root==NULL)
+    {
+        return;
+    }
+    
+    inorder(root->left, ans);
+    ans.push_back(root->data);
+    inorder(root->right, ans);
+}
+
+int minDiff(Node *root, int K)
+{
+    //Your code here
+    int mini=INT_MAX;
+    
+    vector<int> ans;
+    
+    inorder(root, ans);
+    
+    for(int i=0;i<ans.size();i++)
+    {
+        if(ans[i]==K)
+        {
+            return 0;
+        }
+        else //if(ans[i]<K) or ans[i]>k
+        {
+            mini=min(mini, abs(ans[i]-K));
+        }
+    }
+    
+    return mini;
+}
