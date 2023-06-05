@@ -1,0 +1,49 @@
+                                  // Closest Binary Search Tree Value (Codestudio) //
+                                  // Return closest element and If more than one closest element then return element with minimum value //
+/*
+Input: 
+        10       , k=13
+      /   \
+     2    11
+   /  \ 
+  1    5
+      /  \
+     3    6
+      \
+       4
+*/
+                                  // Output: => 11 (closest integer) //
+                                  // Input: 8 1 9 4 10 3, k=9 => 9 //
+                                  // Using Inorder Property //
+                                  // T.C = O(n), S.C = O(1) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void inorder(BinaryTreeNode<int>* node, int k, int &ans, int &mini)
+{
+    // base case
+    if(node==NULL)
+    {
+        return;
+    }
+    
+    inorder(node->left, k, ans, mini);
+    if(abs(node->data-k)<mini)
+    {
+        mini=abs(node->data-k);
+        ans=node->data;
+    }
+    inorder(node->right, k, ans, mini);
+}
+
+int findClosestElement(BinaryTreeNode<int>* node, int k)
+{
+    // Write your code here.
+    int mini=INT_MAX;
+    int ans=INT_MAX;
+    
+    inorder(node, k, ans, mini);
+    
+    return ans;
+}
