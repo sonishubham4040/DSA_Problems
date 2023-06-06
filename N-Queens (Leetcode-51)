@@ -18,7 +18,7 @@
 1 0 0 0
 0 0 1 0
 */
-			        // T.C = O(n*n), S.C = O(n*n) //
+			        // T.C = O(n!), S.C = O(n*n) //
 
 #include <bits/stdc++.h>
 using namespace std;
