@@ -1,0 +1,121 @@
+                // N-Queen Problem (GFG) //
+                // Using Backtracking //
+                // Put N queens in NxN chessboard such that they can't attack each other, attacks can be if: queens in same row, queens in same col, and in same diagonal //
+                // Return safe placed queens chessboard position columns //
+// n=4 => [2 4 1 3 ] [3 1 4 2 ] //
+/*
+            Like this:
+            [3 1 4 2]
+0 0 1 0     
+1 0 0 0
+0 0 0 1
+0 1 0 0
+        And [2 4 1 3]
+0 1 0 0   
+0 0 0 1
+1 0 0 0
+0 0 1 0
+*/
+			          // T.C = O(n*n), S.C = O(n*n) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void addSolution(vector<vector<int>> &ans, vector<vector<int>> &board, int n)
+{
+    vector<int> temp;
+    
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<n;j++)
+        {
+            if(board[j][i]==1)
+            {
+                temp.push_back(j+1);    
+            }
+        }
+    }
+    
+    ans.push_back(temp);
+}
+
+bool isSafe(int row, int col, vector<vector<int>> &board, int n)
+{
+    int x=row;
+    int y=col;
+    
+    // check for same row
+    while(y>=0)
+    {
+        if(board[x][y]==1)
+        {
+            return false;
+        }
+        y--;
+    }
+    
+    x=row;
+    y=col;
+    
+    // check for upper diagonaal
+    while(x>=0 && y>=0)
+    {
+        if(board[x][y]==1)
+        {
+            return false;
+        }
+        x--;
+        y--;
+    }
+    
+    x=row;
+    y=col;
+    
+    // check for lower diagonaal
+    while(x<n && y>=0)
+    {
+        if(board[x][y]==1)
+        {
+            return false;
+        }
+        x++;
+        y--;
+    }
+    
+    return true;
+}
+
+void solve(int col, vector<vector<int>> &ans, vector<vector<int>> &board, int n)
+{
+    // base case
+    if(col==n)
+    {
+        addSolution(ans, board, n);
+        return;
+    }
+    
+    // solve 1 case and rest recursion will handle
+    for(int row=0;row<n;row++)
+    {
+        if(isSafe(row, col, board, n))
+        {
+            // queen rakhdo board me
+            board[row][col]=1;
+            solve(col+1, ans, board, n);
+            
+            // backtrack
+            board[row][col]=0;
+        }
+    }
+}
+
+vector<vector<int>> nQueen(int n) 
+{
+    // code here
+    vector<vector<int>> board(n, vector<int>(n, 0));
+    vector<vector<int>> ans;
+    
+    solve(0, ans, board, n);
+    
+    return ans;
+}
