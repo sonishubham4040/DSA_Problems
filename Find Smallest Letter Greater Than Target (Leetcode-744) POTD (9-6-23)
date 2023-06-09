@@ -1,0 +1,48 @@
+                            // Find Smallest Letter Greater Than Target (Leetcode-744) POTD (9-6-23) //
+                            // Return the smallest character in letters that is lexicographically greater than target //
+                            // If such a character does not exist, return the first character in letters //
+                            // Using 2 Approaches //
+                            // 1) linear Search, T.C = O(n), S.C = O(1)
+                            // 2) Binary Search, T.C = O(logn), S.C = O(1)
+
+#include <bits/stdc++.h>
+using namespace std;
+
+// Approach-1: Brute Force, Linear Search
+char nextGreatestLetter(vector<char>& letters, char target) 
+{
+    for(char i:letters)
+    {
+        if(i>target)
+        {
+            return i;
+        }
+    }
+    
+    return letters[0];
+}
+
+// Approach-2: Optimal, Binary Search
+char nextGreatestLetter(vector<char>& letters, char target) 
+{
+    int s=0;
+    int e=letters.size()-1;
+    char ans=letters[0];
+
+    while(s<=e)
+    {
+        int mid=s+(e-s)/2;
+
+        if(letters[mid]>target)
+        {
+            ans=letters[mid];
+            e=mid-1;
+        }
+        else
+        {
+            s=mid+1;
+        }
+    }
+
+    return ans;
+}
