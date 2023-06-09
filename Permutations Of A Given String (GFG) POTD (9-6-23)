@@ -1,0 +1,95 @@
+                                // Permutations Of A Given String (GFG) POTD (9-6-23) //
+                                // Using 3 Approaches //
+                                // 1) Using set
+                                // 2) Using STL next_permutation
+                                // 3) Using Unique function removal
+                                // ABC => ABC ACB BAC BCA CAB CBA //
+                                // ABSG => ABGS ABSG AGBS AGSB ASBG ASGB BAGS BASG BGAS BGSA BSAG BSGA GABS GASB GBAS GBSA GSAB GSBA SABG SAGB SBAG SBGA SGAB SGBA //
+                                // T.C = O(n!*n), S.C = O(n!*n) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+// Approach-1: Using Set
+void solve(string S, set<string> &ans, int index)
+{
+    // base case
+    if(index>=S.size())
+    {
+        ans.insert(S);
+        return;
+    }
+    
+    for(int i=index;i<S.size();i++)
+    {
+        swap(S[i], S[index]);
+        solve(S, ans, index+1);
+        
+        // backtrack
+        swap(S[i], S[index]);
+    }
+}
+
+vector<string>find_permutation(string S)
+{
+    // Code here there
+    set<string> ans;
+    int index=0;
+    
+    solve(S, ans, index);
+    
+    vector<string> v;
+    
+    for(auto i:ans)
+    {
+        v.push_back(i);
+    }
+    
+    return v;
+}
+
+// Approach-2: Using STL 
+vector<string>find_permutation(string S)
+{
+    // Code here there
+    vector<string> ans;
+    sort(S.begin(), S.end());
+    
+    do
+    {
+        ans.push_back(S);
+    }
+    while(next_permutation(S.begin(), S.end()));
+    
+    return ans;
+}
+
+// Approach-3: Using erase function
+void solve(string S, int index, vector<string> &ans)
+{
+    // base case
+    if(index>=S.size())
+    {
+        ans.push_back(S);
+        return ;
+    }
+    
+    for(int j=index;j<S.size();j++)
+    {
+        swap(S[index],S[j]);
+        solve(S,index+1,ans);
+        // backtrack
+        swap(S[index],S[j]);
+    }
+}
+
+vector<string>find_permutation(string S)
+{
+    // Code here there
+    vector<string> ans;
+    int index=0;
+    solve(S,index,ans);
+    sort(ans.begin(),ans.end());
+    ans.erase(unique(ans.begin(),ans.end()),ans.end());
+    return ans;
+}
