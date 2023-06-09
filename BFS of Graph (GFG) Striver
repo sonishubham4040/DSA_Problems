@@ -1,0 +1,36 @@
+                                                    // BFS of Graph (GFG) Striver //
+                                                    // Using queue, visited array //
+                                                    // T.C = O(V+2E), S.C = O(V), V=nodes, E=edges //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<int> bfsOfGraph(int V, vector<int> adj[])
+{
+    vector<int> bfs;
+    
+    int vis[V]={0};
+    vis[0]=1;
+    
+    queue<int> q;
+    q.push(0);
+    
+    while(!q.empty())
+    {
+        int node=q.front();
+        q.pop();
+        
+        bfs.push_back(node);
+        
+        for(auto i:adj[node])
+        {
+            if(!vis[i])
+            {
+                vis[i]=1;
+                q.push(i);
+            }
+        }
+    }
+    
+    return bfs;
+}
