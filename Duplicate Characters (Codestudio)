@@ -1,0 +1,74 @@
+                                                      // Duplicate Characters (Codestudio) //
+                                                      // Return all characters that are duplicated with their frequency //
+                                                      // Contains both upper case and lower case letters //
+                                                      // BANANA => A-3, N-2 //
+                                                      // APPLE => P-2 //
+                                                      // babbar => b-3, a-2 //
+                                                      // 2 Approaches: //
+                                                      // 1) Using map TLE
+                                                      // 2) Using vector array 
+                                                      // T.C = O(n), S.C = O(n) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+// Approach-1: Using Map
+vector<pair<char,int>> duplicate_char(string s, int n)
+{
+    vector<pair<char,int>> ans;
+    map<char, int> mp;
+
+    for(auto i:s)
+    {
+        mp[i]++;
+    }
+
+    for(auto i:mp)
+    {
+        if(i.second>1)
+        {
+            ans.push_back(make_pair(i.first, i.second));
+        }
+    }
+
+    return ans;
+}
+
+// Approach-2: Using Vector Array
+vector<pair<char,int>> duplicate_char(string s, int n)
+{
+    vector<pair<char,int>> ans;
+    vector<int> freq1(26); // for CAPS
+    vector<int> freq2(26); // for small
+    
+    for(auto i:s)
+    {
+        if(i>='A' && i<='Z')
+        {
+            freq1[i-'A']++;
+        }
+
+        if(i>='a' && i<='z')
+        {
+            freq2[i-'a']++;
+        }
+    }
+    
+    for(int i=0;i<26;i++)
+    {
+        if(freq1[i]>1)
+        {
+            ans.push_back(make_pair((i+'A'), freq1[i]));
+        }
+    }
+
+    for(int i=0;i<26;i++)
+    {
+        if(freq2[i]>1)
+        {
+            ans.push_back(make_pair((i+'a'), freq2[i]));
+        }
+    }
+
+    return ans;
+}
