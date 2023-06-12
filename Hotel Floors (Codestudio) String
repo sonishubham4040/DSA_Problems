@@ -1,0 +1,55 @@
+                                                      // Hotel Floors (Codestudio) //
+                                                      // If hotel is booked that is '+' then count++, return count //
+                                                      // 3 Approaches //
+                                                      // str = {+1A, +3E, -1A, +4F, +1A, -3E} => 4 //
+                                                      // str = {+3C, +2B, +7K, -2B, +6C, -3C, +5S} => 5 //
+                                                      // T.C = O(n), S.C = O(1) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+// Approach-1
+int hotelBookings(vector<string> queries) 
+{
+    int cnt=0;
+    for(auto i=0;i<queries.size();i++)
+    {
+        if(queries[i][0]=='+')
+        {
+            cnt++;
+        }
+    }
+
+    return cnt;
+}
+
+// Approach-2
+int hotelBookings(vector<string> queries) 
+{
+    int cnt=0;
+    for(auto i:queries)
+    {
+        if(i.substr(0,1).find("+")==0)
+        {
+            cnt++;
+        }
+    }
+
+    return cnt;
+}
+
+// Approach-3
+int hotelBookings(vector<string> queries) 
+{
+    int cnt=0;
+    for(auto i:queries)
+    {
+        string s=i;
+        if(s[0]=='+')
+        {
+            cnt++;
+        }
+    }
+
+    return cnt;
+}
