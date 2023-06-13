@@ -1,0 +1,46 @@
+                                                // K Largest Elements (GFG) POTD (13-6-23) //
+                                                // Approach-1: Using Sort And Reverse, T.C = O(nlogn) //
+                                                // Approach-2: Using Priority Queue //
+                                                // N=5, K=2, Arr[] = {12, 5, 787, 1, 23} => 787 23 //
+                                                // N=7, K=3, Arr[] = {1, 23, 12, 9, 30, 2, 50} => 50 30 23 //
+                                                // T.C = O(n+kogk), S.C = O(k+(n-k)logk) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+// Approach-1: Using Sort And Reverse
+vector<int> kLargest(int arr[], int n, int k)
+{
+    vector<int> ans;
+    
+    sort(arr, arr+n);
+    reverse(arr, arr+n);
+    
+    for(int i=0;i<k;i++)
+    {
+        ans.push_back(arr[i]);
+    }
+    
+    return ans;
+}
+
+// Approach-2: Using Priority Queue
+vector<int> kLargest(int arr[], int n, int k) 
+{
+    vector<int> ans;
+    priority_queue<int> pq;
+    
+    for(int i=0;i<n;i++)
+    {
+        pq.push(arr[i]);
+    }
+    
+    for(int i=0;i<k;i++)
+    {
+        int top=pq.top();
+        pq.pop();
+        ans.push_back(top);
+    }
+    
+    return ans;
+}
