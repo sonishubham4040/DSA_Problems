@@ -1,0 +1,38 @@
+                                                        // Minimum Absolute Difference in BST (Leetcode-530) //
+                                                        // Minimum Distance Between BST Nodes (Leetcode-783) //
+                                                        // Using Inorder and Vector array //
+                                                        // root = [4,2,6,1,3] => 1 //
+                                                        // root = [1,0,48,null,null,12,49] => 1 //
+                                                        // T.C = O(n), S.C = O(n) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void inorder(TreeNode* root, vector<int> &ans)
+{
+    if(root==NULL)
+    {
+        return;
+    }
+
+    inorder(root->left, ans);
+    ans.push_back(root->val);
+    inorder(root->right, ans);
+}
+
+int getMinimumDifference(TreeNode* root)
+{
+    vector<int> ans;
+    inorder(root, ans);
+
+    int n=ans.size();
+    int mini=INT_MAX;
+
+    for(int i=1;i<n;i++)
+    {
+        int diff=ans[i]-ans[i-1];
+        mini=min(mini, diff);
+    }
+
+    return mini;
+}
