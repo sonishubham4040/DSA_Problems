@@ -1,0 +1,58 @@
+                                          // Longest Palindrome In A String (GFG) //
+                                          // S = "aaaabbaa" => aabbaa //
+                                          // S = "abc" => a //
+                                          // T.C = O(n*n), S.C = O(n) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+string longestPalin (string S) 
+{
+    int start=0;
+    int end=0;
+    int len=0;
+    int n=S.size();
+    
+    for(int i=1;i<n;i++)
+    {
+        // for odd
+        int s=i-1;
+        int e=i+1;
+        
+        while(s>=0 && e<n && S[s]==S[e])
+        {
+            if(e-s+1>len)
+            {
+                len=e-s+1;
+                start=s;
+                end=e;
+            }
+            s--;
+            e++;
+        }
+        
+        // for even
+        s=i-1;
+        e=i;
+        
+        while(s>=0 && e<n && S[s]==S[e])
+        {
+            if(e-s+1>len)
+            {
+                len=e-s+1;
+                start=s;
+                end=e;
+            }
+            s--;
+            e++;
+        }
+    }
+    
+    string ans="";
+    for(int i=start;i<=end;i++)
+    {
+        ans+=S[i];
+    }
+    
+    return ans;
+}
