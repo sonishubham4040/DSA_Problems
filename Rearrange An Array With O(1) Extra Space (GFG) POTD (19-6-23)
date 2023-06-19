@@ -1,0 +1,37 @@
+                                                        // Rearrange An Array With O(1) Extra Space (GFG) POTD (19-6-23) //
+                                                        // Using space and without Using Space //
+                                                        // Dividend = Divisor * Quotient + Remainder //
+                                                        // T.C = O(n), S.C = O(1) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+// Without space O(1)
+void arrange(long long arr[], int n)
+{
+    for(int i=0;i<n;i++)
+    {
+        arr[i]=arr[i]+(arr[arr[i]]%n)*n;
+    }
+    
+    for(int i=0;i<n;i++)
+    {
+        arr[i]=arr[i]/n;
+    }
+}
+
+// Using space O(n)
+void arrange(long long arr[], int n) 
+{
+    vector<long long> temp;
+    
+    for(int i=0;i<n;i++)
+    {
+        temp.push_back(arr[i]);
+    }
+    
+    for(int j=0;j<n;j++)
+    {
+        arr[j]=temp[temp[j]];
+    }
+}
