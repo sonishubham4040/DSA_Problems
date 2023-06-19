@@ -1,0 +1,45 @@
+                                        // LCA Of Three Nodes (Codestudio) //
+/*
+        1
+      /  \
+    2     3
+   /     / \
+  4     5   6
+ / \      /  \
+7   8    9   10
+*/
+                                        // n1=7, n2=8, n3=10 => 1 (Lowest Common Ancestor) //
+                                        // n1=7, n2=8, n3=2 => 1 (LCA) // 
+                                        // T.C = O(n), S.C = O(H) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+BinaryTreeNode<int>* lcaOfThreeNodes(BinaryTreeNode<int>* root, int node1, int node2, int node3) 
+{
+	if(root==NULL)
+	{
+		return NULL;
+	}
+
+	if(root->data==node1 || root->data==node2 || root->data==node3)
+	{
+		return root;
+	}
+
+	BinaryTreeNode<int>* left=lcaOfThreeNodes(root->left, node1, node2, node3);
+	BinaryTreeNode<int>* right=lcaOfThreeNodes(root->right, node1, node2, node3);
+	
+	if(left!=NULL && right!=NULL)
+	{
+		return root;
+	}
+	else if(left!=NULL)
+	{
+		return left;
+	}
+	else
+	{
+		return right;
+	}
+}
