@@ -1,0 +1,42 @@
+                                        // Intersection Point In Y Shaped Linked Lists (GFG) //
+                                        // LinkList1 = 3->6->9->common, LinkList2 = 10->common, common = 15->30->NULL => Output: 15 //
+                                        // Linked List 1 = 4->1->common, Linked List 2 = 5->6->1->common, common = 8->4->5->NULL => Output: 8 //
+                                        // Using Two Pointers //
+                                        // T.C = O(n+m), S.C = O(1) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int intersectPoint(Node* head1, Node* head2)
+{
+    Node* t1=head1;
+    Node* t2=head2;
+    
+    while(t1!=t2)
+    {
+        if(t1==NULL)
+        {
+            t1=head2;
+        }
+        else
+        {
+            t1=t1->next;
+        }
+        
+        if(t2==NULL)
+        {
+            t2=head1;
+        }
+        else
+        {
+            t2=t2->next;
+        }
+    }
+    
+    if(t1==NULL || t2==NULL)
+    {
+        return -1;
+    }
+    
+    return t1->data;
+}
