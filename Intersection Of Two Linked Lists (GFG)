@@ -1,0 +1,36 @@
+                                              // Intersection Of Two Linked Lists (GFG) //
+                                              // LinkedList1: 9->6->4->2->3->8, LinkedList2: 1->2->8->6 => Output: 6 2 8 //
+                                              // Using Map //
+                                              // T.C = O(n+m), S.C = O(n) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+Node* findIntersection(Node* head1, Node* head2)
+{
+    Node* head3=new Node(-1);
+    Node* temp=head3;
+    
+    unordered_map<int, bool> mp;
+    
+    while(head2!=NULL)
+    {
+        mp[head2->data]=true;
+        head2=head2->next;
+    }
+    
+    while(head1!=NULL)
+    {
+        if(mp[head1->data])
+        {
+            head3->next=head1;
+            head3=head1;
+        }
+        
+        head1=head1->next;
+    }
+    
+    head3->next=NULL;
+    
+    return temp->next;
+}
