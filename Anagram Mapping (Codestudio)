@@ -1,0 +1,26 @@
+                                            // Anagram Mapping (Codestudio) //
+                                            // B is anagram of A, means content of A is in B also but in different positions //
+                                            // Find index mapping, for each element in A find index in B //
+                                            // A = {10 20 30 40 50}, B = {20 10 40 50 30} => [1 0 4 2 3] (10 is at index 1, 20 is at index 0 etc.) //
+                                            // T.C = O(n+m), S.C = O(m) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<int> anagramMapping(int n, vector<int> a, vector<int> b)
+{
+    vector<int> ans;
+    unordered_map<int,int> mp;
+    
+    for(int i=0;i<n;i++)
+    {
+        mp[b[i]]=i;
+    }
+    
+    for(int i=0;i<n;i++)
+    {
+        ans.push_back(mp[a[i]]);
+    }
+    
+    return ans;
+}
