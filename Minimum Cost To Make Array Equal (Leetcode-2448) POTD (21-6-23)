@@ -1,0 +1,59 @@
+                    // Minimum Cost To Make Array Equal (Leetcode-2448) POTD (21-6-23) //
+                    // Using Binary Search //
+                    // You can do operations any number of times:-
+                    // Increase or decrease any element of the array nums by 1 //
+                    // cost of one operation on ith element is cost[i] //
+                    // Return the minimum total cost such that all the elements of the array nums become equal. // 
+                    // nums = [1,3,5,2], cost = [2,3,1,14] => Output: 8 
+                    // (0th element 1 time cost is 2, 1th element one time cost is 3, 2th element three times cost is 1+1+1=3 etc ... ALL ELEMENTS EQUAL TO 2) [2 2 2 2 2] //
+                    // T.C = O(nlogn), S.C = O(1) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+long long solve(int mid, vector<int>& nums, vector<int>& cost)
+{
+    long long minCost=0;
+
+    for(int i=0;i<nums.size();i++)
+    {
+        int diff=abs(mid-nums[i]);
+        minCost+= 1ll * diff * cost[i];
+    }
+
+    return minCost;
+}
+
+long long minCost(vector<int>& nums, vector<int>& cost)
+{
+    long long ans=LLONG_MAX;
+
+    int s=*min_element(nums.begin(), nums.end());
+    int e=*max_element(nums.begin(), nums.end());
+
+    while(s<=e)
+    {
+        int mid=s+(e-s)/2;
+
+        long long left=solve(mid, nums, cost);
+        long long right=solve(mid+1, nums, cost);
+
+        if(left<right)
+        {
+            e=mid-1;
+            ans=left;
+        }
+        else
+        {
+            s=mid+1;
+            ans=right;
+        }
+    }
+    
+    if(ans==LLONG_MAX)
+    {
+        return 0;
+    }
+
+    return ans;
+}
