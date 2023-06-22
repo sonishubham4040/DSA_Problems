@@ -1,0 +1,43 @@
+                                                  // Delete Kth Node From End Of LL (Codestudio) //
+                                                  // LL = 1->2->3->4->NULL, K=2 => 1->2->4->NULL //
+                                                  // LL = 1->2->3->4->5->6->NULL , K=3 => 1->2->3->5->6->NULL //
+                                                  // T.C = O(n), S.C = O(1) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+Node* removeKthNode(Node* head, int K)
+{
+    Node* temp=head;
+
+    int cnt=0;
+    while(temp!=NULL)
+    {
+        cnt++;
+        temp=temp->next;
+    }
+
+    if(head==NULL || head->next==NULL)
+    {
+        return NULL;
+    }
+
+    if(cnt-K==0)
+    {
+        head=head->next;
+        return head;
+    }
+
+    Node* prev=head;
+    Node* curr=head;
+
+    for(int i=0;i<cnt-K;i++)
+    {
+        prev=curr;
+        curr=curr->next;
+    }
+
+    prev->next=curr->next;
+
+    return head;
+}
