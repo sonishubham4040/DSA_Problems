@@ -1,0 +1,55 @@
+                                        // Lemonade Change (GFG) POTD (22-6-23) //
+                                        // Each lemonade costs $5 //
+                                        // Customers standing in a queue to buy and order one at a time Each customer will only buy one lemonade and pay with either a $5, $10, or $20 bill. Provide the correct change to each customer so that the net transaction is that the customer pays $5 //
+                                        // Return true if you can provide correct change else false //
+                                        // bills [] = {5, 5, 5, 10, 20} => True //
+                                        // bills [] = {5, 5, 10, 10, 20} => False //
+                                        // T.C = O(n), S.C = O(1) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+bool lemonadeChange(int N, vector<int> &bills) 
+{
+    int five=0;
+    int ten=0;
+    
+    for(int i=0;i<N;i++)
+    {
+        if(bills[i]==5)    
+        {
+            five++;
+        }
+        else if(bills[i]==10)
+        {
+            ten++;
+            
+            if(five!=0)
+            {
+                five--;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            if(ten!=0 && five!=0)
+            {
+                ten--;
+                five--;
+            }
+            else if(five>=3)
+            {
+                five-=3;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+    
+    return true;
+}
