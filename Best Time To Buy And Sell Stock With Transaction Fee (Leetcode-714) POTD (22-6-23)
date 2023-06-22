@@ -1,0 +1,28 @@
+                                              // Best Time To Buy And Sell Stock With Transaction Fee (Leetcode-714) POTD (22-6-23) //
+                                              // Without Dp, Youtube algorithms made easy //
+                                              // prices = [1,3,2,8,4,9], fee = 2 => Output: 8 //
+                                              /* (Buying at prices[0] = 1
+                                              - Selling at prices[3] = 8
+                                              - Buying at prices[4] = 4
+                                              - Selling at prices[5] = 9
+                                              Total profit is ((8-1)-2) + ((9-4)-2) = 8) 
+                                              */
+                                              // prices = [1,3,7,5,10,3], fee = 3 => Output: 6 //
+                                              // T.C = O(n), S.C = O(1) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int maxProfit(vector<int>& prices, int fee)
+{
+    int buy=prices[0];
+    int sell=0;
+
+    for(int i=1;i<prices.size();i++)
+    {
+        sell=max(sell, prices[i]-buy-fee);
+        buy=min(buy, prices[i]-sell);
+    }
+
+    return sell;
+}
