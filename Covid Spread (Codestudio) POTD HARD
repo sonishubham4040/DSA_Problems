@@ -1,0 +1,78 @@
+                                        			// Covid Spread (Codestudio) POTD HARD //
+                                        			// Similar To Rotten Oranges //
+                                        			// Using Queue //
+                                        			// Yet to see the solution on YOUTUBE //
+                                        			// TO-DO //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int x[4]={-1,1,0,0};
+int y[4]={0,0,-1,1};
+
+int covidSpread(vector<vector<int>> &houses)
+{
+    int n=houses.size();
+    int m=houses[0].size();
+
+    queue<pair<int,int>> q;
+
+    int cnt=0;
+    int empty=0;
+    int days=0;
+
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<m;j++)
+        {
+            if(houses[i][j]==2)
+            {
+                q.push(make_pair(i,j));
+                cnt++;
+            }
+
+            if(houses[i][j]==0)
+            {
+                empty++;
+            }
+        }
+    }
+
+    if(cnt==n*m-empty)
+    {
+        return days;
+    }
+
+    while(!q.empty())
+    {
+        int size=q.size();
+
+        while(size--)
+        {
+            pair<int,int> p=q.front();
+            q.pop();
+
+            for(int i=0;i<4;i++)
+            {
+                int a=x[i]+p.first;
+                int b=y[i]+p.second;
+
+                if(a>=0 && b>=0 && a<n && b<m && houses[a][b]==1)
+                {
+                    q.push(make_pair(a,b));
+                    houses[a][b]=2;
+                    cnt++;
+                }
+            }
+        }
+
+        days++;
+
+        if(cnt==n*m-empty)
+        {
+            return days;
+        }
+    }
+
+    return -1;
+}
