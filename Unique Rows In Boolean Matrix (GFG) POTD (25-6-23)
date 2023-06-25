@@ -1,0 +1,37 @@
+                                                    			// Unique Rows In Boolean Matrix (GFG) POTD (25-6-23) //
+                                                    				/* row=3, col=4, M[][] = {{1 1 0 1},
+                                                                              				 {1 0 0 1},
+                                                                              				 {1 1 0 1}}
+                                                    			=> Output: 1 1 0 1 , 1 0 0 1 (Only unique rows) */
+                                                    			/* row=2, col=4, M[][] = {{0 0 0 1},
+                                                                             			  {0 0 0 1}}
+                                                    			=> Output: 0 0 0 1  */
+                                                    			// T.C = O(n*m), S.C = O(n*m) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<vector<int>> uniqueRow(int M[MAX][MAX],int row,int col)
+{
+    vector<vector<int>> ans;
+    
+    set<vector<int>> s;
+    
+    for(int i=0;i<row;i++)
+    {
+        vector<int> temp;
+        
+        for(int j=0;j<col;j++)
+        {
+            temp.push_back(M[i][j]);
+        }
+        
+        if(s.find(temp)==s.end())
+        {
+            s.insert(temp);
+            ans.push_back(temp);
+        }
+    }
+    
+    return ans;
+}
