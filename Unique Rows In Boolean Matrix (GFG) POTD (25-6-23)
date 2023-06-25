@@ -1,16 +1,18 @@
-                                                    			// Unique Rows In Boolean Matrix (GFG) POTD (25-6-23) //
-                                                    				/* row=3, col=4, M[][] = {{1 1 0 1},
-                                                                              				 {1 0 0 1},
-                                                                              				 {1 1 0 1}}
-                                                    			=> Output: 1 1 0 1 , 1 0 0 1 (Only unique rows) */
-                                                    			/* row=2, col=4, M[][] = {{0 0 0 1},
-                                                                             			  {0 0 0 1}}
-                                                    			=> Output: 0 0 0 1  */
-                                                    			// T.C = O(n*m), S.C = O(n*m) //
+                                                  // Unique rows in boolean matrix (GFG) POTD (25-6-23) //
+                                                  /* row=3, col=4, M[][] = {{1 1 0 1},
+                                                                            {1 0 0 1},
+                                                                            {1 1 0 1}}
+                                                  => Output: 1 1 0 1 , 1 0 0 1 (Only unique rows) */
+                                                  /* row=2, col=4, M[][] = {{0 0 0 1},
+                                                                           {0 0 0 1}}
+                                                  => Output: 0 0 0 1  */
+                                                  // 2 Approaches: 1) Using Set 2) Using Unordered Map & String //
+                                                  // T.C = O(n*m), S.C = O(n*m) //
 
 #include <bits/stdc++.h>
 using namespace std;
 
+// Approach-1: Using Set
 vector<vector<int>> uniqueRow(int M[MAX][MAX],int row,int col)
 {
     vector<vector<int>> ans;
@@ -29,6 +31,33 @@ vector<vector<int>> uniqueRow(int M[MAX][MAX],int row,int col)
         if(s.find(temp)==s.end())
         {
             s.insert(temp);
+            ans.push_back(temp);
+        }
+    }
+    
+    return ans;
+}
+
+// Approach-2: Using Unordered Map and string
+vector<vector<int>> uniqueRow(int M[MAX][MAX],int row,int col)
+{
+    unordered_map<string,int> mp;
+    vector<vector<int>> ans;
+    
+    for(int i=0;i<row;i++)
+    {
+        string s="";
+        vector<int> temp;
+        
+        for(int j=0;j<col;j++)
+        {
+            s.push_back('0'+M[i][j]);
+            temp.push_back(M[i][j]);
+        }
+        
+        if(!mp[s])
+        {
+            mp[s]++;
             ans.push_back(temp);
         }
     }
