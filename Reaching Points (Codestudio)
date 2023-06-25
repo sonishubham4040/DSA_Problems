@@ -1,0 +1,62 @@
+                                          			// Reaching Points (Codestudio) //
+                                          			// Return True if there is a sequence to move/convert starting point to target point by (x+y,y) or (x,y+x) //
+                                          			// startX = 1, startY = 1, endX = 5, endY = 8 => True // 
+                                          /*  ((1,1)->(2,1)
+                                              (2,1)->(2,3)
+                                              (2,3)->(5,3)
+                                              (5,3)->(5,8))
+                                          */
+                                          			// startX = 3, startY = 5, endX = 7, endY = 9 => False //
+                                          			// Approach-1: Using Recursion //
+                                    			      // T.C = O(n), S.C = O(1) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+bool solve(int startX, int startY, int endX, int endY)
+{
+	if(startX==endX && startY==endY)
+	{
+		return true;
+	}
+
+	if(startX>endX || startY>endY)
+	{
+		return false;
+	}
+
+	bool x=solve(startX+startY, startY, endX, endY);
+	bool y=solve(startX, startY+startX, endX, endY);
+
+	return x||y;
+}
+
+bool isReachable(int startX, int startY, int endX, int endY) 
+{
+	// Write your code here.
+	if(startX==endX)
+	{
+		if((endY-startY)%startX==0)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	if(startY==endY)
+	{
+		if((endX-startX)%startY==0)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	return solve(startX, startY, endX, endY);
+}
