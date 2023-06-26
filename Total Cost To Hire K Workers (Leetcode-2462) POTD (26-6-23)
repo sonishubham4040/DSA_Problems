@@ -1,0 +1,50 @@
+                  			// Total Cost To Hire K Workers (Leetcode-2462) POTD (26-6-23) //
+                  			// Using Min-Heap (Priority queue) and Two Pointers //
+                  			// Choose candidates with lowest cost and Return the total Cost after selecting K members either from starting candidates or from last candidates //
+                  			// Input: costs[] = [17,12,10,2,7,2,11,20,8], k = 3, candidates = 4 //
+                  			// Output: 11 (2+2+7=11, (can choose min from starting 4 or ending 4 elements in cost, if samme then choose lowest index)) //
+                  			// Input: costs = [1,2,4,1], k = 3, candidates = 3 //
+                  			// Output: 4 //
+                  			// T.C = O(nlogn), S.C = O(n) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+long long totalCost(vector<int>& costs, int k, int candidates) 
+{
+    long long ans=0;
+    priority_queue<int, vector<int>, greater<int>> pq1;
+    priority_queue<int, vector<int>, greater<int>> pq2;
+
+    int i=0;
+    int j=costs.size()-1;
+
+    while(k--)
+    {
+        while(pq1.size()<candidates && i<=j)
+        {
+            pq1.push(costs[i++]);
+        }
+
+        while(pq2.size()<candidates && i<=j)
+        {
+            pq2.push(costs[j--]);
+        }
+
+        int t1=pq1.size()>0 ? pq1.top() : INT_MAX;
+        int t2=pq2.size()>0 ? pq2.top() : INT_MAX;
+        
+        if(t1<=t2)
+        {
+            ans+=t1;
+            pq1.pop();
+        }
+        else
+        {
+            ans+=t2;
+            pq2.pop();
+        }
+    }
+
+    return ans;
+}
