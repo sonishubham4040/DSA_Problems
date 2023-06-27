@@ -1,12 +1,14 @@
-                                        // Intersection Point In Y Shaped Linked Lists (GFG) //
-                                        // LinkList1 = 3->6->9->common, LinkList2 = 10->common, common = 15->30->NULL => Output: 15 //
-                                        // Linked List 1 = 4->1->common, Linked List 2 = 5->6->1->common, common = 8->4->5->NULL => Output: 8 //
-                                        // Using Two Pointers //
-                                        // T.C = O(n+m), S.C = O(1) //
+                                        			// Intersection Point In Y Shaped Linked Lists (GFG) //
+                                        			// LinkList1 = 3->6->9->common, LinkList2 = 10->common, common = 15->30->NULL => Output: 15 //
+                                        			// Linked List 1 = 4->1->common, Linked List 2 = 5->6->1->common, common = 8->4->5->NULL => Output: 8 //
+                                        			// Approach-1: Using Two Pointers (Without length find) //
+                                        			// Approach-2: Using Length Difference //
+                                        			// T.C = O(n+m), S.C = O(1) //
 
 #include <bits/stdc++.h>
 using namespace std;
 
+                                                    // Approach-1: Without length difference find
 int intersectPoint(Node* head1, Node* head2)
 {
     Node* t1=head1;
@@ -39,4 +41,58 @@ int intersectPoint(Node* head1, Node* head2)
     }
     
     return t1->data;
+}
+
+                                                      // Approach-2: Using Length Difference
+int intersectPoint(Node* head1, Node* head2)
+{
+    Node* temp1=head1;
+    Node* temp2=head2;
+    
+    int c1=0;
+    int c2=0;
+    
+    while(temp1!=NULL)
+    {
+        c1++;
+        temp1=temp1->next;
+    }
+    
+    while(temp2!=NULL)
+    {
+        c2++;
+        temp2=temp2->next;
+    }
+    
+    int diff=abs(c1-c2);
+    temp1=head1;
+    temp2=head2;
+    
+    if(c1>c2)
+    {
+        while(diff--)
+        {
+            temp1=temp1->next;
+        }
+    }
+    else
+    {
+        while(diff--)
+        {
+            temp2=temp2->next;
+        }
+    }
+    
+    while(temp1!=temp2)
+    {
+        temp1=temp1->next;
+        temp2=temp2->next;
+        
+        if(temp1==NULL || temp2==NULL)
+        {
+            return -1;
+        }
+    }
+    
+    return temp1->data;
 }
