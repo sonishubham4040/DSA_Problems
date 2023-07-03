@@ -1,0 +1,102 @@
+                                    			// Buddy Strings (Leetcode-859) POTD (3-7-23) //
+                                    			// Return true if elements of s can be swapped to make equal to goal string, otherwise false //
+                                    			// 2 Approaches: Using set, Using vector freq //
+                                    			// Input: s = "ab", goal = "ba" => true //
+                                    			// Input: s = "ab", goal = "ab" => false (ab after swap ba !=) //
+                                    			// Input: s = "aa", goal = "aa" => true (aa swap aa same) //
+                                    			// T.C = O(n), S.C = O(n) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+				// Approach-1: Using Set
+bool buddyStrings(string s, string goal) 
+{
+    int n=s.size();
+    int m=goal.size();
+
+    if(n!=m)
+    {
+        return false;
+    }
+
+    if(s==goal)
+    {
+        set<char> temp(s.begin(), s.end());
+        return temp.size()<goal.size();
+    }
+
+    int i=0;
+    int j=n-1;
+
+    while(i<j && s[i]==goal[i])
+    {
+        i++;
+    }
+
+    while(j>=0 && s[j]==goal[j])
+    {
+        j--;
+    }
+
+    if(i<j)
+    {
+        swap(s[i], s[j]);
+    }
+
+    return s==goal;
+}
+
+			// Approach-2: Using vector freq
+bool buddyStrings(string s, string goal) 
+{
+    if(s.size()!=goal.size())
+    {
+        return false;
+    }
+
+    if(s==goal)
+    {
+        vector<int> frequency(26, 0);
+        for(auto& ch:s) 
+        {
+            frequency[ch-'a']+=1;
+            if(frequency[ch-'a']==2) 
+            {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    int firstIndex=-1;
+    int secondIndex=-1;
+
+    for(int i=0;i<s.size();++i) 
+    {
+        if(s[i]!=goal[i])
+        {
+            if(firstIndex==-1)
+            {
+                firstIndex=i;
+            } 
+            else if(secondIndex==-1)
+            {
+                secondIndex = i;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+
+    if(secondIndex==-1) 
+    {
+        return false;
+    }
+    
+    return s[firstIndex]==goal[secondIndex] && 
+           s[secondIndex]==goal[firstIndex];
+}
