@@ -1,0 +1,35 @@
+                                            			// Find The Sum Of The Left Leaves (Codestudio), (GFG), (Leetcode-404) //
+                                            /*
+                                                      1
+                                                    /  \
+                                                   2    3
+                                                 /  \     \
+                                                4    5     8 
+                                              /  \        /  \
+                                             7    2      6    9
+                                            */
+                                            			// Output => 7+6 = 13 //
+                                            			// T.C = O(n), S.C = O(H) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int sumOfLeftLeaves(TreeNode<int> *root)
+{
+    if(root==NULL)
+    {
+        return 0;
+    }
+
+    int sum=0;
+
+    if(root->left!=NULL && root->left->left==NULL && root->left->right==NULL)
+    {
+        sum+=root->left->val;
+    }
+
+    sum+=sumOfLeftLeaves(root->left);
+    sum+=sumOfLeftLeaves(root->right);
+
+    return sum;
+}
