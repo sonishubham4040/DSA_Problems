@@ -1,0 +1,49 @@
+			// Diagonal Traversal of Binary Tree (GFG), Codestudio //
+/*
+            8
+         /     \
+        3      10
+      /   \      \
+     1     6     14
+         /   \   /
+        4     7 13
+*/
+			// ans =>  8 10 14 3 6 7 13 1 4 //
+			// temp ka right dalo bas or left ko queuye me push kardo //
+			// T.C = O(n), S.C = O(n) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<int> diagonal(Node *root)
+{
+   // your code here
+   
+   vector<int> ans;
+   
+   if(root==NULL)
+   {
+       return ans;
+   }
+   
+   queue<Node*> q;
+   q.push(root);
+   
+   while(!q.empty())
+   {
+       Node* temp=q.front();
+       q.pop();
+       
+       while(temp)
+       {
+           if(temp->left)
+           {
+               q.push(temp->left);
+           }
+           
+           ans.push_back(temp->data);
+           temp=temp->right;
+       }
+   }
+   return ans;
+}

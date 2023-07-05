@@ -1,0 +1,32 @@
+			// Bit Set (Codestudio) //
+			// Find the first repeating digit if none then return -1 //
+			// i/p: 12342 => o/p: 2, i/p: 1234 => o/p: -1 //
+			// i/p: 456746725 => o/p: 4 //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int findFirstRepeatingDigit(string digitPattern)
+{
+    int arr[10]={0};
+    
+    for(auto i:digitPattern)
+    {
+        int x=i-'0';
+        
+        arr[x]++;
+        
+        if(arr[x]>1)
+        {
+            return x;
+        }
+    }
+    return -1;
+}
+
+int main()
+{
+    string digitPattern="456746725";
+    
+    cout<<"Frist repeating digit: "<<findFirstRepeatingDigit(digitPattern);
+}

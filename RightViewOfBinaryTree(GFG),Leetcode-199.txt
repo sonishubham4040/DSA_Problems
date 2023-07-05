@@ -1,0 +1,45 @@
+			// Right View of Binary Tree (GFG), Codestudio //
+			// Binary Tree Right Side View (Leetcode-199) //
+/*
+           1
+       /     \
+     2        3
+   /    \    /  \
+  4     5   6     7
+   \
+     8   
+*/
+			// ans => 1 3 7 8 //
+			// Using Recursion //
+			// Same as left view just put right call first then left call //
+			// T.C = O(N), S.C = O(N) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void solve(Node *root, vector<int> &ans, int level)
+{
+    if(root==NULL)
+    {
+        return;
+    }
+    
+    // we entered into a new level
+    if(level==ans.size())
+    {
+        ans.push_back(root->data);
+    }
+    
+    solve(root->right, ans, level+1);
+    solve(root->left, ans, level+1);
+    
+}
+
+//Function to return a list containing elements of left view of the binary tree.
+vector<int> leftView(Node *root)
+{
+   // Your code here
+   vector<int> ans;
+   solve(root, ans, 0); // root, vector, level
+   return ans;
+}

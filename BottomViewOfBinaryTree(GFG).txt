@@ -1,0 +1,61 @@
+			// Bottom View of Binary Tree (GFG) //
+/*     1
+    /     \
+   2       3
+  /  \    /   \
+4    5  6      7
+*/
+			// ans => 4 2 1 3 7  //
+			// same as top view but no condition check //
+			// T.C = O(nlogn) or O(n), S.C = O(n) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<int> topView(Node *root)
+{
+    //Your code here
+    vector<int> ans;
+        
+    if(root==NULL)
+    {
+        return ans;
+    }
+        
+    map<int,int> topNode; // hd, node->data
+    queue<pair<Node*, int>> q; // root, hd
+        
+    q.push(make_pair(root, 0));
+        
+    while(!q.empty())
+    {
+        pair<Node*, int> temp=q.front();
+        q.pop();
+            
+        Node* frontNode=temp.first;
+        int hd=temp.second;
+            
+        // if one value is present for hd,  then do nothing
+        //if(topNode.find(hd)==topNode.end()) // not even a single mapping for node
+        //{
+            topNode[hd]=frontNode->data; // no condition check
+        //}
+            
+        if(frontNode->left)
+        {
+            q.push(make_pair(frontNode->left, hd-1));
+        }
+        if(frontNode->right)
+        {
+            q.push(make_pair(frontNode->right, hd+1));
+        }
+            
+    }
+        
+    for(auto i:topNode)
+    {
+        ans.push_back(i.second);
+    }
+        
+    return ans;
+}
