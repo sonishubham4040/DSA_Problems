@@ -1,0 +1,42 @@
+                                                      			// Square Root Of A Number (Codestudio), GFG //
+                                                      			// Using Binary Search //
+                                                      			// n=4 => 2 //
+                                                      			// n=15 => 3 //
+                                                      			// T.C = O(logn), S.C = O(1) // 
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int floorSqrt(int n)
+{
+    if(n==0 || n==1)
+    {
+        return n;
+    }
+
+    int s=0;
+    int e=n/2;
+    int ans=-1;
+
+    while(s<=e)
+    {
+        int mid=s+(e-s)/2;
+        int square=mid*mid;
+
+        if(square==n)
+        {
+            return mid;
+        }
+        if(square<n)
+        {
+            ans=mid;
+            s=mid+1;
+        }
+        else
+        {
+            e=mid-1;
+        }
+    }
+
+    return ans;
+}
