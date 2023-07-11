@@ -1,0 +1,47 @@
+                                			// Middle Of Three (Codestudio) //
+                                			// x=4, y=6, z=2 => 4 (x is middle, z<x<y) //
+                                			// Using Two Approaches //
+                                			// T.C = O(1), S.C = O(1) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+// Approach-1
+int middleOfThree(int x, int y, int z)
+{
+    if((x>y && x<z) || (x>z && x<y))
+    {
+        return x;
+    }
+
+    if((y>x && y<z) || (y>z && y<x))
+    {
+        return y;
+    }
+
+    if((z>y && z<x) || (z>x && z<y))
+    {
+        return z;
+    }
+}
+
+// Approach-2
+int middleOfThree(int x, int y, int z)
+{
+    int a=x-y;
+    int b=y-z;
+    int c=x-z;
+    
+    if(a*b>0)
+    {
+        return y;
+    }
+    else if(a*c>0)
+    {
+        return z;
+    }
+    else
+    {
+        return x;
+    }
+}
