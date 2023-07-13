@@ -1,0 +1,31 @@
+                                      			// Unique Number Of Occurrences (GFG) POTD (13-7-23) //
+                                      			// Check whether frequency of elements is unique or not //
+                                      			// Or No two elements can have the same frequency //
+                                      			// arr = [1, 1, 2, 5, 5] => false //
+                                      			// arr = [2, 2, 5, 10, 1, 2, 10, 5, 10, 2] => true //
+                                      			// T.C = O(n), S.C = O(n) //
+  
+#include <bits/stdc++.h>
+using namespace std;
+
+bool isFrequencyUnique(int n, int arr[])
+{
+    map<int, int> mp1, mp2;
+     
+    for(int i=0;i<n;i++)
+    {
+        mp1[arr[i]]++;
+    }
+    
+    for(auto i:mp1)
+    {
+        mp2[i.second]++;
+        
+        if(mp2[i.second]>1)
+        {
+            return false;
+        }
+    }
+    
+    return true;
+}
