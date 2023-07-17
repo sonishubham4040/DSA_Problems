@@ -1,0 +1,54 @@
+                                                  			// Ninja And The Tree (Codestudio) HARD POTD (17-7-23) //
+                                                  			// There is mistake in BST, swap values if not in correct position //
+                                                  /*
+                                                              10
+                                                             /  \
+                                                            8   11
+                                                           / \    \
+                                                          9   7    12
+                                                         /
+                                                        6
+                                                  */
+                                                  			// BST left small, right large => swap 9 and 7 //
+                                                  			// T.C = O(n), S.C = O(n) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void inorderTraversal(TreeNode<int>* root, vector<int> &ans)
+{
+    if(root==NULL)
+    {
+        return;
+    }
+
+    inorderTraversal(root->left, ans);
+    ans.push_back(root->data);
+    inorderTraversal(root->right, ans);
+}   
+
+void solve(TreeNode<int>* root, vector<int> &ans, int &index)
+{
+    // bc
+    if(root==NULL)
+    {
+        return;
+    }
+
+    solve(root->left, ans, index);
+    root->data=ans[index++];
+    solve(root->right, ans, index);
+}
+
+void recoverTree(TreeNode<int>* root) 
+{
+    // Write your code here.
+
+    vector<int> ans;
+    inorderTraversal(root, ans);
+
+    sort(ans.begin(), ans.end());
+
+    int index=0;
+    solve(root, ans, index);
+}
