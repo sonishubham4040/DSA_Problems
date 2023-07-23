@@ -1,0 +1,40 @@
+                                      			// Split Strings By Separator (Leetcode-Weekly-355) //
+                                      			// split each string in words by separator //
+                                      			// words = ["one.two.three","four.five","six"], separator = "." => ["one","two","three","four","five","six"] //
+                                      			// words = ["$easy$","$problem$"], separator = "$" => ["easy","problem"] //
+                                      			// words = ["|||"], separator = "|" => [] //
+                                      			// T.C = O(n*n), S.C = O(n) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<string> splitWordsBySeparator(vector<string>& words, char separator)
+{
+    vector<string> ans;
+    
+    for(int i=0;i<words.size();i++)
+    {
+        string s1, s2;
+        
+        s2=words[i];
+        s2.push_back(separator);
+        
+        for(int j=0;j<s2.size();j++)
+        {
+            if(s2[j]!=separator)
+            {
+                s1.push_back(s2[j]);
+            }
+            else
+            {
+                if(s1.size()>0)
+                {
+                    ans.push_back(s1);
+                    s1="";
+                }
+            }
+        }
+    }
+    
+    return ans;
+}
