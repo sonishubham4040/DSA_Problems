@@ -1,0 +1,57 @@
+                                                			// Level Order Traversal In Spiral Form (GFG) POTD (25-7-23) //
+                                                			// Binary Tree Zigzag Level Order Traversal (Leetcode-103) //
+                                                			// Using Queue and Flag bool //
+                                                			// T.C = O(n), S.C = O(n) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<int> findSpiral(Node *root)
+{
+    vector<int> ans;
+    
+    if(root==NULL)
+    {
+        return ans;
+    }
+    
+    queue<Node*> q;
+    q.push(root);
+    bool b=true; // true even, false odd
+    
+    while(!q.empty())
+    {
+        int size=q.size();
+        vector<int> level;
+        
+        for(int i=0;i<size;i++)
+        {
+            Node* temp=q.front();
+            q.pop();
+            level.push_back(temp->data);
+            
+            if(temp->left)
+            {
+                q.push(temp->left);
+            }
+            if(temp->right)
+            {
+                q.push(temp->right);
+            }
+        }
+        
+        if(b==true)
+        {
+            reverse(level.begin(), level.end());
+        }
+        
+        for(auto i:level)
+        {
+            ans.push_back(i);
+        }
+        
+        b=!b;
+    }
+    
+    return ans;
+}
