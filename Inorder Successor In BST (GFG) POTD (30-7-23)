@@ -1,0 +1,78 @@
+                                                  			// Inorder Successor In BST (GFG) POTD (30-7-23) //
+                                                  			// Using 2 Approaches //
+                                                  /*
+                                                         2
+                                                      /   \
+                                                     1     3
+                                                  */
+                                                  			// x=2 => 3 (1, 2, 3) successor of 2 is 3 //
+                                                  			// T.C = O(n), S.C = O(n) // 
+
+#include <bits/stdc++.h>
+using namespace std;
+
+// Approach-1: Using Vector space
+void inorder(Node *root, vector<Node*> &ans)
+{
+    if(root==NULL)
+    {
+        return;
+    }
+    
+    inorder(root->left, ans);
+    ans.push_back(root);
+    inorder(root->right, ans);
+}
+
+Node * inOrderSuccessor(Node *root, Node *x)
+{
+    //Your code here
+    if(root==NULL || x==NULL)
+    {
+        return NULL;
+    }
+    
+    vector<Node*> ans;
+    inorder(root, ans);
+    
+    for(int i=0;i<ans.size();i++)
+    {
+        if(x==ans[i])
+        {
+            if(i+1<ans.size())
+            {
+                return ans[i+1];   
+            }
+            else
+            {
+                return NULL;
+            }
+        }
+    }
+}
+
+// Approach-2: 
+Node* inorder(Node *root, Node *x, Node* suc)
+{
+    if(root==NULL)
+    {
+        return suc;
+    }
+    
+    if(root->data > x->data)
+    {
+        inorder(root->left, x, root);
+    }
+    else
+    {
+        inorder(root->right, x, suc);
+    }
+}
+
+Node * inOrderSuccessor(Node *root, Node *x)
+{
+    //Your code here
+    Node* suc=NULL;
+    
+    return inorder(root, x, suc);
+}
