@@ -1,0 +1,81 @@
+                                                    			// Min Stack (Codestudio) POTD (31-7-23) //
+                                                    			// T.C = O(1), S.C = O(n) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+class minStack
+{
+	// Write your code here.
+	int topp;
+	int *arr;
+	int *mini;
+	int size;
+	
+	public:
+		
+		// Constructor
+		minStack() 
+		{ 
+			// Write your code here.
+			size=1000001;
+			topp=-1;
+			arr=new int[size];
+			mini=new int[size];
+		}
+		
+		void push(int num)
+		{
+			// Write your code here.
+			topp+=1;
+			arr[topp]=num;
+
+			if(topp==0)
+			{
+				mini[topp]=num;
+			}
+			else
+			{
+				mini[topp]=min(mini[topp-1], num);
+			}
+		}
+		
+		int pop()
+		{
+			// Write your code here.
+			if(topp==-1)
+			{
+				return -1;
+			}
+			else
+			{
+				return arr[topp--];
+			}
+		}
+		
+		int top()
+		{
+			// Write your code here.
+			if(topp==-1)
+			{
+				return -1;
+			}
+			else
+			{
+				return arr[topp];
+			}
+		}
+		
+		int getMin()
+		{
+			// Write your code here.
+			if(topp==-1)
+			{
+				return -1;
+			}
+			else
+			{
+				return mini[topp];
+			}
+		}
+};
