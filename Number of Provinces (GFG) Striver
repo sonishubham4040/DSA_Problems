@@ -1,0 +1,56 @@
+                                                			// Number of Provinces (GFG) Striver //
+                                                			// No. Of Components Of Graph //
+                                                			// Jitni bar DFS ki call jayegi utne provinces // 
+                                                			// T.C = O(n), S.C = O(n) or O(V+2E) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+private:
+void dfs(int node, int vis[], vector<int> adjLs[])
+{
+    vis[node]=1;
+    
+    for(auto i: adjLs[node])
+    {
+        if(!vis[i])
+        {
+            dfs(i, vis, adjLs);
+        }
+    }
+}
+
+public:
+int numProvinces(vector<vector<int>> adj, int V)
+{
+    // code here
+    // jitni bar dfs ki call jayegi utne provinces
+    vector<int> adjLs[V];
+    
+    // Changing Matrix to List
+    for(int i=0;i<V;i++)
+    {
+        for(int j=0;j<V;j++)
+        {
+            if(adj[i][j]==1 && i!=j)
+            {
+                adjLs[i].push_back(j);
+                adjLs[j].push_back(i);
+            }
+        }
+    }
+    
+    int vis[V]={0};
+    int cnt=0;
+    
+    for(int i=0;i<V;i++)
+    {
+        if(!vis[i])
+        {
+            cnt++;
+            dfs(i, vis, adjLs);
+        }
+    }
+    
+    return cnt;
+}
