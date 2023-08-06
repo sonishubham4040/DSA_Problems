@@ -1,0 +1,33 @@
+                                                    			// DFS In Graph (GFG) //
+                                                    			// T.C = O(n) + O(2E), S.C = O(n) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+private: 
+void dfs(int node, int vis[], vector<int> adj[], vector<int> &ans)
+{
+    vis[node]=1;
+    ans.push_back(node);
+    
+    for(auto i: adj[node])
+    {
+        if(!vis[i])
+        {
+            dfs(i, vis, adj, ans);
+        }
+    }
+}
+
+public:
+vector<int> dfsOfGraph(int V, vector<int> adj[]) 
+{
+    // Code here
+    int vis[V]={0};
+    int start=0;
+    
+    vector<int> ans;
+    dfs(start, vis, adj, ans);
+    
+    return ans;
+}
