@@ -1,0 +1,41 @@
+                                                  			// Construct Smallest Number From DI String (Leetcode-2375) //
+                                                  			// Number following a pattern (GFG), Josh Tech. Question //
+                                                  			// Pattern IDIDI //
+                                                  			// I- increasing, D- decreasing return min. number from 1-9 //
+                                                  			// pattern = "DDD" => 4321 //
+                                                  			// pattern = "IIDDD" => 126543 //
+                                                			  // T.C = O(n), S.C = O(1) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+string smallestNumber(string pattern)
+{
+    int n=pattern.size();
+
+    string ans="";
+
+    for(int i=0;i<n+1;i++)
+    {
+        ans+=to_string(i+1);
+    }
+
+    int i=0;
+    while(i<n)
+    {
+        while(pattern[i]=='I')
+        {
+            i++;
+        }
+
+        int start=i;
+        while(i<n && pattern[i]=='D')
+        {
+            i++;
+        }
+
+        reverse(ans.begin()+start, ans.begin()+i+1);
+    }
+
+    return ans;
+}
