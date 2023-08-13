@@ -1,0 +1,40 @@
+      			// Max Pair Sum In An Array (Leetcode-Weekly-358) //
+      			// find the maximum sum of a pair of numbers from nums such that the maximum digit in both numbers are equal //
+      			// nums = [51,71,17,24,42] => 88 (71+17=88, 24+42=66 => max is 88) //
+      			// nums = [1,2,3,4] => -1 (No same maximum digit) //
+      			// T.C = O(n*n), S.C = O(1) //
+
+#include <iostream>
+using namespace std;
+
+int maxDigit(int a)
+{
+    int maxi=-1;
+    
+    while(a!=0)
+    {
+        maxi=max(maxi, a%10);
+        a=a/10;
+    }
+    
+    return maxi;
+}
+
+int maxSum(vector<int>& nums) 
+{
+    // code here
+    int maxi=-1;
+    
+    for(int i=0;i<nums.size();i++)
+    {
+        for(int j=i+1;j<nums.size();j++)
+        {
+            if(maxDigit(nums[i])==maxDigit(nums[j]))
+            {
+                maxi=max(maxi, nums[i]+nums[j]); 
+            }
+        }
+    }
+    
+    return maxi;
+}
