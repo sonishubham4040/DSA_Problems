@@ -1,0 +1,49 @@
+                  			// Nth Fibonacci Number (GFG) POTD (13-8-23) //
+                  			// 0 1 1 2 3 5 8 13.... //
+                  			// Two Approaches //
+                  			// n=2 => 1 //
+                  			// n=5 => 5 //
+                  			// T.C = O(n), S.C = O(n) || O(1) //
+
+#include <iostream>
+using namespace std;
+
+				                      // Approach-1
+int nthFibonacci(int n)
+{
+    int m=1e9+7;
+    
+    int a=0;
+    int b=1;
+    
+    if(n==0)
+    {
+        return a;
+    }
+    
+    for(int i=2;i<=n;i++)
+    {
+        int c=(a+b)%m;
+        a=b;
+        b=c;
+    }
+    
+    return b;
+}
+
+				                        // Approach-2
+int nthFibonacci(int n)
+{
+    int m=1e9+7;
+    
+    int arr[n];
+    arr[0]=0;
+    arr[1]=1;
+    
+    for(int i=2;i<=n;i++)
+    {
+        arr[i]=(arr[i-1]+arr[i-2])%m;
+    }
+    
+    return arr[n];
+}
