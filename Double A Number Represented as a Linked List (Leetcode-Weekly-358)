@@ -1,0 +1,66 @@
+                              			// Double A Number Represented as a Linked List (Leetcode-Weekly-358) //
+                              			// Double the value as linked list, 2X //
+                              			// 1->8->9 => 3 7 8 //
+                              			// 9->9->9 => 1 9 9 8 //
+                              			// T.C = O(n), S.C = O(n) //
+
+#include <iostream>
+using namespace std;
+
+ListNode* reverse(ListNode* head)
+{
+    if(head==NULL)
+    {
+        return NULL;
+    }
+    
+    ListNode* prev=NULL;
+    ListNode* forward=NULL;
+    ListNode* curr=head;
+    
+    while(curr)
+    {
+        forward=curr->next;
+        curr->next=prev;
+        prev=curr;
+        curr=forward;
+    }
+    
+    return prev;
+}
+
+ListNode* doubleList(ListNode* head)
+{
+    ListNode* temp=head;
+    ListNode* prev=head;
+    
+    int carry=0;
+    int sum;
+    
+    while(temp!=NULL)
+    {
+        sum=carry + (temp->val*2);
+        int digit=sum%10;
+        carry=sum/10;
+        
+        temp->val=digit;
+        prev=temp;
+        temp=temp->next;
+    }
+    
+    if(carry!=0)
+    {
+        prev->next=new ListNode(carry);
+    }
+       
+    return head;
+}
+
+ListNode* doubleIt(ListNode* head) 
+{
+    head=reverse(head);
+    
+    ListNode* ans=doubleList(head);
+    
+    return reverse(ans);
+}
