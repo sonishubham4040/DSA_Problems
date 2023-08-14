@@ -1,0 +1,32 @@
+			// Minimum Numbers Required (Codestudio) //
+			// abs value of each element of array is not more than MaxVal, count min. no. of integers to be included so that it's sum is equal to given Sum //
+			// Sum=10, MaxVal=4, arr=[2 -3 4] => 2 (2-3+4=3 => we need sum 10 so 7 more, we can choose numbers: 4+3 which is less than maxval ansd satisfy Sum) //
+			// sum=-10, MaxVal=5, arr=[2 1 4] => 4 (2+1+4=7, we need -17 to make sum -10) //
+			// T.C = O(n), S.C = O(1) //
+
+#include <iostream>
+using namespace std;
+
+int findMinNumbers(vector<int> &arr, int sum, int maxVal) 
+{
+	int ans=0;
+	int s=0;
+	
+	for(auto i: arr)
+	{
+		s+=i;
+	}
+
+	int diff=abs(s-sum);
+
+	if(diff%maxVal==0)
+	{
+		ans=diff/maxVal;
+	}
+	else
+	{
+		ans=(diff/maxVal)+1;
+	}
+
+	return ans;
+}
