@@ -1,0 +1,67 @@
+                        			// Divide String (Codestudio) //
+                        			// Divide the string into N euqal parts //
+                        			// Two Approaches //
+                        			// word="abcdefgh", N=2 => "abcd" "efgh" //
+                        			// word="codingninjas", N=5 => {} Can't //
+                        			// word="code", N=4 => "c" "o" "d" "e"
+                        			// T.C = O(n), S.C = O(n) //
+
+#include <iostream>
+using namespace std;
+
+							                                      // Approach-1
+vector<string> divideString(string &word, int n)
+{
+  vector<string> ans;
+
+  int size=word.size();
+
+  if(size%n!=0)
+  {
+    return ans;
+  }
+
+  int partsLength=size/n;
+  string s="";
+  int cnt=0;
+
+  for(int i=0;i<size;i++)
+  {
+    s+=word[i];
+    cnt++;
+
+    if(cnt==partsLength)
+    {
+      ans.push_back(s);
+      s="";
+      cnt=0;
+    }
+  }
+
+  return ans;
+}
+
+							                                        // Approach-2
+vector<string> divideString(string &word, int n)
+{
+  vector<string> ans;
+
+  int size=word.size();
+
+  if(size%n!=0)
+  {
+    return ans;
+  }
+
+  int s=0;
+  int partsLength=size/n;
+
+  while(s<size)
+  {
+    string temp=word.substr(s, partsLength);
+    ans.push_back(temp);
+    s+=partsLength;
+  }
+
+  return ans;
+}
