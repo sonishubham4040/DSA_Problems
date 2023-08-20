@@ -1,0 +1,51 @@
+                      			// Detect Cycle In An Undirected Graph (GFG) //
+                      			// Using DFS Graph Striver //
+                      			// Agar visited hai lekin parent ke equal nahi hai node to cycle banegi //
+                      			// 0 Based indexing //
+                      			// T.C = O(n+2E), S.C = O(n) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+private:
+bool dfs(int node, int parent, int vis[], vector<int> adj[])
+{
+    vis[node]=1;
+    
+    for(auto i: adj[node])
+    {
+        if(!vis[i])
+        {
+            if(dfs(i, node, vis, adj)==true)
+            {
+                return true;
+            }
+        }
+        else if(i!=parent)
+        {
+            return true;
+        }
+    }
+    
+    return false;
+}
+
+public:
+bool isCycle(int V, vector<int> adj[])
+{
+    // Code here
+    int vis[V]={0};
+    
+    for(int i=0;i<V;i++)
+    {
+        if(!vis[i])
+        {
+            if(dfs(i, -1, vis, adj)==true)
+            {
+                return true;
+            }
+        }
+    }
+    
+    return false;
+}
