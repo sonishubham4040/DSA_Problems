@@ -1,0 +1,60 @@
+                      			// Cycle Detection In Undirected Graph (Codestudio) //
+                      			// Using DFS Graph Striver //
+                      			// Agar visited hai lekin parent ke equal nahi hai node to cycle banegi //
+                      			// 1 Based indexing //
+                      			// T.C = O(n+2E), S.C = O(n) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+bool dfs(int node, int parent, int vis[], vector<int> adj[])
+{
+    vis[node]=1;
+    
+    for(auto i: adj[node])
+    {
+        if(!vis[i])
+        {
+            if(dfs(i, node, vis, adj)==true)
+            {
+                return true;
+            }
+        }
+        else if(i!=parent)
+        {
+            return true;
+        }
+    }
+    
+    return false;
+}
+
+string cycleDetection (vector<vector<int>>& edges, int n, int m)
+{
+    // Write your code here.
+    int vis[n+1]={0};
+    
+    vector<int> adj[n+1];
+    
+    for(auto i: edges)
+    {
+        int u=i[0];
+        int v=i[1];
+        
+        adj[u].push_back(v);
+        adj[v].push_back(u);        
+    }
+    
+    for(int i=0;i<n;i++)
+    {
+        if(!vis[i])
+        {
+            if(dfs(i, -1, vis, adj)==true)
+            {
+                return "Yes";
+            }
+        }
+    }
+    
+    return "No";
+}
