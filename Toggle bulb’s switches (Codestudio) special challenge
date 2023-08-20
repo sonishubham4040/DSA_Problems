@@ -1,0 +1,24 @@
+		// Toggle bulb’s switches (Codestudio) special challenge //
+		// Starting me all bulbs 0(Off) honge and ith step me ith ke multiple wale bulb toggle ho jayenge, on to off, off to on //
+		// Jo bulb last me ON reh jayenge vo return karo //
+		// n=4 => [1,4] ([0,0,0,0] => [1,1,1,1] => [1,0,1,0] => [1,0,0,0] => [1,0,0,1]) => 1 and 4 index wale //
+		// n=3 => [1] //
+		// T.C = O(n^(1/2)), S.C = O(n^(1/2)) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<int> toggleBulbs(int n)
+{
+    // Write your code here.
+    vector<int> ans;
+    int i=1;
+
+    while((i*i)<=n)
+    {
+        ans.push_back(i*i);
+        i++;
+    }
+
+    return ans;
+}
