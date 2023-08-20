@@ -1,0 +1,27 @@
+			// Determine the Minimum Sum of a k-avoiding Array (Leetcode-2829) Weekly 359, Q.2 //
+			// An array of distinct positive integers is called a k-avoiding array if there does not exist any pair of distinct elements that sum to k //
+			// Return the minimum sum of a k-avoiding array of length n //
+			// Using Set //
+			// n=5, k=4 => 18 ([1,2,4,5,6]) (sum k ke equal ni hona chaiye) //
+			// n=2, k=6 => 3 ([1,2]) //
+			// T.C = O(n), S.C = O(n) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int minimumSum(int n, int k) 
+{
+    unordered_set<int> s;
+    int ans=0;
+    
+    for(int i=1;s.size()<n;i++)
+    {
+        if(s.find(k-i)==s.end()) // k-i not present
+        {
+            s.insert(i);
+            ans+=i;
+        }
+    }
+    
+    return ans;
+}
