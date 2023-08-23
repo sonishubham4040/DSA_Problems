@@ -1,0 +1,73 @@
+                            			// Fibonacci Sum (Codestudio) //
+                            			// Given range n, m. Return sum of fibonacci numbers of given range //
+                            			// 0 1 1 2 3 5 8 13 21 ..... //
+                            			// Two Approaches //
+                            			// n=2, m=6 => 19 (1+2+3+5+8=19) //
+                            			// n=0, m=5 => 12 //
+                            			// T.C = O(m), S.C = O(m) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+					                            // Approach-1
+void fib(int n, vector<int> &ans)
+{
+	int mod=1e9+7;
+	int a=0;
+	int b=1;
+	int c;
+	
+	ans.push_back(0);
+	ans.push_back(1);
+	
+	for(int i=2;i<=n;i++)
+	{
+		c=(a+b)%mod;
+		a=b;
+		b=c;
+
+		ans.push_back(b);
+	}	
+}
+
+int fiboSum(int n , int m)
+{
+	// Write your code here
+	vector<int> ans;
+	fib(m, ans);
+
+	int mod=1e9+7;
+	int sum=0;
+	
+	for(int i=n;i<=m;i++)
+	{
+		sum=(sum+ans[i])%mod;	
+	}
+
+	return sum%mod;
+}
+
+					                              // Approach-2
+int fiboSum(int n , int m)
+{
+	// Write your code here
+	vector<int> ans(m+1, 0);
+	int mod=1e9+7;
+	
+	ans[0]=0;
+	ans[1]=1;
+
+	for(int i=2;i<=m;i++)
+	{
+		ans[i]=(ans[i-1]+ans[i-2])%mod;
+	}
+
+	int sum=0;
+	
+	for(int i=n;i<=m;i++)
+	{
+		sum=(sum+ans[i])%mod;
+	}
+
+	return sum%mod;
+}
