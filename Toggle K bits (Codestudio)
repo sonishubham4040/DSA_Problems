@@ -1,0 +1,20 @@
+                                          			// Toggle K bits (Codestudio) //
+                                          			// Toggle rightmost k bits in given number //
+                                          			// n=12, k=2 => 1111 (12=1100, lst k bits reverse => 1111) //
+                                          			// Using XOR, leftshift //
+
+#include <iostream>
+
+int toggleKBits(int n, int k)
+{
+    // Write your code here.
+    int ans=1;
+
+    while(k--)
+    {
+        n^=ans;
+        ans<<=1;
+    }
+
+    return n;
+}
