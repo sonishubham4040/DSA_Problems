@@ -1,0 +1,107 @@
+                                          			// Amazing Strings (Codestudio) //
+                                          			// check if characters of two string is present in third string // 
+                                          			// f="HI", s="HEY", t="EIHYH" => YES //
+                                          			// f="ALL", s="GOOD", t="ADOLLG" => NO //
+                                          			// 3 Approaches: Map, Vector, array //
+                                          			// T.C = O(n), S.C = O(n) //
+
+#include <iostream>
+using namespace std;
+
+// Approach-1: Using Map
+string amazingStrings(string first, string second, string third)
+{
+    // Write your code here.
+    unordered_map<char, int> mp;
+
+    for(auto i: first)
+    {
+        mp[i]++;
+    }
+
+    for(auto i: second)
+    {
+        mp[i]++;
+    }
+
+    for(auto i: third)
+    {
+        mp[i]--;
+    }
+
+    for(auto i: mp)
+    {
+        if(i.second!=0)
+        {
+            return "NO";
+        }
+    }
+    
+    return "YES";
+}
+
+// Approach-2: Using Vector Array
+string amazingStrings(string first, string second, string third)
+{
+    // Write your code here.
+    vector<int> ans(256, 0);
+
+    for(auto i: third)
+    {
+        ans[i]++;
+    }
+
+    for(auto i: first)
+    {
+        ans[i]--;
+    }
+
+    for(auto i: second)
+    {
+        ans[i]--;
+    }
+
+    for(auto i: ans)
+    {
+        if(i!=0)
+        {
+            return "NO";
+        }
+    }
+    
+    return "YES";
+}
+
+// Approach-3: Freq Array
+string amazingStrings(string first, string second, string third) 
+{
+    // Write your code here.
+    int s1[26]={0};
+    int s2[26]={0};
+    int s3[26]={0};
+    
+    for(auto i: first)
+    {
+        s1[i-'A']++;
+    }
+    
+    for(auto i: second)
+    {
+        s2[i-'A']++;
+    }
+
+    for(auto i: third)
+    {
+        s3[i-'A']++;
+    }
+
+    for(int i=0;i<26;i++)
+    {
+        if(s1[i]+s2[i]!=s3[i])
+        {
+            return "NO";
+        }
+    }
+
+    return "YES";
+}
