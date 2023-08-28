@@ -1,0 +1,69 @@
+                                                            			// Course Schedule (Leetcode-207) //
+                                                            			// Detect cycle in a directed graph (GFG) //
+                                                            			// DFS Graph Striver //
+                                                            			// Create two arrays Visited and PathVisited //
+                                                            			// If both vis and pathVis then only cycle otherwise not //
+                                                            			// T.C = O(n+2E), S.C = O(n) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+private:
+bool dfs(int node, vector<int> &vis, vector<int> &pathVis, vector<int> adj[])
+{
+    vis[node]=1;
+    pathVis[node]=1;
+    
+    for(auto i: adj[node])
+    {
+        // if node not visited
+        if(!vis[i])
+        {
+            if(dfs(i, vis, pathVis, adj)==false)
+            {
+                return false;
+            }
+        }
+        else if(pathVis[i])
+        {
+            return false;
+        }
+    }
+    
+    pathVis[node]=0;
+    return true;
+}
+
+public:
+bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+    
+    // DFS: Detect Cycle in Directed Graph
+
+    // create adjacency list
+    vector<int> adj[numCourses];
+
+    for(auto i: prerequisites)
+    {
+        int u=i[0];
+        int v=i[1];
+
+        adj[v].push_back(u);
+    }
+
+    vector<int> vis(numCourses, 0);
+    vector<int> pathVis(numCourses, 0);
+    
+    // components
+    for(int i=0;i<numCourses;i++)
+    {
+        if(!vis[i])
+        {
+            if(dfs(i, vis, pathVis, adj)==false)
+            {
+                return false;
+            }
+        }
+    }
+    
+    return true;
+}
