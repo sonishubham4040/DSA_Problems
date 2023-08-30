@@ -1,0 +1,64 @@
+                              			// Detect Cycle In A Directed Graph (GFG), (Codestudio) BFS Kahn's Algo //
+                              			// BFS Graph Striver - Topological Sort //
+                              			// Kahn's Algorithm //
+                              			// topo sort me agar n nodes hai matlb DAG hai, lekin agar n se kam hai matlab cycle hai //
+                              			// T.C = O(n+E), S.C = O(n) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+bool isCyclic(int V, vector<int> adj[])
+{
+    // code here
+    // BFS KAHN's ALGORITHM, Topological Sort
+    // topo sort me agr V se kam nodes hai matlb "cycle" hai DAG nahi hai
+    
+    // create indegree list
+    int indegree[V]={0};
+    
+    for(int i=0;i<V;i++)
+    {
+        for(auto j: adj[i])
+        {
+            indegree[j]++;
+        }
+    }
+    
+    queue<int> q;
+    
+    for(int i=0;i<V;i++)
+    {
+        if(indegree[i]==0)
+        {
+            q.push(i);
+        }
+    }
+    
+    vector<int> topo;
+    
+    while(!q.empty())
+    {
+        int node=q.front();
+        q.pop();
+        
+        topo.push_back(node);
+        
+        // now node is in topo so decrease its indegree
+        for(auto i: adj[node])
+        {
+            indegree[i]--;
+            
+            if(indegree[i]==0)
+            {
+                q.push(i);
+            }
+        }
+    }
+    
+    if(topo.size()==V)
+    {
+        return false;
+    }
+    
+    return true;
+}
