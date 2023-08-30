@@ -1,0 +1,51 @@
+                                      			// Topological Sort (GFG), (Codestudio) //
+                                      			// DFS Graph Striver //
+                                      			// Linear ordering of vertices such that if there is edge between u & v, then u comes before v //
+                                      			// Only in DAG (Directed Acyclic Graph) //
+                                      			// T.C = O(V+E), S.C = O(V) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+private:
+void dfs(int node, int vis[], stack<int> &st, vector<int> adj[])
+{
+    vis[node]=1;
+    
+    for(auto i: adj[node])
+    {
+        if(!vis[i])
+        {
+            dfs(i, vis, st, adj);
+        }
+    }
+    
+    st.push(node);
+}
+
+public:
+vector<int> topoSort(int V, vector<int> adj[]) 
+{
+    // code here
+    int vis[V]={0};
+    stack<int> st;
+    
+    // components
+    for(int i=0;i<V;i++)
+    {
+        if(!vis[i])
+        {
+            dfs(i, vis, st, adj);
+        }
+    }
+    
+    vector<int> ans;
+    
+    while(!st.empty())
+    {
+        ans.push_back(st.top());
+        st.pop();
+    }
+    
+    return ans;
+}
