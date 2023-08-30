@@ -1,0 +1,59 @@
+                                        			// Topological Sort - Kahn's Algorithm (GFG), (Codestudio) //
+                                        			// BFS Graph Striver //
+                                        			// Linear ordering of vertices such that if there is edge between u & v, then u comes before v //
+                                        			// Only in DAG (Directed Acyclic Graph) //
+                                        			// Using Queue and Indegree of nodes //
+                                        			// Indegree 0 wali nodes ko queue me dalo for fir adjacent node ki indegree kam karo or topo me daldo //
+                                        			// T.C = O(V+E), S.C = O(V) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+public:
+vector<int> topoSort(int V, vector<int> adj[]) 
+{
+    // code here
+    // create indegree list
+    int indegree[V]={0};
+    
+    for(int i=0;i<V;i++)
+    {
+        for(auto j: adj[i])
+        {
+            indegree[j]++;
+        }
+    }
+    
+    queue<int> q;
+    
+    for(int i=0;i<V;i++)
+    {
+        if(indegree[i]==0)
+        {
+            q.push(i);
+        }
+    }
+    
+    vector<int> topo;
+    
+    while(!q.empty())
+    {
+        int node=q.front();
+        q.pop();
+        
+        topo.push_back(node);
+        
+        // now node is in topo so decrease its indegree
+        for(auto i: adj[node])
+        {
+            indegree[i]--;
+            
+            if(indegree[i]==0)
+            {
+                q.push(i);
+            }
+        }
+    }
+    
+    return topo;
+}
