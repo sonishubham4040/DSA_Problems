@@ -1,0 +1,70 @@
+                                                			// Level Leaf (Codestudio) //
+                                                			// Level 1 for root node //
+                                                			// Agar sab leaf nodes same level me hai return 1, else 0 //
+                                                /*
+                                                                  10
+                                                                /    \
+                                                               8      2
+                                                             /      /   \
+                                                            3      3     6
+                                                                    \
+                                                                     4
+                                                */
+                                                			// => 0, False (3, 4, 6 leaf are on different level) //
+                                                /*
+                                                             1
+                                                           /  \
+                                                         2     3
+                                                */
+                                                			// => 1 (True) //
+                                                			// T.C = O(n), S.C = O(n) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int levelLeaf(TreeNode<int> *root)
+{
+    // Write your code here.
+    vector<int> leaf;
+    int level=0;
+
+    queue<TreeNode<int>*> q;
+    q.push(root);
+
+    while(!q.empty())
+    {
+        int n=q.size();
+        level++;
+
+        for(int i=0;i<n;i++)
+        {
+            TreeNode<int>* temp=q.front();
+            q.pop();
+
+            if(temp->left)
+            {
+                q.push(temp->left);
+            }
+
+            if(temp->right)
+            {
+                q.push(temp->right);
+            }
+
+            if(temp->left==NULL && temp->right==NULL)
+            {
+                leaf.push_back(level);
+            }
+        }
+    }
+
+    for(int i=0;i<leaf.size()-1;i++)
+    {
+        if(leaf[i]!=leaf[i+1])
+        {
+            return 0;
+        }
+    }
+
+    return 1;
+}
