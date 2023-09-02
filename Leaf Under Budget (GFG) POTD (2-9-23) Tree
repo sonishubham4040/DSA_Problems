@@ -1,0 +1,71 @@
+                                      			// Leaf Under Budget (GFG) POTD (2-9-23) //
+                                      			// Level 1 for root node //
+                                      			// kitni leaf node visit kr sakte h given level budget me //
+                                      /*
+                                                        10
+                                                      /    \
+                                                     8      2
+                                                   /      /   \
+                                                  3      3     6
+                                                          \
+                                                           4
+                                      */
+                                      			// k=8 => 2 (for leaf 3: level 3, for leaf 4: level 4, for leaf 6: level 3 => so total 2 leaf can be visited as 4+3<=k) //
+                                      			// BFS Level order traversal //
+                                      			// T.C = O(n), S.C = O(n) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int getCount(Node *root, int k)
+{
+    //code here
+    int level=0;
+    vector<int> leaf;
+    
+    queue<Node*> q;
+    q.push(root);
+    
+    while(!q.empty())
+    {
+        int n=q.size();
+        level++;
+        
+        for(int i=0;i<n;i++)
+        {
+            Node* temp=q.front();
+            q.pop();
+            
+            if(temp->left)
+            {
+                q.push(temp->left);
+            }
+            
+            if(temp->right)
+            {
+                q.push(temp->right);
+            }
+            
+            if(temp->left==NULL && temp->right==NULL)
+            {
+                leaf.push_back(level);
+            }
+        }
+    }
+    
+    // sort(leaf.begin(), leaf.end());
+    int sum=0;
+    int cnt=0;
+    
+    for(int i=0;i<leaf.size();i++)
+    {
+        sum+=leaf[i];
+        
+        if(sum<=k)
+        {
+            cnt++;
+        }
+    }
+    
+    return cnt;
+}
