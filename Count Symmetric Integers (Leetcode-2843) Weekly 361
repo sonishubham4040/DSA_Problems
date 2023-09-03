@@ -1,0 +1,57 @@
+                                  			// Count Symmetric Integers (Leetcode-2843) weekly 361 //
+                                  			// count no. of symmetric numbers in range low to high //
+                                  			// symetric if its of size 2*n and sum of first half is equal to sum of second half of number //
+                                  			// low = 1, high = 100 => 9 (11, 22, 33, 44, 55, 66, 77, 88, and 99) //
+                                  			// T.C = o(n), S.C = O(n) //
+
+#include <bits/stdc++.h>
+using namespace std;
+  
+private:
+bool solve(int n)
+{
+    string x=to_string(n);
+    
+    if(x.size()%2!=0)
+    {
+        return false;
+    }
+    
+    int fSum=0;
+    int sSum=0;
+    
+    for(int i=0;i<x.size()/2;i++)
+    {
+        fSum+=x[i]-'0';     
+    }
+    
+    for(int i=x.size()/2;i<x.size();i++)
+    {
+        sSum+=x[i]-'0';    
+    }
+    
+    if(fSum==sSum)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+public:
+int countSymmetricIntegers(int low, int high) 
+{
+    int cnt=0;
+    
+    for(int i=low;i<=high;i++)
+    {
+        if(solve(i))
+        {
+            cnt++;
+        }
+    }
+    
+    return cnt;
+}
