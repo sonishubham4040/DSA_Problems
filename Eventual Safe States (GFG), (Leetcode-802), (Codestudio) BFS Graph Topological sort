@@ -1,0 +1,60 @@
+                                    			// Eventual Safe States (GFG), (Leetcode-802), (Codestudio) //
+                                    			// BFS-Topological Sort, Kahn's Algo, Graph Striver //
+                                    		  // Nodes ki edges everse kardo taki outdegree ki jagah indegree ban jaye //
+                                    		  // bas fir uspe topo sortalgo lagao or last me sort kardo //
+                                    			// T.C = O(nlogn), S.C = O(n) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<int> eventualSafeNodes(int V, vector<int> adj[])
+{
+    // code here
+    int indegree[V]={0};
+    vector<int> revAdj[V];
+    
+    // nodes ki edges reverse kardo
+    for(int i=0;i<V;i++)
+    {
+        // i->j
+        // j->i
+        for(auto j: adj[i])
+        {
+            revAdj[j].push_back(i);
+            indegree[i]++;
+        }
+    }
+    
+    // 0 indegree walo ko queue me daldo
+    queue<int> q;
+    
+    for(int i=0;i<V;i++)
+    {
+        if(indegree[i]==0)
+        {
+            q.push(i);
+        }
+    }
+    
+    vector<int> ans;
+    
+    while(!q.empty())
+    {
+        int node=q.front();
+        q.pop();
+        ans.push_back(node);
+        
+        for(auto i: revAdj[node])
+        {
+            indegree[i]--;
+            
+            if(indegree[i]==0)
+            {
+                q.push(i);
+            }
+        }
+    }
+    
+    sort(ans.begin(), ans.end());
+    return ans;
+}
