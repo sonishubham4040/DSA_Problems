@@ -1,0 +1,46 @@
+                                          			// Check If Tree Is Isomorphic (GFG), (Codestudio) //
+                                          			// Isomorphic if one can be obtained from other by swapping left and right child of tree //
+                                          /*
+                                           T1    1     T2:   1
+                                               /   \        /  \
+                                              2     3      3    2
+                                             /            /
+                                            4            4
+                                          */
+                                          // => False //
+                                          /*
+                                          T1    1     T2:    1
+                                              /  \         /   \
+                                             2    3       3     2
+                                            /                    \
+                                            4                     4
+                                          */
+                                          // True //
+                                          			// T.C = O(min(n, m)), S.C = O(min(h1, h2)) //
+
+#include <iostream>
+using namespace std;
+
+bool isIsomorphic(Node *root1, Node *root2)
+{
+    //add code here.
+    if(root1==NULL && root2==NULL)
+    {
+        return true;
+    }
+    
+    if((root1!=NULL && root2==NULL) || (root1==NULL && root2!=NULL))
+    {
+        return false;
+    }
+    
+    if(root1->data!=root2->data)
+    {
+        return false;
+    }
+    
+    return ((isIsomorphic(root1->left, root2->left) && 
+            isIsomorphic(root1->right, root2->right)) || 
+            (isIsomorphic(root1->left, root2->right)) && 
+            isIsomorphic(root1->right, root2->left));
+}
