@@ -1,0 +1,88 @@
+                                                			// Shortest Path In DAG (Codestudio), (GFG) //
+                                                			// DFS - Topological Sort Graph Striver //
+                                                			// Sabko infinity ya INT_MAX ya 1e9 kardo //
+                                                			// toposort karo, stack me ajayengi nodes //
+                                                			// stack se ek ek kakre nikalo or distance compare karo or update karo //
+                                                			// T.C = O(N+M), S.C = O(N) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void topoSort(int node, int vis[], vector<pair<int,int>> adj[],
+         stack<int> &s)
+{
+    vis[node]=1;
+
+    for(auto i: adj[node])
+    {
+        int v=i.first;
+
+        if(!vis[v])
+        {
+            topoSort(v, vis, adj, s);
+        }
+    }
+
+    s.push(node);
+}         
+
+vector<int> shortestPathInDAG(int n, int m, vector<vector<int>> &edges)
+{
+    // Write your code here
+    // adjacency list
+    // node, weight
+    vector<pair<int,int>> adj[n];
+
+    for(auto i: edges)
+    {
+        int u=i[0];
+        int v=i[1];
+        int wt=i[2];
+
+        adj[u].push_back({v, wt});
+    }
+
+    // Toposort karo
+    int vis[n]={0};
+    stack<int> s;
+
+    for(int i=0;i<n;i++)
+    {
+        if(!vis[i])
+        {
+            topoSort(i, vis, adj, s);
+        }
+    }
+
+    // distance array banao
+    vector<int> dist(n, 1e9);
+    dist[0]=0; // source 0
+
+    while(!s.empty())
+    {
+        int node=s.top();
+        s.pop();
+
+        for(auto i: adj[node])
+        {
+            int v=i.first;
+            int wt=i.second;
+
+            if(dist[node]+wt < dist[v])
+            {
+                dist[v]=dist[node]+wt;
+            }
+        }
+    }
+    
+    // reach nahi hui to -1
+    for(auto &i: dist)
+    {
+        if(i==1e9)
+        {
+            i=-1;
+        }
+    }
+
+    return dist;
+}
