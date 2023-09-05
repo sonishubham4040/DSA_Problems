@@ -1,0 +1,62 @@
+                                                  			// Shortest Path In Undirected Graph Having Unit Distance (GFG) //
+                                                  			// Using DFS, Graph Striver //
+                                                  			// T.C = O(V+2E), S.C = O(V) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+private:
+void dfs(int node, int vis[], vector<int> &dist, vector<int> adj[])
+{
+    vis[node]=1;
+    
+    for(auto i: adj[node])
+    {
+        if(dist[node]+1 < dist[i])
+        {
+            dist[i]=dist[node]+1;
+            dfs(i, vis, dist, adj);
+        }
+    }
+}
+
+public:
+vector<int> shortestPath(vector<vector<int>>& edges, int N,int M, int src)
+{
+    // code here
+    // adjacency list
+    vector<int> adj[N];
+    
+    for(auto i: edges)
+    {
+        int u=i[0];
+        int v=i[1];
+        
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+    
+    // dfs karo, distance array banao
+    int vis[N]={0};
+    vector<int> dist(N, 1e9);
+    dist[src]=0;
+    
+    for(int i=0;i<N;i++)
+    {
+        if(!vis[i])
+        {
+            dfs(i, vis, dist, adj);
+        }
+    }
+    
+    // not reachable to -1 kardo
+    for(auto &i: dist)
+    {
+        if(i==1e9)
+        {
+            i=-1;
+        }
+    }
+    
+    return dist;
+}
