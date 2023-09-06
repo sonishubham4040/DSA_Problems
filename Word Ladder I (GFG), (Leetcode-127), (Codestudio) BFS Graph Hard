@@ -1,0 +1,54 @@
+                        			// Word Ladder I (GFG), Word Ladder (Leetcode-127), (Codestudio) //
+                        			// BFS Graph Striver //
+                        			// Using Set to store wordlist and remove words if already taken in queue //
+                        			// put start word in queue and its starting level i.e 1, then remove that word from set //
+                        			// pop it out and traverse fior words then fort all alphabets a-z if any word matches store it in queue and its level and remove from set //
+                        			// T.C = O(n*wordLength*26*logn), S.C = O(n) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int wordLadderLength(string startWord, string targetWord, vector<string>& wordList) 
+{
+    // BFS Graph
+    // word, level
+    queue<pair<string, int>> q;
+    q.push({startWord, 1});
+    
+    set<string> st(wordList.begin(), wordList.end());
+    
+    st.erase(startWord);
+    
+    while(!q.empty())
+    {
+        string word=q.front().first;
+        int steps=q.front().second;
+        q.pop();
+        
+        if(word==targetWord)
+        {
+            return steps;
+        }
+        
+        for(int i=0;i<word.size();i++)
+        {
+            char original=word[i];
+            
+            for(char ch='a';ch<='z';ch++)
+            {
+                word[i]=ch;
+                
+                // word exist in list
+                if(st.find(word)!=st.end())
+                {
+                    q.push({word, steps+1});
+                    st.erase(word);
+                }
+            }
+            
+            word[i]=original;
+        }
+    }
+    
+    return 0;
+}
