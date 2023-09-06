@@ -1,0 +1,42 @@
+                                      			// Check For Dead End In A BST (Codestudio) //
+                                      			// Agar BST me kisi leaf me range aisi ajaye ki koi insertion hi na ho paye to deadEnd hai vo //
+                                      			// Matlb agar left right me same range hogai to //
+                                      			// T.C = O(n), S.C = O(H) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void solve(TreeNode<int>* root, int mini, int maxi, bool &flag)
+{
+    if(root==NULL)
+    {
+        return;
+    }
+
+    if(flag)
+    {
+        return;
+    }
+
+    if(root->left==NULL && root->right==NULL)
+    {
+        if(mini==maxi)
+        {
+            flag=true;
+        }
+    }
+
+    solve(root->left, mini, root->data-1, flag);
+    solve(root->right, root->data+1, maxi, flag);
+}
+
+
+bool isDeadEnd(TreeNode<int>* root)
+{
+    // Write your code here
+    bool flag=false;
+    
+    solve(root, 1, INT_MAX, flag);
+
+    return flag;
+}
