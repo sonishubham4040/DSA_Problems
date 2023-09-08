@@ -1,0 +1,83 @@
+                                			// Word Ladder II (GFG) //
+                                			// BFS Graph Striver //
+                                			// Using Set to store wordlist and remove words if already taken in queue //
+                                			// Queue banao vector strings ki alag alag words add honge isme line se, set me sari wordlist dali, 
+                                      // usenOnLevel banai har level pe konsa word use kia, pop kia queue se used wale ko erase kia level badhaya. //
+                                			// ans me dala agar pehli bar aya hai ya agar vec ka size same hai kyoki shortest bhi chaiye sare //
+                                			// T.C = O(n*wordLength*26*logn), S.C = O(n) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<vector<string>> findSequences(string beginWord, string endWord, vector<string>& wordList) 
+{
+    // code here
+    // BFS
+    vector<vector<string>> ans;
+    
+    unordered_set<string> st(wordList.begin(), wordList.end());
+    
+    queue<vector<string>> q;
+    q.push({beginWord});
+    
+    vector<string> usedOnLevel;
+    usedOnLevel.push_back(beginWord);
+    
+    int level=0;
+    
+    while(!q.empty())
+    {
+        vector<string> vec=q.front();
+        q.pop();
+        
+        // erase all words that has been used in previous transform
+        if(vec.size() > level)
+        {
+            level++;
+            
+            for(auto i: usedOnLevel)
+            {
+                st.erase(i);   
+            }
+        }
+        
+        string word=vec.back();
+        
+        // store answers
+        if(word==endWord)
+        {
+            // first sequence wjere we reached
+            if(ans.size()==0)
+            {
+                ans.push_back(vec);
+            }
+            else if(ans[0].size()==vec.size())
+            {
+                ans.push_back(vec);
+            }
+        }
+        
+        for(int i=0;i<word.size();i++)
+        {
+            char original=word[i];
+            
+            for(char ch='a';ch<='z';ch++)
+            {
+                word[i]=ch;
+                
+                if(st.find(word)!=st.end())
+                {
+                    vec.push_back(word);
+                    q.push({vec});
+                    
+                    usedOnLevel.push_back(word);
+                    vec.pop_back();
+                }
+            }
+            
+            word[i]=original;
+        }
+    }
+    
+    return ans;
+}
