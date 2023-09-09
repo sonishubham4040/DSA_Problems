@@ -1,0 +1,46 @@
+                                    			// Minimum Multiplications To reach End (GFG) POTD //
+                                    			// BFS Graph //
+                                    			// Given start, end, array //
+                                    			// At each step, start is multiplied with any number in the array and then mod with 100000 to get the new start //
+                                    			// return mimn steps to reach end, if not return -1 //
+                                    			// T.C = O(1e5), S.C = O(1e5) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int minimumMultiplications(vector<int>& arr, int start, int end)
+{
+    // code here
+    // BFS
+    int m=1e5;
+    
+    queue<pair<int,int>> q;
+    // node, distance(Level)
+    q.push({start, 0});
+    
+    vector<int> vis(1e5, 0);
+    vis[start]=1;
+    
+    while(!q.empty())
+    {
+        int node=q.front().first;
+        int steps=q.front().second;
+        q.pop();
+        
+        if(node==end)
+        {
+            return steps;
+        }
+        
+        for(int i=0;i<arr.size();i++)
+        {
+            if(!vis[(node*arr[i])%m])
+            {
+                q.push({(node*arr[i])%m, steps+1});
+                vis[(node*arr[i])%m]=1;
+            }
+        }
+    }
+    
+    return -1;
+}
