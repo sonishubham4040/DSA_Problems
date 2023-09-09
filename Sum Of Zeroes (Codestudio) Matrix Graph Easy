@@ -1,0 +1,47 @@
+                                          			// Sum Of Zeroes (Codestudio) //
+                                          			// Matrix type Graph type problem //
+                                          			// count numbr of 1's surrounded by 0 top, left, bottom, right //
+                                          /*
+                                          1 0
+                                          0 1
+                                          */
+                                          // => 4 (for 1st row 0, 1's are left and bottom=2, for 2nd row 0, 1's are top and right=2 => 2+2 =4) //
+                                          			// T.C = O(n*m), S.C = O(1) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int coverageOfMatrix(vector<vector<int>> &mat) 
+{
+    // Write your code here.
+    int n=mat.size();
+    int m=mat[0].size();
+    
+    int cnt=0;
+
+    int delrow[]={-1, 0, +1, 0};
+    int delcol[]={0, +1, 0, -1};
+
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<m;j++)
+        {
+            if(mat[i][j]==0)
+            {
+                for(int k=0;k<4;k++)
+                {
+                    int nrow=i+delrow[k];
+                    int ncol=j+delcol[k];
+
+                    if(nrow>=0 && nrow<n && ncol>=0 && ncol<m &&
+                             mat[nrow][ncol]==1)
+                    {
+                        cnt++;
+                    }         
+                }
+            }
+        }
+    }
+
+    return cnt;
+}
