@@ -1,0 +1,35 @@
+                                          			// Insert A node In A BST (GFG) POTD //
+                                          			// BST me K value insert karo, pehle se hai to wohi return kardo //
+                                          			// Recursion //
+                                          			// T.C = O(H), S.C = O(H)//
+
+#include <bits/stdc++.h>
+using namespace std;
+
+private:
+Node* solve(Node* node, int data)
+{
+    if(node==NULL)
+    {
+        Node* newNode=new Node(data);
+        return newNode;
+    }
+    
+    if(data < node->data)
+    {
+        node->left=solve(node->left, data);
+    }
+    else if(data > node->data)
+    {
+        node->right=solve(node->right, data);
+    }
+    
+    return node;
+}
+
+public:
+Node* insert(Node* node, int data) 
+{
+    // Your code goes here
+    return solve(node, data);
+}
