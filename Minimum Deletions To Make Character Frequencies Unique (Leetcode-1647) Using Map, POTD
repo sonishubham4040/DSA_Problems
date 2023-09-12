@@ -1,0 +1,41 @@
+                                			// Minimum Deletions To Make Character Frequencies Unique (Leetcode-1647) //
+                                			// Using Map, Vector, Sort, Reverse //
+                                			// Good if no two different characters in string S can have the same frequency //
+                                			// Return min. number of characters to delete to make strting Good //
+                                			// s = "aab" => 0 characters to delete (a-2, b-1 Unique) //
+                                			// s = "aaabbbcc" => 2 (aaabcc etc.) // 
+                                			// T.C = O(nlogn), S.C = O(n) //
+  
+#include <bits/stdc++.h>
+using namespace std;
+
+int minDeletions(string s) 
+{
+    map<char,int> mp;
+    vector<int> ans;
+
+    for(auto i: s)
+    {
+        mp[i]++;
+    }
+
+    for(auto i: mp)
+    {
+        ans.push_back(i.second);
+    }
+
+    sort(ans.begin(), ans.end());
+    reverse(ans.begin(), ans.end());
+    int cnt=0;
+
+    for(int i=1;i<ans.size();i++)
+    {
+        while(ans[i]>=ans[i-1] && ans[i]>0)
+        {
+            ans[i]--;
+            cnt++;
+        }
+    }
+    
+    return cnt;
+}
