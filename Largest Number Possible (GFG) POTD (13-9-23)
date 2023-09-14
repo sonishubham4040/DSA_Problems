@@ -1,0 +1,48 @@
+                                                      			// Largest Number Possible (GFG) POTD (13-9-23) //
+                                                      			// Find Largest Number with N digits and S Sum //
+                                                      			// Return -1 if not Found //
+                                                      			// N = 2, S = 9 => 90 //
+                                                      			// N = 3, S = 20 => 992 //
+                                                      			// T.C = O(n), S.C = O(1) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+string findLargest(int N, int S)
+{
+    // code here
+    string str="";
+    
+    if(S==0 && N>1)
+    {
+        return "-1";
+    }
+    
+    for(int i=0;i<N;i++)
+    {
+        if(S>=9)
+        {
+            str.push_back('9');
+            S=S-9;
+        }
+        else
+        {
+            if(S==0)
+            {
+                str.push_back('0');
+            }
+            else
+            {
+                str.push_back(S+'0');
+                S=S-S;
+            }
+        }
+    }
+    
+    if(S!=0)
+    {
+        return "-1";
+    }
+    
+    return str;
+}
