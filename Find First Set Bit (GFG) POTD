@@ -1,0 +1,27 @@
+                          			// Find First Set Bit (GFG) POTD //
+                          			// return the position of first set bit found from the right side in the binary representation of the number //
+                          			// if not found return 0 //
+                          			// T.C = O(logn), S.C = O(1) //
+
+#include <iostream>
+using namespace std;
+    
+unsigned int getFirstSetBit(int n)
+{
+    // Your code here
+    int ans=0;
+    
+    while(n!=0)
+    {
+        ans++;
+        
+        if(n&1)
+        {
+            return ans;
+        }
+        
+        n=n>>1;
+    }
+    
+    return ans;
+}
