@@ -1,0 +1,26 @@
+                                			// Rotate Bits (GFG) POTD //
+                                			// rotate the binary representation of the integer N by D digits to the left as well as right //
+                                			// Integer N is stored using 16 bits. i.e. 12 will be stored as 0000000000001100 //
+                                			// N=28, D=2 => {112, 7}  //
+                                			// T.C = O(1), S.C = O(1) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+vector <int> rotate (int n, int d)
+{
+    //code here.
+    vector<int> ans;
+    int bits=16;
+    
+    d%=bits;
+    
+    // int limit=(1<<bits)-1;
+    int left=((n<<d) | (n>>(bits-d))) & 65535;
+    int right=((n>>d) | (n<<(bits-d))) & 65535;
+    
+    ans.push_back(left);
+    ans.push_back(right);
+    
+    return ans;
+}
