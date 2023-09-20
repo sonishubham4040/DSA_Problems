@@ -1,0 +1,91 @@
+                                                    			// Odd Even Level (Codestudio) //
+                                                    			// Difference of abs of sum of odd level and even level nodes //
+                                                    			// 2 Approaches //
+                                                    			// Using BFS //
+                                                    			// Using DFS //
+                                                    			// T.C = O(n), S.C = O(n) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+                                                                      // Using DFS, Recursion
+void solve(BinaryTreeNode<int>* root, long &o, long &e, int level)
+{
+    if(root==NULL)
+    {
+        return;
+    }
+
+    if(level%2==0)
+    {
+        e+=root->data;
+    }
+    else
+    {
+        o+=root->data;
+    }
+
+    solve(root->left, o, e, level+1);
+    solve(root->right, o, e, level+1);
+}
+
+void evenOddLevelDifference(BinaryTreeNode<int>* root)
+{
+    // Write your code here. 	 
+    long oSum=0;
+    long eSum=0;
+    
+    solve(root, oSum, eSum, 0);
+
+    cout<<abs(oSum-eSum)<<endl;
+}
+
+                                                                // Using BFS
+void evenOddLevelDifference(BinaryTreeNode<int>* root)
+{
+    // Write your code here.
+	if(root==NULL)  
+    {
+        cout<<0<<endl;
+        return;
+    }
+
+    long oSum=0;
+    long eSum=0;
+    int level=0;
+
+    queue<BinaryTreeNode<int>*> q;
+    q.push(root);
+
+    while(!q.empty())
+    {
+        level++;
+        int n=q.size();
+
+        for(int i=0;i<n;i++)
+        {
+            BinaryTreeNode<int>* temp=q.front();
+            q.pop();
+
+            if(level%2!=0)
+            {
+                oSum+=temp->data;
+            }
+            else
+            {
+                eSum+=temp->data;
+            }
+
+            if(temp->left!=NULL)
+            {
+                q.push(temp->left);
+            }
+            if(temp->right!=NULL)
+            {
+                q.push(temp->right);
+            }
+        }
+    }
+
+    cout<<abs(oSum-eSum)<<endl;
+}
