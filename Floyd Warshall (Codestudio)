@@ -1,0 +1,57 @@
+                                			// Floyd Warshall (Codestudio) //
+                                			// Multi Source Shortest Path //
+                                			// Dijkstra and Bellman ford were Single Source shortest path //
+                                			// Can detect negative cycle also if matrix[i][i]<0 means cost of reaching self node is less than 0 then -ve cycle //
+                                			// T.C = O(n^3), S.C = O(1) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int floydWarshall(int n, int m, int src, int dest, vector<vector<int>> &edges) 
+{
+    // Write your code here.
+    // create adjacency matrix
+    int matrix[n][n];
+
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<n;j++)
+        {
+            if(i==j)
+            {
+                matrix[i][j]=0;
+            }
+            else
+            {
+                matrix[i][j]=1e9;
+            }
+        }
+    }
+
+    for(auto i: edges)
+    {
+        int u=i[0];
+        int v=i[1];
+        int wt=i[2];
+
+        matrix[u-1][v-1]=wt;
+    }
+
+    for(int k=0;k<n;k++)
+    {
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                if(matrix[i][k]==1e9 || matrix[k][j]==1e9)
+                {
+                    continue;
+                }
+                
+                matrix[i][j]=min(matrix[i][j], matrix[i][k]+matrix[k][j]);
+            }
+        }
+    }
+
+    return matrix[src-1][dest-1];
+}
