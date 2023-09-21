@@ -1,0 +1,89 @@
+                                                			// Duplicate In Array //
+                                                			// 4 Approaches //
+                                                			// arr[]={1 2 3 4 4} => 4 //
+                                                			// Using Map T.C = O(n), S.C = O(n) //
+                                                			// Using Sort T.C = O(nlogn), S.C = O(1) //
+                                                			// Using XOR T.C = O(n), S.C = O(1) //
+                                                			// Using Floyd Cycle T.C = O(n), S.C = O(1) //
+
+#include <bits/stdc++.h>
+using namespace std
+
+// Using Floyd Cycle, slow fast
+int findDuplicate(vector<int>& nums) 
+{
+    int slow=nums[0];
+    int fast=nums[0];
+
+    do
+    {
+        slow=nums[slow];
+        fast=nums[nums[fast]];
+    }while(slow!=fast);
+
+    slow=nums[0];
+    while(slow!=fast)
+    {
+        slow=nums[slow];
+        fast=nums[fast];
+    }
+
+    return fast;
+}
+
+// Using Map
+int findDuplicate(vector<int>& nums) 
+{
+    unordered_map<int, int> mp;
+
+    for(auto i: nums)
+    {
+        mp[i]++;
+    }
+
+    for(auto i: mp)
+    {
+        if(i.second>1)
+        {
+            return i.first;
+            break;
+        }
+    }
+
+    return -1;
+}
+
+// Using Sort
+int findDuplicate(vector<int>& nums)
+{
+    sort(nums.begin(), nums.end());
+
+    for(int i=0;i<nums.size()-1;i++)
+    {
+        if(nums[i]==nums[i+1])
+        {
+            return nums[i];
+            break;
+        }
+    }
+
+    return -1;
+}
+
+// Using XOR
+int findDuplicate(vector<int>& nums) 
+{
+    int ans=0;
+    int n=nums.size();
+    
+    for(int i=0;i<n;i++)
+    {
+        ans^=nums[i];
+    }
+    for(int i=0;i<n;i++)
+    {
+        ans^=i;
+    }
+    
+    return ans;
+}
