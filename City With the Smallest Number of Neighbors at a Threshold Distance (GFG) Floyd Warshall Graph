@@ -1,0 +1,69 @@
+      			// City With the Smallest Number of Neighbors at a Threshold Distance (GFG) //
+      			// Floyd Warshall Graph Striver //
+      			// Distance vector banao, same index i:i pe 0 daldo, floyd warshall lagao, fir loop chalao counter badhao agar n se kam cicties connect hori hai ek node se //
+      			// To update kardo minimum cities ko or us city ka number bhi //
+      			// T.C = O(n^3), S.C = O(n^n) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int findCity(int n, int m, vector<vector<int>>& edges, int distanceThreshold)
+{
+    // Using Floyd Warshall Multisource shortest path
+    vector<vector<int>> dist(n, vector<int>(n, INT_MAX));
+    
+    for(auto i: edges)
+    {
+        int u=i[0];
+        int v=i[1];
+        int wt=i[2];
+        
+        dist[u][v]=wt;
+        dist[v][u]=wt;
+    }
+    
+    for(int i=0;i<n;i++)
+    {
+        dist[i][i]=0;
+    }
+    
+    for(int k=0;k<n;k++)
+    {
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                if(dist[i][k]==INT_MAX || dist[k][j]==INT_MAX)
+                {
+                    continue;
+                }
+                
+                dist[i][j]=min(dist[i][j], dist[i][k]+dist[k][j]);
+            }
+        }
+    }
+    
+    int cntCity=n;
+    int cityNo=-1;
+    
+    for(int city=0;city<n;city++)
+    {
+        int cnt=0;
+        
+        for(int adjCity=0;adjCity<n;adjCity++)
+        {
+            if(dist[city][adjCity]<=distanceThreshold)
+            {
+                cnt++;
+            }
+        }
+        
+        if(cnt<=cntCity)
+        {
+            cntCity=cnt;
+            cityNo=city;
+        }
+    }
+    
+    return cityNo;
+}
