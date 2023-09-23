@@ -1,0 +1,72 @@
+                                      			// City With the Smallest Number of Neighbors at a Threshold Distance (GFG), (Leetcode-1334), (Codestudio) //
+                                      			// Using Dijkstra Algo Graph Striver //
+                                      			// T.C = O(V^v + ElogV), S.C = O(n^3) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int findCity(int n, int m, vector<vector<int>>& edges, int distanceThreshold) 
+{
+    // Using Dijkstra Algo
+    
+    vector<pair<int,int>> adj[n];
+    
+    for(auto i: edges)
+    {
+        int u=i[0];
+        int v=i[1];
+        int wt=i[2];
+        
+        adj[u].push_back({v, wt});
+        adj[v].push_back({u, wt});
+    }
+    
+    priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> pq;
+    
+    int cityNo=-1;
+    int cityCnt=n;
+    
+    for(int i=0;i<n;i++)
+    {
+        vector<int> dist(n, 1e9);
+        pq.push({0, i});
+        dist[i]=0;
+        
+        while(!pq.empty())
+        {
+            int distance=pq.top().first;
+            int node=pq.top().second;
+            pq.pop();
+            
+            for(auto i: adj[node])
+            {
+                int adjNode=i.first;
+                int weight=i.second;
+                
+                if(distance+weight<dist[adjNode])
+                {
+                    dist[adjNode]=distance+weight;
+                    pq.push({dist[adjNode], adjNode});
+                }
+            }
+        }
+        
+        int cnt=0;
+        
+        for(int j=0;j<n;j++)
+        {
+            if(dist[j]<=distanceThreshold)
+            {
+                cnt++;
+            }
+        }
+        
+        if(cnt<=cityCnt)
+        {
+            cityCnt=cnt;
+            cityNo=i;
+        }
+    }
+    
+    return cityNo;
+}
