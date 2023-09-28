@@ -1,0 +1,43 @@
+                                                			// Find The Closest Pair From Two Arrays (GFG) POTD //
+                                                			// find pair one element from each array and its sum should be closest to element X //
+                                                			// n=4, m=4, arr=[1 4 5 7], brr=[10 20 30 40], X=32 => {1, 30} //
+                                                			// Using Two Pointer //
+                                                			// T.C = O(n+m), S.C = O(1) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<int> printClosest(int arr[], int brr[], int n, int m, int x) 
+{
+    //code here
+    int a=0;
+    int b=0;
+    int minDiff=1e9;
+    
+    int i=0;
+    int j=m-1;
+    
+    while(i<n && j>=0)
+    {
+        int sum=arr[i]+brr[j];
+        int diff=abs(x-sum);
+        
+        if(diff<minDiff)
+        {
+            a=arr[i];
+            b=brr[j];
+            minDiff=diff;
+        }
+        
+        if(sum<x)
+        {
+            i++;
+        }
+        else
+        {
+            j--;
+        }
+    }
+    
+    return {a, b};
+}
