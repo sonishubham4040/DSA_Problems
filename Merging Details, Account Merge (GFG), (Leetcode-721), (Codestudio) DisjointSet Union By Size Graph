@@ -1,0 +1,154 @@
+                                                    			// Merging Details, Account Merge (GFG), (Leetcode-721), (Codestudio) //
+                                                    			// Using Disjoint Set Union By Size Graph Striver //
+                                                    			// Mail same logo ki merge kardo ek me or return //
+                                                    			// T.C = O(n*4 alpha), S.C = O(n) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+// DisjointSet union by size
+class DisjointSet
+{
+    vector<int> parent;
+    vector<int> rank;
+    vector<int> size;
+    
+    public:
+    DisjointSet(int n)
+    {
+        parent.resize(n+1);
+        rank.resize(n+1, 0);
+        size.resize(n+1);
+        
+        for(int i=0;i<=n;i++)
+        {
+            parent[i]=i;
+            size[i]=1;
+        }
+    }
+    
+    int findUParent(int node)
+    {
+        if(node==parent[node])
+        {
+            return node;
+        }
+        
+        return parent[node]=findUParent(parent[node]);
+    }
+    
+    void unionByRank(int u, int v)
+    {
+        int ulp_u=findUParent(u);
+        int ulp_v=findUParent(v);
+        
+        if(ulp_u==ulp_v)
+        {
+            return;
+        }
+        
+        if(rank[ulp_u]<rank[ulp_v])
+        {
+            parent[ulp_u]=ulp_v;
+        }
+        else if(rank[ulp_v]<rank[ulp_u])
+        {
+            parent[ulp_v]=ulp_u;
+        }
+        else
+        {
+            parent[ulp_v]=ulp_u;
+            rank[ulp_u]++;
+        }
+    }
+    
+    void unionBySize(int u, int v)
+    {
+        int ulp_u=findUParent(u);
+        int ulp_v=findUParent(v);
+        
+        if(ulp_u==ulp_v)
+        {
+            return;
+        }
+        
+        if(size[ulp_u]<size[ulp_v])
+        {
+            parent[ulp_u]=ulp_v;
+            size[ulp_v]+=size[ulp_u];
+        }
+        else
+        {
+            parent[ulp_v]=ulp_u;
+            size[ulp_u]+=size[ulp_v];
+        }
+    }
+};
+
+class Solution {
+  public:
+    vector<vector<string>> mergeDetails(vector<vector<string>>& details) {
+        // code here
+        
+        int n=details.size();
+        DisjointSet ds(n);
+        
+        // pehle map banao mail ka numbers se, mail->0
+        unordered_map<string, int> mp;
+        
+        for(int i=0;i<n;i++)
+        {
+            for(int j=1;j<details[i].size();j++)
+            {
+                string mail=details[i][j];
+                
+                if(mp.find(mail)==mp.end())
+                {
+                    mp[mail]=i;
+                }
+                else
+                {
+                    ds.unionBySize(mp[mail], i); // in gfg
+                }
+            }
+        }
+        
+        // merge karo same mail walo ke naamse 0-> mails
+        vector<string> mergeMail[n];
+        
+        for(auto i: mp)
+        {
+            string mail=i.first;
+            int node=ds.findUParent(i.second);
+            
+            mergeMail[node].push_back(mail);
+        }
+        
+        // andar se sort kardo or naam lagake aage return krdo
+        vector<vector<string>> ans;
+        
+        for(int i=0;i<n;i++)
+        {
+            if(mergeMail[i].size()==0)
+            {
+                continue;
+            }
+            
+            sort(mergeMail[i].begin(), mergeMail[i].end());
+            
+            vector<string> temp;
+            // naam lagao pehle aage
+            temp.push_back(details[i][0]);
+            
+            for(auto j: mergeMail[i])
+            {
+                temp.push_back(j);
+            }
+            
+            ans.push_back(temp);
+        }
+        
+        reverse(ans.begin(), ans.end()); // only in gfg
+        return ans;
+    }
+};
