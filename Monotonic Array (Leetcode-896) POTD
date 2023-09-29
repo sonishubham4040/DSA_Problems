@@ -1,0 +1,57 @@
+                                                        			// Monotonic Array (Leetcode-896) POTD //
+                                                        			// Monotone increasing or decreasing array //
+                                                        			// Using 2 Approaches //
+                                                        			// nums = [1,2,2,3] => True //
+                                                        			// nums = [6,5,4,4] => True //
+                                                        			// nums = [1,3,2] => False //
+                                                        			// T.C = O(n), S.C = O(n) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+// Approach-1
+bool isMonotonic(vector<int>& nums) 
+{
+    bool inc=true;
+    bool dec=true;
+
+    for(int i=0;i<nums.size()-1;i++)
+    {
+        if(nums[i]<nums[i+1])
+        {
+            dec=false;
+        }
+        else if(nums[i]>nums[i+1])
+        {
+            inc=false;
+        }
+
+        if(inc==false && dec==false)
+        {
+            return false;
+        }
+    } 
+
+    return true;
+}
+
+// Approach-2
+bool isMonotonic(vector<int>& nums) 
+{
+    vector<int> temp=nums;
+    sort(temp.begin(), temp.end());
+
+    vector<int> rev=temp;
+    reverse(rev.begin(), rev.end());
+
+    if(temp==nums)
+    {
+        return true;
+    }
+    else if(rev==nums)
+    {
+        return true;
+    }
+
+    return false;
+}
