@@ -1,0 +1,33 @@
+                                                            			// Odd Even Linked List (Leetcode-328) //
+                                                            			// Linked List //
+                                                            			// 1 2 3 4 5 => 1 3 5 2 4 //
+                                                            			// T.C = O(n), S.C = O(1) //
+
+#include <bits/stdc++.h>
+using namespace std;
+    
+ListNode* oddEvenList(ListNode* head)
+{
+    if(head==NULL || head->next==NULL)
+    {
+        return head;
+    }
+    
+    ListNode* odd=head;
+    ListNode* even=head->next;
+    ListNode* oddCurr=odd;
+    ListNode* evenCurr=even;
+
+    while(evenCurr!=NULL && evenCurr->next!=NULL)
+    {
+        oddCurr->next=evenCurr->next;
+        oddCurr=oddCurr->next;
+
+        evenCurr->next=oddCurr->next;
+        evenCurr=evenCurr->next;
+    }
+
+    oddCurr->next=even;
+
+    return odd;
+}
