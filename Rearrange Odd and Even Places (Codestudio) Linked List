@@ -1,0 +1,34 @@
+                          			// Rearrange Odd and Even Places (Codestudio) //
+                          			// Linked List //
+                          			// 1 2 3 4 5 => 1 3 5 2 4 //
+                          			// T.C = O(n), S.C = O(n) //
+                          	
+#include <bits/stdc++.h>
+using namespace std;
+
+LinkedListNode<int>* oddEvenList(LinkedListNode<int>* head)
+{
+	// Write your code here.
+    if(head==NULL || head->next==NULL)
+    {
+        return head;
+    }
+
+    LinkedListNode<int>* oddH=head;
+    LinkedListNode<int>* evenH=head->next;
+    LinkedListNode<int>* oddCurr=oddH;
+    LinkedListNode<int>* evenCurr=evenH;
+
+    while(evenCurr!=NULL && evenCurr->next!=NULL)
+    {
+        oddCurr->next=evenCurr->next;
+        oddCurr=oddCurr->next;
+
+        evenCurr->next=oddCurr->next;
+        evenCurr=evenCurr->next;
+    }
+
+    oddCurr->next=evenH;
+
+    return oddH;
+}
