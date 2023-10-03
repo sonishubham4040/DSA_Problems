@@ -1,0 +1,22 @@
+                                        			// Column Name From A Given Column Number (GFG) POTD //
+                                        			// 1=A, 2=B, 26=Z, 27=AA, 28=AB ..... //
+                                        			// T.C = O(logn), S.C = O(1) //
+
+#include <bits/stdc++.h>
+using namespace std;    
+
+string colName (long long int n)
+{
+    // your code here
+    string ans="";
+    
+    while(n!=0)
+    {
+        n--;
+        int digit=n%26;
+        ans=char('A'+digit)+ans;
+        n=n/26;
+    }
+    
+    return ans;
+}
