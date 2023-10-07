@@ -1,0 +1,51 @@
+                                            			// Reverse Alternate Nodes In Link List (GFG) POTD //
+                                            			// Pehle alternate fir mid ke aage se reverse kardo //
+                                            			// LinkedList = 10->4->9->1->3->5->9->4 => 10 9 3 9 4 5 1 4 //
+                                            			// T.C = O(n), S.C = O(1) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+private:
+Node* reverse(Node* head)
+{
+    if(head==NULL)
+    {
+        return head;
+    }
+    
+    Node* curr=head;
+    Node* prev=NULL;
+    Node* forward=NULL;
+    
+    while(curr!=NULL)
+    {
+        forward=curr->next;
+        curr->next=prev;
+        prev=curr;
+        curr=forward;
+    }
+    
+    return prev;
+}
+
+public:
+void rearrange(struct Node *odd)
+{
+    //add code here
+    Node* oddH=odd;
+    Node* evenH=odd->next;
+    Node* oddCurr=oddH;
+    Node* evenCurr=evenH;
+    
+    while(evenCurr!=NULL && evenCurr->next!=NULL)
+    {
+        oddCurr->next=evenCurr->next;
+        oddCurr=oddCurr->next;
+        
+        evenCurr->next=oddCurr->next;
+        evenCurr=evenCurr->next;
+    }
+    
+    oddCurr->next=reverse(evenH);
+}
