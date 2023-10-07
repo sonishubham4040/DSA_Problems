@@ -1,0 +1,38 @@
+                                                  			// Self Dividing Numbers (Codestudio) //
+                                                  			// 128 => 128%1==0, 128%2==0, 128%8==0 Yes self divisible //
+                                                  			// T.C = O(upper-lower)*log(upper), S.C = O(upper-lower) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<int> findAllSelfDividingNumbers(int lower, int upper)
+{
+    // Write your code here
+    vector<int> ans;
+
+    for(int i=lower;i<=upper;i++)
+    {
+        int n=i;
+        bool isDiv=true;
+
+        while(n!=0)
+        {
+            int digit=n%10;
+
+            if(digit==0 || i%digit!=0)
+            {
+                isDiv=false;
+                break;
+            }
+
+            n=n/10;
+        }
+
+        if(isDiv)
+        {
+            ans.push_back(i);
+        }
+    }
+
+    return ans;
+}
