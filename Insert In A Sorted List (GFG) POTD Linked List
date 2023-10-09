@@ -1,0 +1,34 @@
+                                          			// Insert In A Sorted List (GFG) POTD //
+                                          			// Given LL in sorted order and data, insert data in correct position //
+                                          			// 25->36->47->58->69->80, data: 19 => 19 25 36 47 58 69 80 //
+                                          			// 50->100, data: 75 => 50 75 100 //
+                                          			// T.C = O(n), S.C = O(1) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+Node *sortedInsert(struct Node* head, int data) 
+{
+    // Code here
+    Node* newNode=new Node(data);
+    
+    if(head->data > data)
+    {
+        newNode->next=head;
+        return newNode;
+    }
+    
+    Node* curr=head;
+    Node* prev=head;
+    
+    while(curr!=NULL && curr->data <= data)
+    {
+        prev=curr;
+        curr=curr->next;
+    }
+    
+    prev->next=newNode;
+    newNode->next=curr;
+    
+    return head;
+}
