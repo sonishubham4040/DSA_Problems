@@ -1,0 +1,109 @@
+                                                			// Floor In BST (GFG) POTD //
+                                                			// Return value x if present in tree or value just lower than that //
+                                                			// 3 Approaches //
+                                                			// 1) Vector Space //
+                                                			// 2) Recursion //
+                                                			// 3) Constant space //
+                                                			// T.C = O(n), S.C = O(1) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+					                                          // Using Recursion
+private:
+void solve(Node* root, int x, int &ans)
+{
+    if(root==NULL)
+    {
+        return;
+    }
+    
+    if(root->data==x)
+    {
+        ans=x;
+        return;
+    }
+    
+    if(root->data < x)
+    {
+        ans=root->data;
+        solve(root->right, x, ans);
+    }
+    
+    if(root->data > x)
+    {
+        solve(root->left, x, ans);
+    }
+}
+    
+public:
+int floor(Node* root, int x)
+{
+    // Code here
+    int ans=-1;
+    
+    solve(root, x, ans);
+    
+    return ans;
+}
+
+					                                        // Using Constant Space
+int floor(Node* root, int x)
+{
+    // Code here
+    int ans=-1;
+    
+    while(root!=NULL)
+    {
+        if(root->data==x)
+        {
+            return root->data;
+        }
+        
+        if(root->data < x)
+        {
+            ans=root->data;
+            root=root->right;
+        }
+        else
+        {
+            root=root->left;
+        }
+    }
+    
+    return ans;
+}
+
+					                                          // Using Additional Vector Space
+private:
+void inorder(Node* root, vector<int> &ans)
+{
+    if(root==NULL)
+    {
+        return;
+    }
+    
+    inorder(root->left, ans);
+    ans.push_back(root->data);
+    inorder(root->right, ans);
+}
+    
+public:
+int floor(Node* root, int x) 
+{
+    // Code here
+    vector<int> ans;
+    inorder(root, ans);
+    
+    reverse(ans.begin(), ans.end());
+    
+    for(int i=0;i<ans.size();i++)
+    {
+        if(ans[i]<=x)
+        {
+            return ans[i];
+        }
+    }
+    
+    return -1;
+}
