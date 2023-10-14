@@ -1,0 +1,141 @@
+                                          			// Find Common Nodes In Two BSTs (GFG) POTD //
+                                          			// 3 Approaches //
+                                          			// T.C = O(n+m), S.C = O(h1+h2) //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+				                                        // Approach-1: Using Map argument  
+private:
+void inorder(Node* root, map<int,int> &mp)
+{
+    if(root==NULL)
+    {
+        return;
+    }
+    
+    inorder(root->left, mp);
+    mp[root->data]++;
+    inorder(root->right, mp);
+}
+
+public:
+vector <int> findCommon(Node *root1, Node *root2)
+{
+    //Your code here
+    vector<int> ans;
+    map<int,int> mp;
+    
+    inorder(root1, mp);
+    inorder(root2, mp);
+    
+    for(auto i: mp)
+    {
+        if(i.second>1)
+        {
+            ans.push_back(i.first);
+        }
+    }
+    
+    return ans;
+}
+
+				                                            // Approach-2: Using while loop
+private:
+void inorder(Node* root, vector<int> &ans)
+{
+    if(root==NULL)
+    {
+        return;
+    }
+    
+    inorder(root->left, ans);
+    ans.push_back(root->data);
+    inorder(root->right, ans);
+}
+
+public:
+vector <int> findCommon(Node *root1, Node *root2)
+{
+    //Your code here
+    vector<int> ans;
+    vector<int> v1;
+    vector<int> v2;
+    
+    inorder(root1, v1);
+    inorder(root2, v2);
+    
+    int n=v1.size();
+    int m=v2.size();
+    
+    int i=0;
+    int j=0;
+    
+    while(i<n && j<m)
+    {
+        if(v1[i]==v2[j])
+        {
+            ans.push_back(v1[i]);
+            i++;
+            j++;
+        }
+        else if(v1[i]<v2[j])
+        {
+            i++;
+        }
+        else
+        {
+            j++;
+        }
+    }
+    
+    return ans;
+}
+
+				                                          // Approach-3: Map but not as argument
+private:
+void inorder(Node* root, vector<int> &ans)
+{
+    if(root==NULL)  
+    {
+        return;
+    }
+    
+    inorder(root->left, ans);
+    ans.push_back(root->data);
+    inorder(root->right, ans);
+}
+
+public:
+vector <int> findCommon(Node *root1, Node *root2)
+{
+    //Your code here
+    vector<int> ans;
+    vector<int> v1;
+    vector<int> v2;
+    
+    inorder(root1, v1);
+    inorder(root2, v2);
+    
+    map<int,int> mp;
+    
+    for(auto i: v1)
+    {
+        mp[i]++;
+    }
+    
+    for(auto i: v2)
+    {
+        mp[i]++;
+    }
+    
+    for(auto i: mp)
+    {
+        if(i.second>1)
+        {
+            ans.push_back(i.first);
+        }
+    }
+    
+    return ans;
+}
