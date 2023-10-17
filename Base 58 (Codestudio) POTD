@@ -1,0 +1,30 @@
+                                                      			// Base 58 (Codestudio) POTD //
+                                                      			// T.C = O(log58(n)), S.C = O(log58(n)) //
+  
+  #include <iostream>
+using namespace std;
+
+string encodeBase58(int N) 
+{
+	// Write your code here
+	string s="123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
+
+	string ans="";
+
+	if(N==0)
+	{
+		return "1";
+	}
+
+	while(N>0)
+	{
+		int num=N%58;
+		
+		ans+=s[num];
+
+		N=N/58;
+	} 
+	
+	reverse(ans.begin(), ans.end());
+	return ans;
+}
