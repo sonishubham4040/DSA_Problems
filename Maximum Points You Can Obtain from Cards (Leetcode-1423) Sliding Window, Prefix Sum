@@ -1,0 +1,37 @@
+                                      			// Maximum Points You Can Obtain from Cards (Leetcode-1423) //
+                                      			// Return maximum sum by taking k elements from start or end //
+                                      			// Sliding Window, Prefix Sum //			
+                                      			// cardPoints = [1,2,3,4,5,6,1], k = 3 => 12 (5,6,1) //
+                                      			// T.C = O(k), S.C = O(1) //
+
+#include <bits/stdc++.h>    
+using namespace std;
+
+int maxScore(vector<int>& cardPoints, int k) 
+{
+    int sum=0;
+    int maxi=0;
+    int back=cardPoints.size()-1;
+
+    for(int i=0;i<k;i++)
+    {
+        sum+=cardPoints[i];
+        maxi=max(maxi, sum);
+    }
+
+    if(k==cardPoints.size())
+    {
+        return maxi;
+    }
+
+    while(k--)
+    {
+        sum-=cardPoints[k];
+        sum+=cardPoints[back];
+
+        maxi=max(maxi, sum);
+        back--;
+    }
+
+    return maxi;
+}
