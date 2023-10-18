@@ -1,0 +1,17 @@
+                                                  			// Flip given bits (Codestudio) POTD // 
+                                                  			// given num flip it's bit according to index in given array //
+                                                  			// T.C = O(n), S.C = O(1) //
+
+#include <iostream>
+using namespace std;
+
+int flipSomeBits(int num, vector<int> &arr, int n)
+{
+	// Write your code here.
+	for(auto i: arr)
+	{
+		num^=(1<<(i-1));
+	}
+
+	return num;
+}
