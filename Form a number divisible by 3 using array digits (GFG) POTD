@@ -1,0 +1,17 @@
+                                                  			// Form a number divisible by 3 using array digits (GFG) POTD //
+                                                  			// array ke sabhi number ko jodke fir 3 se divible hai ya nahi //
+                                                  			// arr = {40, 50, 90} => 1 (True) //
+                                                  			// T.C = O(n), S.C = O(1) //  
+
+int isPossible(int N, int arr[]) 
+{
+    // code here
+    int sum=0;
+    
+    for(int i=0;i<N;i++)
+    {
+        sum+=(arr[i]%3);
+    }
+    
+    return sum%3==0 ? 1 : 0;
+}
