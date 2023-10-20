@@ -1,0 +1,120 @@
+                                                			// Find if Path Exists in Graph (Leetcode-1971) //
+                                                			// source and destination in same component or not //
+                                                			// 2 Approaches: DFS & DisjointSet //
+                                                			// T.C = O(n), S.C = O(n) //
+  
+				                                              // 1) Using DFS
+private:
+void dfs(int node, vector<int> &vis, vector<int> adj[])
+{
+    vis[node]=1;
+
+    for(auto i: adj[node])
+    {
+        if(!vis[i])
+        {
+            dfs(i, vis, adj);
+        }
+    }
+}
+
+public:
+bool validPath(int n, vector<vector<int>>& edges, int source, int destination) 
+{
+    vector<int> adj[n];
+
+    for(auto i: edges)
+    {
+        int u=i[0];
+        int v=i[1];
+
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+
+    vector<int> vis(n, 0);
+
+    dfs(source, vis, adj);
+
+    if(vis[destination]==1)
+    {
+        return true;
+    }
+
+    return false;
+}
+
+			                                          	// 2) Using Disjoint Set
+class DisjointSet
+{
+    vector<int> parent;
+    vector<int> size;
+
+    public:
+    DisjointSet(int n)
+    {
+        parent.resize(n+1);
+        size.resize(n+1);
+
+        for(int i=0;i<=n;i++)
+        {
+            parent[i]=i;
+            size[i]=1;
+        }
+    }
+
+    int findUParent(int node)
+    {
+        if(node==parent[node])
+        {
+            return node;
+        }
+
+        return parent[node]=findUParent(parent[node]);
+    }
+
+    void unionBySize(int u, int v)
+    {
+        int ulp_u=findUParent(u);
+        int ulp_v=findUParent(v);
+
+        if(ulp_u==ulp_v)
+        {
+            return;
+        }
+
+        if(size[ulp_u]<size[ulp_v])
+        {
+            parent[ulp_u]=ulp_v;
+            size[ulp_v]+=size[ulp_u];
+        }
+        else
+        {
+            parent[ulp_v]=ulp_u;
+            size[ulp_u]+=size[ulp_v];
+        }
+    }
+};
+
+class Solution {
+public:
+bool validPath(int n, vector<vector<int>>& edges, int source, int destination) 
+{
+    DisjointSet ds(n);
+
+    for(auto i: edges)
+    {
+        int u=i[0];
+        int v=i[1];
+
+        ds.unionBySize(u, v);
+    }
+
+    if(ds.findUParent(source)==ds.findUParent(destination))
+    {
+        return true;
+    }
+
+    return false;
+}
+};
