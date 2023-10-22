@@ -1,0 +1,76 @@
+                                                  			// Keys and Rooms (Leetcode-841) //
+                                                  			// Graph BFS, DFS 2 Approaches //
+                                                  			// starting node se har node visit hogi ya nahi //
+                                                  			// rooms = [[1],[2],[3],[]] => True //
+                                                  			// T.C = O(V+E), S.C = O(V) //
+
+			                                                  // Using BFS
+bool canVisitAllRooms(vector<vector<int>>& rooms) 
+{
+    int n=rooms.size();
+
+    vector<int> vis(n, 0);
+
+    queue<int> q;
+    q.push(0);
+
+    while(!q.empty())
+    {
+        int node=q.front();
+        q.pop();
+        vis[node]=1;
+        
+        for(auto i: rooms[node])
+        {
+            if(!vis[i])
+            {
+                q.push(i);
+            }
+        }
+    }
+
+    for(int i=0;i<n;i++)
+    {
+        if(!vis[i])
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+				                                                              // Using DFS
+private:
+void dfs(int node, vector<int> &vis, vector<vector<int>>& rooms)
+{
+    vis[node]=1;
+
+    for(auto i: rooms[node])
+    {
+        if(!vis[i])
+        {
+            dfs(i, vis, rooms);
+        }
+    }
+}
+
+public:
+bool canVisitAllRooms(vector<vector<int>>& rooms)
+{
+    int n=rooms.size();
+
+    vector<int> vis(n, 0);
+    
+    dfs(0, vis, rooms);
+
+    for(int i=1;i<n;i++)
+    {
+        if(!vis[i])
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
