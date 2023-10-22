@@ -1,0 +1,33 @@
+                                                      			// All Paths From Source to Target (Leetcode-797) //
+                                                      			// Graph DFS 0 to n-1 paths //
+                                                      			// T.C = O(n), S.C = O(n) //
+
+private:
+void dfs(int src, vector<vector<int>> &ans, vector<int> temp, int n, vector<vector<int>>& graph)
+{
+    temp.push_back(src);
+
+    if(src==n-1)
+    {
+        ans.push_back(temp);
+        return;
+    }
+
+    for(auto i: graph[src])
+    {
+        dfs(i, ans, temp, n, graph);
+    }
+}
+
+public:
+vector<vector<int>> allPathsSourceTarget(vector<vector<int>>& graph)
+{
+    vector<vector<int>> ans;
+    vector<int> temp;
+
+    int n=graph.size();
+
+    dfs(0, ans, temp, n, graph);
+
+    return ans;
+}
