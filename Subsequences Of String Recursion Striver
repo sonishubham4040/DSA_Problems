@@ -1,0 +1,36 @@
+                                                                			// Subsequences Of String //
+                                                                			// Recursion - Striver //
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void solve(int index, vector<int> &ans, int arr[], int n)
+{
+    if(index==n)
+    {
+        for(auto i: ans)
+        {
+            cout<<i<<" ";
+        }
+        cout<<endl;
+        return;
+    }
+    
+    // pick
+    ans.push_back(arr[index]);
+    solve(index+1, ans, arr, n);
+    ans.pop_back();
+    
+    // not pick
+    solve(index+1, ans, arr, n);
+}
+
+int main()
+{
+    int arr[]={1,2,3};
+    int n=sizeof(arr)/sizeof(arr[0]);
+    
+    vector<int> ans;
+    
+    solve(0, ans, arr, n);
+}
