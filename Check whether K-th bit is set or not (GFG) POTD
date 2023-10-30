@@ -1,0 +1,10 @@
+                                        			// Check whether K-th bit is set or not (GFG) POTD //
+                                        			// kth bit is set from LSB (least significant bit means rightmost) //
+                                        			// T.C = O(1), S.C = O(1) //
+
+bool checkKthBit(int n, int k)  
+{
+    int bit=n>>k;
+    
+    return bit&1;
+}
