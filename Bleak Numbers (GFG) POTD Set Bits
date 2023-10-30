@@ -1,0 +1,21 @@
+                                              			// Bleak Numbers (GFG) POTD //
+                                              			// __builtin_popcount(i) for counting set bits //
+                                              			// T.C = O(logn*logn), S.C = O(1) //
+
+int is_bleak(int n)
+{  
+    int x=n;
+    int i=31;
+    
+    while(i-- && x>=0)
+    {
+        if(x+__builtin_popcount(x)==n)
+        {
+            return 0;
+        }
+        
+        x--;
+    }
+    
+    return 1;
+}
