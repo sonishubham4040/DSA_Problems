@@ -1,0 +1,27 @@
+                                              			// Alternate Positive and Negative (Codestudio) //
+                                              			// T.C = O(n), S.C = O(n) //
+
+void posAndNeg(vector<int> &arr)
+{
+    vector<int> p;
+    vector<int> n;  
+    
+    for(auto i: arr)
+    {
+        if(i>=0)
+        {
+            p.push_back(i);
+        }
+        else
+        {
+            n.push_back(i);
+        }
+    }
+
+    arr.clear();
+    for(int i=0;i<p.size();i++)
+    {
+        arr.push_back(p[i]);
+        arr.push_back(n[i]);
+    }
+}
