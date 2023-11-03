@@ -1,0 +1,33 @@
+		                                                  	// Minimum distance between two numbers (GFG) POTD //
+
+int minDist(int a[], int n, int x, int y) 
+{
+    int l=-1;
+    int r=-1;
+    int ans=1e9;
+    
+    for(int i=0;i<n;i++)
+    {
+        if(a[i]==x)
+        {
+            l=i;
+        }
+        
+        if(a[i]==y)
+        {
+            r=i;
+        }
+        
+        if(l!=-1 && r!=-1)
+        {
+            ans=min(ans, abs(l-r));
+        }
+    }
+    
+    if(ans==1e9)
+    {
+        return -1;
+    }
+    
+    return ans;
+}
