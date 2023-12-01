@@ -1,0 +1,27 @@
+                                          			// Shortest Path From 1 to N (GFG) POTD //
+                                          			// There is an edge from a vertex i to a vertex j if and only if either j=i+1 or j=3*i //
+                                          			// find min edges from 1 to n //
+
+int minimumStep(int n)
+{
+    //complete the function here
+    int cnt=0;
+    
+    while(n!=1)
+    {
+        if(n%3==0)
+        {
+            n/=3;
+        }
+        else
+        {
+            n-=1;
+        }
+        
+        cnt++;
+    }
+    
+    return cnt;
+}
+
+
