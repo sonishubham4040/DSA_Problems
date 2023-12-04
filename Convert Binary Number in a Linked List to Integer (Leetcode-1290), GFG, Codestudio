@@ -1,0 +1,14 @@
+			                                  // Convert Binary Number in a Linked List to Integer (Leetcode-1290), GFG, Codestudio //
+
+int binaryToInteger(int n, Node *head) 
+{
+    int ans=0;
+
+    while(head)
+    {
+        ans=(ans*2+head->data);
+        head=head->next;
+    }
+
+    return ans;
+}
