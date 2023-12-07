@@ -1,0 +1,25 @@
+ 		                                            	// Largest Odd Number in String (Leetcode-1903) POTD //
+
+string largestOddNumber(string num)
+{
+  if(num.back()%2!=0)    
+  {
+      return num;
+  }
+
+  int i=num.size()-2;
+  
+  while(i>=0)
+  {
+    int n=num[i];
+
+    if(n%2!=0)
+    {
+      return num.substr(0, i+1);
+    }
+    
+    i--;
+  }
+
+  return "";
+}
