@@ -1,0 +1,29 @@
+                                                          			// Subarrays With Zero Sum (Codestudio) //
+                                                          			// Using Map
+                                                          			// find no. of subarrays with 0 sum
+
+int countSubarrays(int n, vector<int> &arr)
+{
+    // Write your code here.
+    unordered_map<int,int> mp;
+    int sum=0;
+    int cnt=0;
+    
+    for(int i=0;i<n;i++)
+    {
+        sum+=arr[i];
+
+        if(sum==0)
+        {
+            cnt++;
+        }
+        if(mp.find(sum)!=mp.end())
+        {
+            cnt+=mp[sum];
+        }
+
+        mp[sum]++;
+    }
+
+    return cnt;
+}
