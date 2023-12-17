@@ -1,0 +1,35 @@
+                                          			// Find Missing and Repeated Values (Leetcode-2965 Contest)
+                                          			// 2d array me 1 se n*n tak values hai //
+                                          			// agar koi repeat value hai a vo return kro, or agr koi missing value hai 1-n*n me b usko bhi return //
+
+vector<int> findMissingAndRepeatedValues(vector<vector<int>>& grid)
+{
+    int n=grid.size();
+    int tt=n*n;
+    vector<int> temp(tt+1, 0);
+    
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<n;j++)
+        {
+            int num=grid[i][j];
+            temp[num]++;
+        }
+    }
+    
+    int a=0, b=0;
+    
+    for(int i=1;i<=n*n;i++)
+    {
+        if(temp[i]==0)
+        {
+            b=i;    
+        }
+        else if(temp[i]==2)
+        {
+            a=i;
+        }
+    }
+    
+    return {a, b};
+}
