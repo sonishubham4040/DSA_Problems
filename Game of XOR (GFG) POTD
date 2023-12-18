@@ -1,0 +1,22 @@
+                                                    			// Game of XOR (GFG) POTD //
+                                                    			// XOR of all subarrays of an array //
+                                                    			// Observation: if length even all occurences of numbers are even so 0
+                                                    			// if length odd then alternate numbers will be XOR
+
+int gameOfXor(int N , int A[]) 
+{
+    // code here
+    if(N%2==0)
+    {
+        return 0;
+    }
+    
+    int ans=0;
+    
+    for(int i=0;i<N;i+=2)
+    {
+        ans^=A[i];    
+    }
+    
+    return ans;
+}
