@@ -1,0 +1,49 @@
+                                                    			// Wildcard string matching (GFG) POTD //
+                                                    			// T.C = O(nm)
+
+bool match(string wild, string pattern)
+{
+    // code here
+    int i=0;
+    int j=0;  
+    
+    int n=wild.size();
+    int m=pattern.size();
+    
+    while(i<n && j<m)
+    {
+        if(wild[i]!=pattern[j] && wild[i]!='?' && wild[i]!='*')
+        {
+            return false;
+        }
+        else if(wild[i]!=pattern[j] && wild[i]=='?')
+        {
+            i++;
+            j++;
+        }
+        else if(wild[i]!=pattern[j] && wild[i]=='*')
+        {
+            while(wild[i]=='*' || wild[i]=='?')
+            {
+                i++;
+                j++;
+            }
+            while(wild[i]!=pattern[j])
+            {
+                j++;
+            }
+        }
+        else
+        {
+            i++;
+            j++;
+        }
+    }
+    
+    if(i!=n || j!=m)
+    {
+        return false;
+    }
+    
+    return true;
+}
