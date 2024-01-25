@@ -1,0 +1,58 @@
+                                                        			// Check if a given graph is tree or not (GFG) //
+                                                        			// DFS Graph //
+                                                        			// 2 conditions: No cycle, No >1 components
+
+private:
+bool isCycle(int node, int parent, int vis[], vector<int> adj[])
+{
+    vis[node]=1;
+    
+    for(auto i: adj[node])  
+    {
+        if(!vis[i])
+        {
+            if(isCycle(i, node, vis, adj)==true)
+            {
+                return true;
+            }
+        }
+        else if(i!=parent)
+        {
+            return true;
+        }
+    }
+    
+    return false;
+}
+
+public:
+int isTree(int n, int m, vector<vector<int>> &adj) 
+{
+    vector<int> adjj[n];
+    
+    for(auto i: adj)
+    {
+        int u=i[0];
+        int v=i[1];
+        
+        adjj[u].push_back(v);
+        adjj[v].push_back(u);
+    }
+    
+    int cnt=0;
+    int vis[n]={0};
+    
+    for(int i=0;i<n;i++)
+    {
+        if(!vis[i])
+        {
+            cnt++;
+            if(isCycle(i, -1, vis, adjj)==true)
+            {
+                return 0;
+            }
+        }
+    }
+    
+    return cnt==1;
+}
