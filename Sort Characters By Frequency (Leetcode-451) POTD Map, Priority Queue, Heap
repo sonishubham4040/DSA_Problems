@@ -1,0 +1,63 @@
+                                              			// Sort Characters By Frequency (Leetcode-451) POTD //
+                                              			// Using Map, Sort, Vector, Priority Queue
+
+                                                       // Using Vector
+string frequencySort(string s)
+{
+    unordered_map<char,int> mp;
+    vector<pair<int, char>> v;
+    string ans="";
+
+    for(auto i: s)
+    {
+        mp[i]++;
+    } 
+
+    for(auto i: mp)
+    {
+        v.push_back({i.second, i.first});
+    }
+
+    sort(v.rbegin(), v.rend());
+
+    for(auto i: v)
+    {
+        while(i.first--)
+        {
+            ans+=i.second;
+        }
+    }
+    
+    return ans;
+}
+  
+                                                          // Using Priority Queue Max-heap
+string frequencySort(string s) 
+{
+    unordered_map<char,int> mp;
+    priority_queue<pair<int,char>> pq;
+    string ans="";
+
+    for(auto i: s)
+    {
+        mp[i]++;
+    } 
+
+    for(auto i: mp)
+    {
+        pq.push({i.second, i.first});
+    }
+
+    while(!pq.empty())
+    {
+        pair<int,char> top=pq.top();
+        pq.pop();
+
+        while(top.first--)
+        {
+            ans+=top.second;
+        }
+    }
+
+    return ans;
+}
