@@ -1,0 +1,111 @@
+                                			// Min Distance Between Two Given Nodes Of A Binary Tree (GFG) POTD //
+                                			// Distance between two nodes of a Tree (Codestudio)
+                                			// root se a or b ka path nikala //
+                                			// jaha path agaye fir same tak lia aage ka distance add krlia
+                                			// Code Kar Lo
+                                			// T.C = O(N), S.C = O(H)
+			
+				                                // GFG	
+private:
+void solve(Node* root, vector<int> &curPath, vector<int> &pathA, vector<int> &pathB, int a, int b)
+{
+    if(!root)
+    {
+        return;
+    }
+    
+    curPath.push_back(root->data);
+    
+    if(root->data==a)
+    {
+        pathA=curPath;
+    }
+    if(root->data==b)
+    {
+        pathB=curPath;
+    }
+    
+    solve(root->left, curPath, pathA, pathB, a, b);
+    solve(root->right, curPath, pathA, pathB, a, b);
+    curPath.pop_back();
+}
+
+public:                                             
+int findDist(Node* root, int a, int b) 
+{
+    // Your code here
+    vector<int> curPath;
+    vector<int> pathA;
+    vector<int> pathB;
+    
+    solve(root, curPath, pathA, pathB, a, b);
+    
+    int i=0;
+    int j=0;
+    
+    while(i<pathA.size() && j<pathB.size())
+    {
+        if(pathA[i]!=pathB[j])
+        {
+            break;
+        }
+        i++;
+        j++;
+    }
+    
+    return pathA.size()-i + pathB.size()-j;
+}
+
+				                                                          // Codestudio
+void solve(TreeNode<int> *root, vector<int> &curPath, 
+    vector<int> &pathA, vector<int> &pathB, int node1, int node2)
+{
+    if(!root)
+    {
+        return;
+    }
+
+    curPath.push_back(root->val);
+
+    if(root->val==node1)
+    {
+        pathA=curPath;
+    }
+    if(root->val==node2)
+    {
+        pathB=curPath;
+    }
+
+    solve(root->left, curPath, pathA, pathB, node1, node2);
+    solve(root->right, curPath, pathA, pathB, node1, node2);
+    curPath.pop_back();
+}   
+
+int findDistanceBetweenNodes(TreeNode<int> *root, int node1, int node2)
+{
+    // Write your code here.
+    vector<int> curPath, pathA, pathB;
+
+    solve(root, curPath, pathA, pathB, node1, node2);
+
+    int i=0, j=0;
+    int n=pathA.size();
+    int m=pathB.size();
+
+    if(n==0 || m==0)
+    {
+        return -1;
+    }
+
+    while(i<n && j<m)
+    {
+        if(pathA[i]!=pathB[j])
+        {
+            break;
+        }
+        i++;
+        j++;
+    }
+
+    return n-i + m-j;
+}
