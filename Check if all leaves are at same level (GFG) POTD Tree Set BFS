@@ -1,0 +1,44 @@
+                                                          			// Check if all leaves are at same level (GFG) POTD //
+                                                          			// TREE //
+                                                          			// Using BFS, Set
+
+bool check(Node *root)
+{
+    set<int> s;
+    
+    if(!root)
+    {
+        return true;
+    }
+    
+    queue<Node*> q;
+    q.push(root);
+    int cnt=0;
+    
+    while(!q.empty())
+    {
+        int n=q.size();
+        cnt++;
+        
+        for(int i=0;i<n;i++)
+        {
+            Node* tree=q.front();
+            q.pop();
+            
+            if(tree->left==NULL && tree->right==NULL)
+            {
+                s.insert(cnt);        
+            }
+            if(tree->left)
+            {
+                q.push(tree->left);
+            }
+            if(tree->right)
+            {
+                q.push(tree->right);
+            }
+        }
+    }
+    
+    return s.size()==1;
+}
