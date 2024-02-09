@@ -1,0 +1,44 @@
+                                          			// Alex And Infinity Circle (Codestudio) POTD Directions //
+                                          			// Directions came back to (0,0) or not //
+
+string isPossible(string str,int n) 
+{
+    int x=0;  
+    int y=0;
+
+    int dx=0;
+    int dy=1;
+
+    for(int i=0;i<4;i++)
+    {
+        for(auto j: str)
+        {
+            if(j=='G')
+            {
+                x+=dx;
+                y+=dy;
+            }
+            else if(j=='L')
+            {
+                // rotate left 90
+                int temp=dx;
+                dx=-dy;
+                dy=temp;
+            }
+            else if(j=='R')
+            {
+                // rotate right 90
+                int temp=-dx;
+                dx=dy;
+                dy=temp;
+            }
+        }
+    }
+
+    if(x==0 && y==0)
+    {
+        return "True";
+    }
+
+    return "False";
+}
