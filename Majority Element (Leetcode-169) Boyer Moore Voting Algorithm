@@ -1,0 +1,51 @@
+                                                        			// Majority Element (Leetcode-169) //
+                                                        			// 2 Approach
+                                                        			// Map
+                                                        			// Boyer-Moore voting Algorithm for > n/2 occurences
+
+					                                              // 1-Map
+int majorityElement(vector<int>& nums) 
+{  
+    unordered_map<int,int> mp;
+    
+    for(auto i: nums)
+    {
+        mp[i]++;
+    }
+
+    for(auto i: mp)
+    {
+        if(i.second>nums.size()/2)
+        {
+            return i.first;
+        }
+    }
+    
+    return 0;
+}
+
+				                                                  	// 2-Boyre moore
+int majorityElement(vector<int>& nums) 
+{
+    int major=nums[0];
+    int cnt=1;
+
+    for(int i=1;i<nums.size();i++)  
+    {
+        if(cnt==0)
+        {
+            cnt++;
+            major=nums[i];
+        }
+        else if(major==nums[i])
+        {
+            cnt++;
+        }
+        else 
+        {
+            cnt--;
+        }
+    }
+
+    return major;
+}
