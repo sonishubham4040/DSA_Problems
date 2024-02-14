@@ -1,0 +1,127 @@
+		                                              	//  Add First and Second Reversed Half (Codestudio) Linked List
+
+Node* reverse(Node* head)  
+{
+    if(!head)
+    {
+        return NULL;
+    }
+
+    Node* curr=head;
+    Node* prev=NULL;
+    Node* forward=NULL;
+
+    while(curr)
+    {
+        forward=curr->next;
+        curr->next=prev;
+        prev=curr;
+        curr=forward;
+    }
+
+    return prev;
+}
+
+void insertAtTail(Node* &head, Node* &tail, int digit)
+{
+    Node* temp=new Node(digit);
+
+    if(head==NULL)
+    {
+        head=temp;
+        tail=temp;
+        return;
+    }
+    else
+    {
+        tail->next=temp;
+        tail=temp;
+    }
+}
+
+Node* add(Node* h1, Node* h2)
+{
+    h1=reverse(h1);
+    h2=reverse(h2);
+    
+    int carry=0;
+
+    Node* ansHead=NULL;
+    Node* ansTail=NULL;
+
+    while(h1 && h2)
+    {
+        int sum=h1->data + h2->data + carry;
+        int digit=sum%10;
+
+        insertAtTail(ansHead, ansTail, digit);
+        carry=sum/10;
+
+        h1=h1->next;
+        h2=h2->next;
+    }
+
+    while(h1)
+    {
+        int sum=h1->data + carry;
+        int digit=sum%10;
+
+        insertAtTail(ansHead, ansTail, digit);
+        carry=sum/10;
+
+        h1=h1->next;
+    }
+    while(h2)
+    {
+        int sum=h2->data + carry;
+        int digit=sum%10;
+
+        insertAtTail(ansHead, ansTail, digit);
+        carry=sum/10;
+
+        h2=h2->next;
+    }
+
+    while(carry!=0)
+    {
+        int sum=carry;
+        int digit=sum%10;
+
+        insertAtTail(ansHead, ansTail, digit);
+        carry=sum/10;
+    }
+
+    return reverse(ansHead);
+}
+
+Node* addFirstAndReversedSecondHalf(Node* head)
+{
+    //  Write your code here.
+    if(!head || !head->next)
+    {
+        return head;
+    }
+    
+    Node* fast=head->next;
+    Node* slow=head;
+
+    while(fast && fast->next)
+    {
+        slow=slow->next;
+        fast=fast->next->next;
+    }
+
+    Node* h1=head;
+    Node* h2=reverse(slow->next);
+    slow->next=NULL;
+
+
+    Node* ans=add(h1, h2);
+   
+    while(ans->data==0 && ans->next!=NULL)
+    {
+        ans=ans->next;
+    }
+    
+    return ans;
+}
