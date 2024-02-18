@@ -1,0 +1,33 @@
+                                                        			// Least Number of Unique Integers after K Removals (Leetcode-1481)
+                                                        			// Using Map, Sort
+
+int findLeastNumOfUniqueInts(vector<int>& arr, int k) 
+{
+    unordered_map<int,int> mp;
+
+    for(auto i: arr)
+    {
+        mp[i]++;      
+    }
+
+    vector<pair<int,int>> v;
+
+    for(auto i: mp)
+    {
+        v.push_back({i.second, i.first});
+    }      
+
+    sort(v.begin(), v.end());
+    int n=v.size();
+
+    for(auto i: v)
+    {
+        if(i.first<=k)
+        {
+            n--;
+            k-=i.first;
+        }
+    }
+
+    return n;
+}
