@@ -1,0 +1,75 @@
+                                                          			// Find Bottom Left Tree Value (Leetcode-513)
+                                                          			// right se left tak aao
+                                                          			// 2 Approach
+                                                          
+                                                          					// 1 Optimal
+int findBottomLeftValue(TreeNode* root) 
+{
+    queue<TreeNode*> q;
+    q.push(root);
+
+    int ans;
+
+    while(!q.empty())
+    {
+        auto temp=q.front();
+        q.pop();
+
+        ans=temp->val;
+
+        if(temp->right)
+        {
+            q.push(temp->right);
+        }
+
+        if(temp->left)
+        {
+            q.push(temp->left);
+        }
+    }
+
+    return ans;
+}
+
+						                                          // 2 Meri wali
+int findBottomLeftValue(TreeNode* root) 
+{
+    queue<TreeNode*> q;
+    q.push(root);
+
+    int cnt=0;
+
+    // lvl, node
+    vector<pair<int,int>> ans;
+
+    while(!q.empty())
+    {
+        int n=q.size();
+        cnt++;
+
+        for(int i=0;i<n;i++)
+        {
+            auto temp=q.front();
+            q.pop();
+
+            if(i==0)
+            {
+                ans.push_back({cnt, temp->val});
+            }
+            
+            if(temp->left)
+            {
+                q.push(temp->left);
+            }
+
+            if(temp->right)
+            {
+                q.push(temp->right);
+            }
+        }    
+    }
+
+    sort(ans.begin(), ans.end());
+
+    return ans.back().second;
+}
