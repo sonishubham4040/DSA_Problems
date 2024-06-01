@@ -1,0 +1,43 @@
+		                                                            	// Quick Sort STRIVER
+                                                            			// T.C = O(nlogn) best amd avg case
+                                                            			// O(n*n) worst case when pivot is highest or lowest element
+
+void quickSort(int arr[], int low, int high)
+{
+    // pivot lenge koi bhi, usko sahi place pe fir left me chote right me bade elements
+    // fir sorting left or right parts ki partition lagake beech me
+    if(low<high)
+    {
+        int pIndex=partition(arr, low, high);
+        
+        quickSort(arr, low, pIndex-1);
+        quickSort(arr, pIndex+1, high);
+    }
+}
+
+int partition (int arr[], int low, int high)
+{
+   int pivot=arr[low];
+   
+   int i=low;
+   int j=high;
+   
+   while(i<j)
+   {
+       while(arr[i]<=pivot && i<high)
+       {
+           i++;
+       }
+       while(arr[j]>pivot && j>low)
+       {
+           j--;
+       }
+       
+       if(i<j)
+       {
+           swap(arr[i], arr[j]);
+       }
+   }
+   swap(arr[low], arr[j]);
+   return j;
+}
