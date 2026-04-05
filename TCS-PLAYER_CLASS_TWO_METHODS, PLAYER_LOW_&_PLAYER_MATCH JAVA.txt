@@ -1,0 +1,112 @@
+		// PLAYER CLASS TWO METHODS, PLAYER_LOW & PLAYER_MATCH 
+		// TCS
+
+import java.util.*;
+
+public class Solution
+{
+    public static void main(String[] args)
+    {
+        Scanner sc=new Scanner(System.in);
+        Player[] players=new Player[4];
+        
+        for(int i=0;i<4;i++){
+            int id=sc.nextInt();
+            sc.nextLine();
+            String name=sc.nextLine();
+            int runs=sc.nextInt();
+            sc.nextLine();
+            String pt=sc.nextLine();
+            String mt=sc.nextLine();
+            players[i]=new Player(id, name, runs, pt, mt);
+        }
+        
+        String pt=sc.nextLine();
+        String mt=sc.nextLine();
+        
+        int runs=playerLow(Players, pt);
+        if(runs>0){
+            Sysout(runs);
+        }
+        else{
+            Sysout("No such player");
+        }
+        
+        Player[] ans=playerMatch(Players, mt);
+        if(ans!=null){
+            for(Player p: ans){
+                Sysout(p.getId());
+            }
+        }
+        else{
+            Sysout("No Player with given matchtype");
+        }
+        
+        sc.close();
+    }
+    
+    public static int playerLow(Player[] players, String pt){
+       int least=players[0];
+       boolean flag=false;
+       
+       for(Player p: players){
+           if(p.getPt().equalsIgnoreCase(pt)){
+               if(p.getRuns()<least){
+                   least=p.getRuns();
+                   flag=true;
+               }
+           }
+       }
+       
+       if(flag==false){
+           return 0;
+       }
+       else{
+            return least;   
+       }
+    }
+    public static Player[] playerMatch(Player[] players, String mt){
+        List<Player> ans=new ArrayList<>();
+        
+        for(Player p: players){
+            if(p.getMt().equalsIgnoreCase(mt)){
+                ans.add(p);
+            }
+        }
+        if(ans.isEmpty()){
+            return null;
+        }
+        
+        Collections.sort(ans, Comparator.comparingInt(Player::getId).reversed);
+        return ans.toArray(new Player[0]);
+    }
+}
+
+class Player
+{
+    private int id;
+    private String name;
+    private int runs;
+    private String pt;
+    private String mt;
+    
+    public Player(int id, String name, int runs, String pt, String mt){
+        this.id=id;
+        this.name=name;
+        this.runs=runs;
+        this.pt=pt;
+        this.mt=mt;
+    } 
+    
+    //get
+    public int getId(){
+        return id;
+    }
+    //.....
+    
+    //set
+    public void setId(int id){
+        this.id=id;
+    }
+    // .......
+}

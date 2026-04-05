@@ -1,0 +1,49 @@
+		// Striver Dp: 17
+		// Count Subsets with sum K || Perfect Sum Problem
+		// Memoization(Top Down), Tabulation(Bottom Up)
+
+// Memoization T.C = O(n*Sum), S.C = O(n*Sum)+O(n) /////////////////
+    private:
+    int solve(int ind, int sum, vector<int> &arr, vector<vector<int>> &dp){
+        if(ind==0){
+    		if(sum==0 && arr[0]==0) return 2;
+    		if(sum==0 || arr[0]==sum) return 1;
+    		else return 0;
+    	}
+    
+    	if(dp[ind][sum]!=-1) return dp[ind][sum];
+    	
+    	int notPick=solve(ind-1, sum, arr, dp);
+    	int pick=0;
+    	if(arr[ind]<=sum) pick=solve(ind-1, sum-arr[ind], arr, dp);
+    	return dp[ind][sum]=(pick+notPick);
+    }
+    
+  public:
+    int perfectSum(vector<int>& arr, int target) {
+        // code here
+        int n=arr.size();
+        vector<vector<int>> dp(n, vector<int>(target+1, -1));
+        return solve(n-1, target, arr, dp);
+    }
+
+// Tabulation T.C = O(n*Sum), S.C = O(n*Sum) ///////////////////
+    int perfectSum(vector<int>& arr, int target) {
+        // code here
+        int n=arr.size();
+        vector<vector<int>> dp(n, vector<int>(target+1, 0));
+        
+        if(arr[0]==0) dp[0][0]=2;
+        else dp[0][0]=1;
+        if(arr[0]<=target && arr[0]!=0) dp[0][arr[0]]=1;
+        
+        for(int ind=1;ind<n;ind++){
+            for(int t=0;t<=target;t++){
+                int notPick=dp[ind-1][t];
+                int pick=0;
+                if(arr[ind]<=t) pick=dp[ind-1][t-arr[ind]];
+                dp[ind][t]=pick+notPick;
+            }
+        }
+        return dp[n-1][target];
+    }

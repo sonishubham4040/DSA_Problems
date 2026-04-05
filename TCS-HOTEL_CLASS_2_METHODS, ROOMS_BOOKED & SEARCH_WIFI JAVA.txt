@@ -1,0 +1,110 @@
+		// HOTEL CLASS 2 METHODS, ROOMS_BOOKED & SEARCH_WIFI 
+		// TCS
+
+import java.util.*;
+
+public class Solution
+{
+    public static void main(String[] args)
+    {
+        Scanner sc=new Scanner(System.in);
+        Hotel[] hotels=new Hotel[4];
+        
+        for(int i=0;i<4;i++){
+            int id=sc.nextInt();
+            sc.nextLine();
+            String name=sc.nextLine();
+            String dob=sc.nextLine();
+            int rooms=sc.nextDouble();
+            sc.nextLine();
+            String wifi=sc.nextLine();
+            double bill=sc.nextDouble();
+            hotels[i]=new Hotel(id, name, dob, rooms, wifi, bill);
+        }
+        sc.nextLine();
+        String month=sc.nextLine();
+        String wifi=sc.nextLine();
+        
+        int rb=roomsBooked(hotels, month);
+        if(rb>0){
+            System.out.println(rb);
+        }
+        else{
+            System.out.println("No rooms booked in given month");
+        }
+        
+        Hotel ans=searchWifi(hotels, wifi);
+        if(ans!=null){
+            System.out.println(ans.getId());
+        }
+        else{
+            System.out.println("No such option available");
+        }
+        sc.close();
+    }
+    
+    public static int roomsBooked(Hotel[] hotels, String month){
+        int rooms=0;
+        for(Hotel h: hotels){
+            String[] parts=h.getDob().split("-");
+            String m=parts[1].toLowerCase();
+            
+            if(m.equalsIgnoreCase(month)){
+                rooms+=h.getRooms();
+            }
+        }
+        return rooms;
+    }
+    public static Hotel searchWifi(Hotel[] hotels, String wifi){
+        List<Hotel> sh=new ArrayList<>();
+        boolean flag=false;
+        
+        for(Hotel h: hotels){
+            if(h.getWifi().equalsIgnoreCase(wifi)){
+                sh.add(h);
+                flag=true;
+            }
+        }
+        
+        if(flag==false){
+            return null;
+        }
+        
+        Collections.sort(sh, Comparator.comparing(Hotel::getBill));
+        Collections.sort(sh, Collections.reverseOrder());
+        
+        return sh.get(1);
+    }
+}
+
+class Hotel
+{
+    private int id;
+    private String name;
+    private String dob;
+    private int rooms;
+    private String wifi;
+    private double bill;
+    
+    public Hotel(int id, String name, String dob, int rooms, 
+            String wifi, double bill){
+        this.id=id;
+        this.name=name;
+        this.dob=dob;
+        this.rooms=rooms;
+        this.wifi=wifi;
+        this.bill=bill;
+    } 
+    
+    //get
+    public int getId(){
+        return id;
+    }
+    //.....
+    
+    //set
+    public void setId(int id){
+        this.id=id;
+    }
+    // .......
+}

@@ -1,0 +1,75 @@
+		// Striver Dp: 19
+		// 0/1 Knapsack problem
+		// Memoization(Top Down), Tabulation(Bottom Up), Space optmised, Space Single Row
+
+// Memoization T.C = O(n*W), S.C = O(n*W)+O(n) /////////////////
+int solve(int n, int W, vector<int> &val, vector<int> &wt, vector<vector<int>> &dp){
+	if(n==0){
+		if(wt[0]<=W) return val[0];
+		else return 0;
+	}    
+	if(dp[n][W]!=-1) return dp[n][W];
+	
+	int notPick=0 + solve(n-1, W, val, wt, dp);
+	int pick=INT_MIN;
+	if(wt[n]<=W) pick=val[n] + solve(n-1, W-wt[n], val, wt, dp);
+	return dp[n][W]=max(pick, notPick);
+}
+int knapsack(vector<int> weight, vector<int> value, int n, int maxWeight) 
+{
+	vector<vector<int>> dp(n, vector<int>(maxWeight+1, -1));
+	return solve(n-1, maxWeight, value, weight, dp);
+}
+
+// Tabulation T.C = O(n*W), S.C = O(n*W) /////////////////
+int knapsack(vector<int> weight, vector<int> value, int n, int maxWeight) 
+{
+	vector<vector<int>> dp(n, vector<int>(maxWeight+1, 0));
+	for(int i=weight[0];i<=maxWeight;i++) dp[0][i]=value[0];
+	
+	for(int ind=1;ind<n;ind++){
+		for(int w=0;w<=maxWeight;w++){
+			int notPick=0 + dp[ind-1][w];
+			int pick=INT_MIN;
+			if(weight[ind]<=w) pick=value[ind] + dp[ind-1][w-weight[ind]];
+			dp[ind][w]=max(pick, notPick);
+		}
+	}
+	return dp[n-1][maxWeight];
+}
+
+// Space Optimised T.C = O(n*W), S.C = O(1) /////////////////
+int knapsack(vector<int> weight, vector<int> value, int n, int maxWeight) 
+{
+	vector<int> prev(maxWeight+1, 0), curr(maxWeight+1, 0);
+	for(int i=weight[0];i<=maxWeight;i++) prev[i]=value[0];
+	
+	for(int ind=1;ind<n;ind++){
+		for(int w=0;w<=maxWeight;w++){
+			int notPick=0 + prev[w];
+			int pick=INT_MIN;
+			if(weight[ind]<=w) pick=value[ind] + prev[w-weight[ind]];
+			curr[w]=max(pick, notPick);
+		}
+		prev=curr;
+	}
+	return prev[maxWeight];
+}
+
+// Space Optimised Single Row T.C = O(n*W), S.C = O(1) /////////////////
+int knapsack(vector<int> weight, vector<int> value, int n, int maxWeight) 
+{
+	// Striver DP Space Optimised Single Row
+	vector<int> prev(maxWeight+1, 0);
+	for(int i=weight[0];i<=maxWeight;i++) prev[i]=value[0];
+	
+	for(int ind=1;ind<n;ind++){
+		for(int w=maxWeight;w>=0;w--){
+			int notPick=0 + prev[w];
+			int pick=INT_MIN;
+			if(weight[ind]<=w) pick=value[ind] + prev[w-weight[ind]];
+			prev[w]=max(pick, notPick);
+		}
+	}
+	return prev[maxWeight];
+}

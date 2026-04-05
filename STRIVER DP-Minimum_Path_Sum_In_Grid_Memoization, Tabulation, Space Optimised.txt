@@ -1,0 +1,82 @@
+		// Striver Dp: 10
+		// Minimum Path Sum in grid LEETCODE
+		// Using Memoization(Top Down) and Tabulation(Bottom Up) & space Optimization
+
+// MEMOIZATION T.C = O(NxM), S.C = O(N+M)+O(NxM) /////////////
+class Solution {
+    private:
+    int solve(int n, int m, vector<vector<int>> &grid, vector<vector<int>> &dp){
+        if(n==0 && m==0) return grid[n][m];
+        if(n<0 || m<0) return 1e9;
+        if(dp[n][m]!=-1) return dp[n][m];
+        
+        int up=grid[n][m] + solve(n-1, m, grid, dp);
+        int left=grid[n][m] + solve(n, m-1, grid, dp);
+        return dp[n][m]=min(up, left);
+    }
+
+public:
+    int minPathSum(vector<vector<int>>& grid) {
+        // Striver DP: Memoization
+        int n=grid.size();
+        int m=grid[0].size();
+        vector<vector<int>> dp(n, vector<int>(m, -1));
+        return solve(n-1, m-1, grid, dp);
+    }
+};
+
+// TABULATION T.C = O(NxM), S.C = O(NxM) /////////////
+class Solution {
+public:
+    int minPathSum(vector<vector<int>>& grid) {
+        // Striver DP: Tabulation
+        int n=grid.size();
+        int m=grid[0].size();
+        vector<vector<int>> dp(n, vector<int>(m, -1));
+        
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(i==0 && j==0) dp[i][j]=grid[i][j];
+                else{
+                    int up=grid[i][j], left=grid[i][j];
+                    if(i>0) up+=dp[i-1][j];
+                    else up+=1e9;
+
+                    if(j>0) left+=dp[i][j-1];
+                    else left+=1e9;
+                    dp[i][j]=min(up, left);
+                }
+            }
+        }
+        return dp[n-1][m-1];
+    }
+};
+
+// TABULATION SPACE OPTIMIZED T.C = O(NxM), S.C = O(M) /////////
+class Solution {
+public:
+    int minPathSum(vector<vector<int>>& grid) {
+        // Striver DP: Tabulation Space Optimised
+        int n=grid.size();
+        int m=grid[0].size();
+        vector<int> prev(m, -1);
+        
+        for(int i=0;i<n;i++){
+            vector<int> cur(m, -1);
+            for(int j=0;j<m;j++){
+                if(i==0 && j==0) cur[j]=grid[i][j];
+                else{
+                    int up=grid[i][j], left=grid[i][j];
+                    if(i>0) up+=prev[j];
+                    else up+=1e9;
+
+                    if(j>0) left+=cur[j-1];
+                    else left+=1e9;
+                    cur[j]=min(up, left);
+                }
+            }
+            prev=cur;
+        }
+        return prev[m-1];
+    }
+};

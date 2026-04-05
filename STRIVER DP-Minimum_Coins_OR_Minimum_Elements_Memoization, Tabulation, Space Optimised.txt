@@ -1,0 +1,70 @@
+		// Striver Dp: 20
+		// Minimum Coins || Minimum elements
+		// Memoization(Top Down), Tabulation(Bottom Up), Space optmised
+
+// Memoization T.C = O(n*x), S.C = O(n*x)+O(n) /////////////////
+int solve(int ind, int x, vector<int> &num, vector<vector<int>> &dp){
+    if(ind==0){
+        if(x%num[0]==0) return x/num[0];
+        return 1e9;
+    }
+    if(dp[ind][x]!=-1) return dp[ind][x];
+    
+    int notPick=0 + solve(ind-1, x, num, dp);
+    int pick=1e9;
+    if(num[ind]<=x) pick=1 + solve(ind, x-num[ind], num, dp);
+    return dp[ind][x]=min(notPick, pick);
+}
+
+int minimumElements(vector<int> &num, int x)
+{
+    int n=num.size();
+    vector<vector<int>> dp(n, vector<int>(x+1, -1));
+    int ans=solve(n-1, x, num, dp);
+    return ans>=1e9 ? -1 : ans;
+}
+
+// Tabulation T.C = O(n*x), S.C = O(n*x) /////////////////
+int minimumElements(vector<int> &num, int x)
+{
+    int n=num.size();
+    vector<vector<int>> dp(n, vector<int>(x+1, 0));
+    for(int X=0;X<=x;X++){
+        if(X%num[0]==0) dp[0][X]=X/num[0];
+        else dp[0][X]=1e9;
+    }
+
+    for(int ind=1;ind<n;ind++){
+        for(int tar=0;tar<=x;tar++){
+            int notPick=0 + dp[ind-1][tar];
+            int pick=1e9;
+            if(num[ind]<=tar) pick=1 + dp[ind][tar-num[ind]];
+            dp[ind][tar]=min(notPick, pick);
+        }
+    }
+    int ans=dp[n-1][x];
+    return ans>=1e9 ? -1 : ans;
+}
+
+// Space Optinmnised T.C = O(n*x), S.C = O(1) /////////////////
+int minimumElements(vector<int> &num, int x)
+{
+    int n=num.size();
+    vector<int> prev(x+1, 0), curr(x+1, 0);
+    for(int X=0;X<=x;X++){
+        if(X%num[0]==0) prev[X]=X/num[0];
+        else prev[X]=1e9;
+    }
+
+    for(int ind=1;ind<n;ind++){
+        for(int tar=0;tar<=x;tar++){
+            int notPick=0 + prev[tar];
+            int pick=1e9;
+            if(num[ind]<=tar) pick=1 + curr[tar-num[ind]];
+            curr[tar]=min(notPick, pick);
+        }
+        prev=curr;
+    }
+    int ans=prev[x];
+    return ans>=1e9 ? -1 : ans;
+}

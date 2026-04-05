@@ -1,0 +1,86 @@
+		// DOCUMENT CLASS ODDPAGES SORT
+		// TCS
+
+import java.util.*;
+
+public class Solution
+{
+    public static void main(String[] args)
+    {
+        Scanner sc=new Scanner(System.in);
+        Document[] documents=new Document[4];
+        
+        for(int i=0;i<4;i++){
+            int id=sc.nextInt();
+            sc.nextLine();
+            String title=sc.nextLine();
+            String folderName=sc.nextLine();
+            int pages=sc.nextInt();
+            documents[i]=new Document(id, title, folderName, pages);
+        }
+        
+        Document[] ans=docsOdd(documents);
+        for(Document d: ans){
+            System.out.println(d.getId()+" "+d.getTitle()+" "+
+            d.getFolderName()+" "+d.getPages());
+        }
+        sc.close();
+    }
+    
+    public static Document[] docsOdd(Document[] documents){
+        List<Document> odds=new ArrayList<>();
+        
+        for(Document d: documents){
+            if(d.getPages()%2!=0){
+                odds.add(d);        
+            }
+        }
+        
+        Collections.sort(odds, Comparator.comparing(Document::getId));
+    
+        return odds.toArray(new Document[0]);
+    }
+}
+
+class Document
+{
+    int id;
+    String title;
+    String folderName;
+    int pages;
+    
+    public Document(int id, String title, String folderName, int pages){
+        this.id=id;
+        this.title=title;
+        this.folderName=folderName;
+        this.pages=pages;
+    } 
+    
+    //get
+    public int getId(){
+        return id;
+    }
+    public String getTitle(){
+        return title;
+    }
+    public String getFolderName(){
+        return folderName;
+    }
+    public int getPages(){
+        return pages;
+    }
+    
+    //set
+    public void setId(int id){
+        this.id=id;
+    }
+    public void setTitle(String title){
+        this.title=title;
+    }
+    public void setFolderName(String folderName){
+        this.folderName=folderName;
+    }
+    public void setPages(int pages){
+        this.pages=pages;
+    }
+}

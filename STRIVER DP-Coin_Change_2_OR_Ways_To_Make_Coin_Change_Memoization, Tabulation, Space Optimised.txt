@@ -1,0 +1,61 @@
+		// Striver Dp: 22
+		// Coin Change 2 || Ways to Make coin change
+		// Memoization(Top Down), Tabulation(Bottom Up), Space optmised
+
+// Memoization T.C = O(n*x), S.C = O(n*x)+O(n) /////////////////
+long solve(int ind, int tar, int *coins, vector<vector<long>> &dp){
+    if(ind==0) return (tar%coins[0]==0);
+    
+    if(dp[ind][tar]!=-1) return dp[ind][tar];
+    
+    long notPick=solve(ind-1, tar, coins, dp);
+    long pick=0;
+    if(coins[ind]<=tar) pick=solve(ind, tar-coins[ind], coins, dp);
+    return dp[ind][tar]=notPick+pick;
+}
+
+long countWaysToMakeChange(int *denominations, int n, int value)
+{
+    vector<vector<long>> dp(n, vector<long>(value+1, -1));
+    return solve(n-1, value, denominations, dp);
+}
+
+
+// Tabulation T.C = O(n*x), S.C = O(n*x) /////////////////
+long countWaysToMakeChange(int *denominations, int n, int value)
+{
+    vector<vector<long>> dp(n, vector<long>(value+1, 0));
+    for(int tar=0;tar<=value;tar++){
+        dp[0][tar]=(tar%denominations[0]==0);
+    }
+
+    for(int ind=1;ind<n;ind++){
+        for(int target=0;target<=value;target++){
+            long notPick=dp[ind-1][target];
+            long pick=0;
+            if(denominations[ind]<=target) pick=dp[ind][target-denominations[ind]];
+            dp[ind][target]=notPick+pick;
+        }
+    }
+    return dp[n-1][value];
+}
+
+// Space Optimised T.C = O(n*x), S.C = O(1) /////////////////
+long countWaysToMakeChange(int *denominations, int n, int value)
+{
+    vector<long> prev(value+1, 0), curr(value+1, 0);
+    for(int tar=0;tar<=value;tar++){
+        prev[tar]=(tar%denominations[0]==0);
+    }
+
+    for(int ind=1;ind<n;ind++){
+        for(int target=0;target<=value;target++){
+            long notPick=prev[target];
+            long pick=0;
+            if(denominations[ind]<=target) pick=curr[target-denominations[ind]];
+            curr[target]=notPick+pick;
+        }
+        prev=curr;
+    }
+    return prev[value];
+}

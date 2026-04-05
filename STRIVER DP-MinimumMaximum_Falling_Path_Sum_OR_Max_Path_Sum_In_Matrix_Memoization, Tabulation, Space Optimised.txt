@@ -1,0 +1,89 @@
+		// Striver Dp: 12
+		// Minimum/Maximum Falling path sum || Maximum path sum in matrix || Minimum falling path
+		// Using Memoization(Top Down) and Tabulation(Bottom Up) & space Optimization
+
+// MEMOIZATION T.C = O(NxM) + O(m), S.C = O(N+M)+O(NxM) /////////////
+int solve(int i, int j, vector<vector<int>> &mat, int m, vector<vector<int>> &dp){
+    if(j<0 || j>=m) return -1e9;
+    if(i==0) return mat[i][j];
+    if(dp[i][j]!=-1) return dp[i][j];
+
+    int up=mat[i][j] + solve(i-1, j, mat, m, dp);
+    int dl=mat[i][j] + solve(i-1, j-1, mat, m, dp);
+    int dr=mat[i][j] + solve(i-1, j+1, mat, m, dp);
+    return dp[i][j]=max(up, max(dl, dr));
+}
+
+int getMaxPathSum(vector<vector<int>> &mat)
+{
+    //  Write your code here.
+    int n=mat.size();
+    int m=mat[0].size();
+    vector<vector<int>> dp(n, vector<int>(m, -1));
+    int maxi=-1e9;
+    for(int j=0;j<m;j++){
+        maxi=max(maxi, solve(n-1, j, mat, m, dp));
+    }
+    return maxi;
+}
+
+
+// TABULATION T.C = O(NxM) + O(M), S.C = O(NxN) /////////////
+int getMaxPathSum(vector<vector<int>> &mat)
+{
+    //  Write your code here.
+    int n=mat.size();
+    int m=mat[0].size();
+    vector<vector<int>> dp(n, vector<int>(m, -1));
+    for(int j=0;j<m;j++){
+        dp[0][j]=mat[0][j];
+    }
+    
+    for(int i=1;i<n;i++){
+        for(int j=0;j<m;j++){
+            int up=mat[i][j] + dp[i-1][j];
+            int diagonalLeft=mat[i][j];
+            if(j>0) diagonalLeft+=dp[i-1][j-1];
+            else diagonalLeft+=-1e9;
+            int diagonalRight=mat[i][j];
+            if(j+1<m) diagonalRight+=dp[i-1][j+1];
+            else diagonalRight+=-1e9;
+            dp[i][j]=max(up, max(diagonalLeft, diagonalRight));
+        }
+    }
+    int maxi=-1e9;
+    for(int j=0;j<m;j++){
+        maxi=max(maxi, dp[n-1][j]);
+    }
+    return maxi;
+}
+
+// TABULATION SPACE OPTIMIZED T.C = O(NxN) + O(M), S.C = O(N) /////////
+int getMaxPathSum(vector<vector<int>> &mat)
+{
+    //  Write your code here.
+    int n=mat.size();
+    int m=mat[0].size();
+    vector<int> prev(m, -1);
+    for(int j=0;j<m;j++) prev[j]=mat[0][j];
+    
+    for(int i=1;i<n;i++){
+        vector<int> curr(m, -1);
+        for(int j=0;j<m;j++){
+            int up=mat[i][j] + prev[j];
+            int dl=mat[i][j];
+            if(j>0) dl+=prev[j-1];
+            else dl+=-1e9;
+            int dr=mat[i][j];
+            if(j+1<m) dr+=prev[j+1];
+            else dr+=-1e9;
+            curr[j]=max(up, max(dl, dr));
+        }
+        prev=curr;
+    }
+    int maxi=-1e9;
+    for(int j=0;j<m;j++){
+        maxi=max(maxi, prev[j]);
+    }
+    return maxi;
+}

@@ -1,0 +1,59 @@
+			// Striver Dp:3 
+			// Frog Jump
+			// Using Memoization(Top Down) and Tabulation(Bottom Up) & space Optimization
+
+
+// MEMOIZATION ////////////
+private:
+    int solve(int n, vector<int> &height, vector<int> &dp){
+        if(n==0) return 0;
+        if(dp[n]!=-1) return dp[n];
+        
+        int left=solve(n-1, height, dp) + abs(height[n]-height[n-1]);
+        int right=INT_MAX;
+        if(n>1) right=solve(n-2, height, dp) + abs(height[n]-height[n-2]);
+        
+        return dp[n]=min(left, right);
+    }
+    
+  public:
+    int minCost(vector<int>& height) {
+        // Code here
+        int n=height.size();
+        vector<int> dp(n+1, -1);
+        return solve(n-1, height, dp);
+    }
+
+// TABULATION ///////
+int minCost(vector<int>& height) {
+        // Code here
+        int n=height.size();
+        vector<int> dp(n+1, -1);
+        dp[0]=0;
+        
+        for(int i=1;i<n;i++){
+            int first=dp[i-1] + abs(height[i]-height[i-1]);
+            int second=INT_MAX;
+            if(i>1) second=dp[i-2] + abs(height[i]-height[i-2]);
+            dp[i]=min(first, second);
+        }
+        return dp[n-1];
+    }
+
+// TABULATION OPTIMIZED SPACE
+int minCost(vector<int>& height) {
+        // Code here
+        int n=height.size();
+        int prev2=0;
+        int prev1=0;
+        
+        for(int i=1;i<n;i++){
+            int first=prev1 + abs(height[i]-height[i-1]);
+            int second=INT_MAX;
+            if(i>1) second=prev2 + abs(height[i]-height[i-2]);
+            int curri=min(first, second);
+            prev2=prev1;
+            prev1=curri;
+        }
+        return prev1;
+    }

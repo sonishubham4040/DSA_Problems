@@ -1,0 +1,57 @@
+		// ACCOUNT CLASS, FIND INTEREST RATE AMOUNT 
+		// TCS
+
+import java.util.*;
+
+public class Solution
+{
+    public static void main(String[] args)
+    {
+        Scanner sc=new Scanner(System.in);
+        int id=sc.nextInt();
+        double bal=sc.nextDouble();
+        double rate=sc.nextDouble();
+        
+        Account accounts=new Account(id, bal, rate);
+        int noy=sc.nextInt();
+        
+        double ans=calInt(accounts, noy);
+        System.out.printf("%.3f", ans);
+        
+        sc.close();
+    }
+    
+    public static double calInt(Account accounts, int noy){
+        
+        double perc=accounts.getRate()*noy/100.0;
+        double fr=accounts.getRate()+perc;
+        double ans=accounts.getBal()*fr/100.0;
+        
+        return ans;
+    }
+}
+
+class Account
+{
+    private int id;
+    private double bal;
+    private double rate;
+    
+    public Account(int id, double bal, double rate){
+        this.id=id;
+        this.bal=bal;
+        this.rate=rate;
+    } 
+    
+    //get
+    public int getId(){
+        return id;
+    }
+    //.....
+    
+    //set
+    public void setId(int id){
+        this.id=id;
+    }
+    // .......
+}

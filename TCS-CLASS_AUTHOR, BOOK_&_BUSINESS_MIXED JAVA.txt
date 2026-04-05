@@ -1,0 +1,137 @@
+		// CLASS AUTHOR, BOOK & BUSINESS MIXED
+		// TCS
+
+import java.util.*;
+
+public class Solution
+{
+    public static void main(String[] args)
+    {
+        Scanner sc=new Scanner(System.in);
+        int n=Integer.parseInt(sc.nextLine());
+        List<Book> books=new ArrayList<>();
+        
+        for(int i=0;i<n;i++){
+            int aId=Integer.parseInt(sc.nextLine());
+            String aName=sc.nextLine();
+            Author author=new Author(aId, aName);
+            
+            int bId=Integer.parseInt(sc.nextLine());
+            String title=sc.nextLine();
+            String genre=sc.nextLine();
+            double price=Double.parseDouble(sc.nextLine());
+            
+            Book b=new Book(bId, title, genre, price, author);
+            books.add(b);
+        }
+        
+        String gb=sc.nextLine();
+        String gd=sc.nextLine();
+        double dp=Double.parseDouble(sc.nextLine());
+        
+        List<Book> bookG=Business.bookGenre(books, gb);
+        for(Book b: bookG){
+            Sysout("Author Name: "+b.getAuthor().getAuthorName()+", Title: "+b.getTitle());
+        }
+        
+        List<Book> discountP=Business.discountPrice(books, gd, dp);
+        for(Book b: discountP){
+            Sysout("Author Name: "+b.getAuthor().getAuthorName()+", Title: "+b.getTitle()+", Updated Price: "+b.getPrice());
+        }
+        
+        sc.close();
+    }
+}
+
+class Author
+{
+    private Integer aId;
+    private String aName;
+    
+    public Author(Integer aId, String aName){
+        this.aId=aId;
+        this.aName=aName;
+    }
+    
+    public Integer getAId(){
+        return aId;
+    }
+    public String getAName(){
+        return aName;
+    }
+}
+class Book
+{
+    private Integer bId;
+    private String title;
+    private String genre;
+    private double price;
+    private Author author;
+    
+    public Book(Integer bId, String title, String genre, double price,
+            Author author){
+        this.bId=bId;
+        this.title=title;
+        this.genre=genre;
+        this.price=price;
+        this.author=author;
+    }
+    
+    public String getTitle() {
+        return title;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public Author getAuthor() {
+        return author;
+    }
+}
+
+class Business
+{
+    public static List<Book> bookGenre(List<Book> books, String genre){
+        List<Book> mb=new ArrayList<>();
+        
+        for(Book b: books){
+            if(b.getGenre().equalsIgnoreCase(genre)){
+                mb.add(b);        
+            }
+        }
+        if(mb.isEmpty()){
+            System.out.println("Genree is not available in list");
+        }
+        
+        return mb;
+    }
+    public static List<Book> discountPrice(List<Book> books,
+                String genre, double discount){
+        List<Book> db=new ArrayList<>();
+        
+        for(Book b: books){
+            if(b.getGenre().equalsIgnoreCase(genre)){
+                b.setPrice(b.getPrice()-(b.getPrice()*discount/100));
+                db.add(b);
+            }
+        }
+        
+        if(db.isEmpty()){
+            System.out.println("Discounted books are unavilable in given genre.");
+        }
+        else{
+            System.out.println("Discounted "+genre+" Books:");
+        }
+        
+        return db;
+    }
+}

@@ -1,0 +1,81 @@
+		// Striver Dp: 21
+		// Target Sum
+		// Memoization(Top Down), Tabulation(Bottom Up), Space optmised
+
+// Memoization T.C = O(n*Sum), S.C = O(n*Sum)+O(n) /////////////////
+int solve(int ind, int tar, vector<int> &arr,  vector<vector<int>> &dp){
+    if(ind==0){
+        if(tar==0 && arr[0]==0) return 2;
+        if(tar==0 || tar==arr[0]) return 1;
+        return 0;
+    }
+    if(dp[ind][tar]!=-1) return dp[ind][tar];
+    
+    int notPick=solve(ind-1, tar, arr, dp);
+    int pick=0;
+    if(arr[ind]<=tar) pick=solve(ind-1, tar-arr[ind], arr, dp);
+    return dp[ind][tar]=pick+notPick;
+}
+
+int countWays(int n, vector<int> &arr, int tar){
+    vector<vector<int>> dp(n, vector<int>(tar+1, -1));
+    return solve(n-1, tar, arr, dp);
+}
+int targetSum(int n, int target, vector<int>& arr) {
+    //  Striver DP Memoization 21 (Similar to S1-S2=D)
+    int totSum=0;
+    for(int i: arr) totSum+=i;
+    if(totSum-target<0 || (totSum-target)%2) return 0;
+    return countWays(n, arr, (totSum-target)/2);
+}
+
+// Tabulation T.C = O(n*Sum), S.C = O(n*Sum) /////////////////
+int solve(int n, vector<int> &arr, int tar){
+    vector<vector<int>> dp(n, vector<int>(tar+1, 0));
+    if(arr[0]==0) dp[0][0]=2;
+    else dp[0][0]=1;
+    if(arr[0]!=0 && arr[0]<=tar) dp[0][arr[0]]=1;
+    
+    for(int ind=1;ind<n;ind++){
+        for(int target=0;target<=tar;target++){
+            int notPick=dp[ind-1][target];
+            int pick=0;
+            if(arr[ind]<=target) pick=dp[ind-1][target-arr[ind]];
+            dp[ind][target]=pick+notPick;
+        }
+    }
+    return dp[n-1][tar];
+}
+int targetSum(int n, int target, vector<int>& arr) {
+    //  Striver DP Tabulation 21 (Similar to S1-S2=D)
+    int totSum=0;
+    for(int i: arr) totSum+=i;
+    if(totSum-target<0 || (totSum-target)%2) return 0;
+    return solve(n, arr, (totSum-target)/2);
+}
+
+// Space Optimised T.C = O(n*Sum), S.C = O(1) /////////////////
+int solve(int n, vector<int> &arr, int tar){
+    vector<int> prev(tar+1, 0), curr(tar+1, 0);
+    if(arr[0]==0) prev[0]=2;
+    else prev[0]=1;
+    if(arr[0]!=0 && arr[0]<=tar) prev[arr[0]]=1;
+    
+    for(int ind=1;ind<n;ind++){
+        for(int target=0;target<=tar;target++){
+            int notPick=prev[target];
+            int pick=0;
+            if(arr[ind]<=target) pick=prev[target-arr[ind]];
+            curr[target]=(pick+notPick);
+        }
+        prev=curr;
+    }
+    return prev[tar];
+}
+int targetSum(int n, int target, vector<int>& arr) {
+    //  Striver DP Space Optinmised 21 (Similar to S1-S2=D)
+    int totSum=0;
+    for(int i: arr) totSum+=i;
+    if(totSum-target<0 || (totSum-target)%2) return 0;
+    return solve(n, arr, (totSum-target)/2);
+}

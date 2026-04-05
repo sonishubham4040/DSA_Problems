@@ -1,0 +1,105 @@
+		// LAPTOP CLASS TWO METHODS, COUNT_BRAND & SEARCH_OS 
+		// TCS
+
+import java.util.*;
+
+public class Solution
+{
+    public static void main(String[] args)
+    {
+        Scanner sc=new Scanner(System.in);
+        Laptop[] laptops=new Laptop[4];
+        
+        for(int i=0;i<4;i++){
+            int id=sc.nextInt();
+            sc.nextLine();
+            String brand=sc.nextLine();
+            String os=sc.nextLine();
+            double price=sc.nextDouble();
+            int rating=sc.nextInt();
+            laptops[i]=new Laptop(id, brand, os, price, rating);
+        }
+        
+        sc.nextLine();
+        String brand=sc.nextLine();
+        String os=sc.nextLine();
+        
+        int cnt=countBrand(laptops, brand);
+        if(cnt>0){
+            Sysout(cnt);
+        }
+        else{
+            Sysout("The given brand is not available");
+        }
+        
+        Laptop[] ans=searchOs(laptops, os);
+        if(ans!=null){
+            for(Laptop l: ans){
+                Sysout(l.getId());
+                Sysout(l.getRating());
+            }
+        }
+        else{
+            Sysout("The given os is not available");
+        }
+        
+        sc.close();
+    }
+    
+    public static int countBrand(Laptop[] laptops, String brand){
+       int cnt=0;
+       
+       for(Laptop l: laptops){
+           if(l.getBrand().equalsIgnoreCase(brand) && l.getRating()>3){
+               cnt++;
+           }
+       }
+       
+       return cnt;
+    }
+    public static Laptop[] searchOs(Laptop[] laptops, String os){
+        List<Laptop> ans=new ArrayList<>();
+        
+        for(Laptop l: laptops){
+            if(l.getOs().equalsIgnoreCase(os)){
+                ans.add(l);
+            }
+        }
+        if(ans.isEmpty()){
+            return null;
+        }
+        
+        Collections.sort(ans, Comparator.comparing(Laptop::getId).reversed);
+        return ans.toArray(new Laptop[0]);
+    }
+}
+
+class Laptop
+{
+    private int id;
+    private String brand;
+    private String os;
+    private double price;
+    private int rating;
+    
+    public Laptop(int id, String brand, String os, double price, 
+            int rating){
+        this.id=id;
+        this.brand=brand;
+        this.os=os;
+        this.price=price;
+        this.rating=rating;
+    } 
+    
+    //get
+    public int getId(){
+        return id;
+    }
+    //.....
+    
+    //set
+    public void setId(int id){
+        this.id=id;
+    }
+    // .......
+}

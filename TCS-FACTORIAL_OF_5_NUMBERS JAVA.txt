@@ -1,0 +1,30 @@
+		// FACTORIAL OF 5 NUMBERS
+		// TCS
+
+import java.util.Scanner;
+
+public class Solution
+{
+    public static void main(String[] args)
+    {
+        Scanner sc=new Scanner(System.in);
+        int arr[]=new int[5];
+        
+        for(int i=0;i<5;i++){
+            arr[i]=sc.nextInt();
+        }
+        System.out.println("output: ");
+        for(int i=0;i<5;i++){
+            System.out.println(fact(arr[i]));
+        }
+        sc.close();
+    }
+    public static int fact(int n)
+    {
+        int f=1;
+        for(int i=1;i<=n;i++){
+            f*=i;
+        }
+        return f;
+    }
+}

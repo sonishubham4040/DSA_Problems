@@ -1,0 +1,30 @@
+		// PRINT SUM OF MIXED STRING WITH NUMBERS AND CHARACTERS
+		// IF SUM IS <=15 print sum else not found
+		// TCS IPA EASY QUESTION 
+
+import java.util.Scanner;
+
+class Solution{
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        String s=sc.nextLine();
+        int sum=0;
+        
+        for(int i=0;i<s.length();i++){
+            char ch=s.charAt(i);
+            
+            if(Character.isDigit(ch)){
+                // sum+=Character.getNumericValue(ch);
+                sum+=ch-'0';
+            }
+        }
+        
+        if(sum<=15){
+            System.out.println(sum);    
+        }
+        else{
+            System.out.println("Not found");
+        }
+        sc.close();
+    }
+}

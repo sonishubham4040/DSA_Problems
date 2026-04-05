@@ -1,0 +1,78 @@
+		// BOOK CLASS SORT BY PRICE
+		// TCS
+
+import java.util.*;
+
+public class Solution
+{
+    public static void main(String[] args)
+    {
+        Scanner sc=new Scanner(System.in);
+        Book[] books=new Book[4];
+        
+        for(int i=0;i<4;i++){
+            int id=sc.nextInt();
+            sc.nextLine();
+            String title=sc.nextLine();
+            String author=sc.nextLine();
+            double price=sc.nextDouble();
+            books[i]=new Book(id, title, author, price);
+        }
+        
+        Book[] ans=sortBooks(books);
+        for(Book d: ans){
+            System.out.println(d.getId()+" "+d.getTitle()+" "+
+            d.getAuthor()+" "+d.getPrice());
+        }
+        sc.close();
+    }
+    
+    public static Book[] sortBooks(Book[] books){
+        Arrays.sort(books, Comparator.comparingDouble(Book::getPrice));
+    
+        return books;
+    }
+}
+
+class Book
+{
+    int id;
+    String title;
+    String author;
+    double price;
+    
+    public Book(int id, String title, String author, int price){
+        this.id=id;
+        this.title=title;
+        this.author=author;
+        this.price=price;
+    } 
+    
+    //get
+    public int getId(){
+        return id;
+    }
+    public String getTitle(){
+        return title;
+    }
+    public String getAuthor(){
+        return author;
+    }
+    public double getPrice(){
+        return price;
+    }
+    
+    //set
+    public void setId(int id){
+        this.id=id;
+    }
+    public void setTitle(String title){
+        this.title=title;
+    }
+    public void setAuthor(String author){
+        this.author=author;
+    }
+    public void setPrice(double price){
+        this.price=price;
+    }
+}

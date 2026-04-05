@@ -1,0 +1,41 @@
+			// Majority Element Boyer Moore Voting Algo GFG //
+			// T.C = O(n), S.C = O(1)
+
+int majorityElement(int a[], int size)
+{
+    int c=0;
+    int p=0;
+    int ele;
+    
+    for(int i=0;i<size;i++)
+    {
+        if(c==0)
+        {
+            c=1;
+            ele=a[i];
+        }
+        else if(a[i]==ele)
+        {
+            c++;
+        }
+        else
+        {
+            c--;
+        }
+    }
+    
+    for(int i=0;i<size;i++)
+    {
+        if(a[i]==ele)
+        {
+            p++;
+        }
+    }
+    
+    if(p>size/2)
+    {
+        return ele;
+    }
+    
+    return -1;
+}

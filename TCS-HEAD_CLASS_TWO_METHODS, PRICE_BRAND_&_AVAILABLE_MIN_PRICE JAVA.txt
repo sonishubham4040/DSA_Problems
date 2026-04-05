@@ -1,0 +1,97 @@
+		// HEAD CLASS TWO METHODS, PRICE_BRAND & AVAILABLE_MIN_PRICE 
+		// TCS
+
+import java.util.*;
+
+public class Solution
+{
+    public static void main(String[] args)
+    {
+        Scanner sc=new Scanner(System.in);
+        Head[] heads=new Head[4];
+        
+        for(int i=0;i<4;i++){
+            String name=sc.nextLine();
+            String brand=sc.nextLine();
+            int price=sc.nextInt();
+            boolean av=sc.nextBoolean();
+            heads[i]=new Head(name, brand, price, av);
+        }
+        
+        sc.nextLine();
+        String brand=sc.nextLine();
+        
+        int tp=priceBrand(heads, brand);
+        if(tp>0){
+            Sysout(tp);
+        }
+        else{
+            Sysout("No headsets available with given brand");
+        }
+        
+        Head ans=avMinPrice(heads);
+        if(ans!=null){
+            Sysout(ans.getName());
+            Sysout(ans.getPrice());
+        }
+        else{
+            Sysout("No headsets available");
+        }
+        
+        sc.close();
+    }
+    
+    public static int priceBrand(Head[] heads, String brand){
+       int tot=0;
+       
+       for(Head h: heads){
+           if(h.getBrand().equalsIgnoreCase(brand)){
+               tot+=h.getPrice();
+           }
+       }
+       
+       return tot;
+    }
+    public static Head avMinPrice(Head[] heads){
+        List<Head> ans=new ArrayList<>();
+        
+        for(Head h: heads){
+            if(h.isAv()){
+                ans.add(h);
+            }
+        }
+        if(ans.size()<2){
+            return null;
+        }
+        
+        Collections.sort(ans, Comparator.comparingInt(Head::getPrice));
+        return ans.get(1);
+    }
+}
+
+class Head
+{
+    private String name;
+    private String brand;
+    private int price;
+    private boolean av;
+    
+    public Head(String name, String brand, int price, boolean av){
+        this.name=name;
+        this.brand=brand;
+        this.price=price;
+        this.av=av;
+    } 
+    
+    //get
+    public int getId(){
+        return id;
+    }
+    //.....
+    
+    //set
+    public void setId(int id){
+        this.id=id;
+    }
+    // .......
+}

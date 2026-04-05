@@ -1,0 +1,65 @@
+		// Striver Dp: 8
+		// Grid Unique Paths || Unique paths
+		// Using Memoization(Top Down) and Tabulation(Bottom Up) & space Optimization
+
+// MEMOIZATION T.C = O(NxM), S.C = O(N+M)+O(NxM) /////////////
+private:
+    int solve(int n, int m, vector<vector<int>> &dp){
+        if(n==0 && m==0) return 1;
+        if(n<0 || m<0) return 0;
+        if(dp[n][m]!=-1) return dp[n][m];
+        
+        int up=solve(n-1, m, dp);
+        int left=solve(n, m-1, dp);
+        return dp[n][m]=up+left;
+    }
+    
+  public:
+    // Function to find total number of unique paths.
+    int NumberOfPath(int a, int b) {
+        // code here
+        vector<vector<int>> dp(a, vector<int>(b, -1));
+        return solve(a-1, b-1, dp);
+    }
+
+// TABULATION T.C = O(NxM), S.C = O(NxM) /////////////
+int NumberOfPath(int a, int b) {
+        // code here
+        vector<vector<int>> dp(a, vector<int>(b, -1));
+        dp[0][0]=1;
+        
+        for(int i=0;i<a;i++){
+            for(int j=0;j<b;j++){
+                if(i==0 && j==0) dp[0][0]=1;
+                else{
+                    int up=0, left=0;
+                    if(i>0) up=dp[i-1][j];
+                    if(j>0) left=dp[i][j-1];
+                    dp[i][j]=up+left;   
+                }
+            }
+        }
+        return dp[a-1][b-1];
+    }
+
+// TABULATION SPACE OPTIMIZED T.C = O(NxM), S.C = O(M) /////////
+int NumberOfPath(int a, int b) {
+        // code here
+        vector<int> prev(b, -1);
+        
+        for(int i=0;i<a;i++){
+            vector<int> cur(b, -1);
+            for(int j=0;j<b;j++){
+                if(i==0 && j==0) cur[j]=1;
+                else{
+                    int up=0;
+                    int left=0;
+                    if(i>0) up=prev[j];
+                    if(j>0) left=cur[j-1];
+                    cur[j]=up+left;
+                }
+            }
+            prev=cur;
+        }
+        return prev[b-1];
+    }

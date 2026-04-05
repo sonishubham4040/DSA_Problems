@@ -1,0 +1,26 @@
+		// COUNT OF WORDS STARTING WITH VOWEL IN STRING
+		// TCS 
+
+import java.util.*;
+
+class Solution
+{
+    public static void main(String[] args)
+    {
+        Scanner sc=new Scanner(System.in);
+        String s=sc.nextLine();
+        int cnt=0;
+        String st[]=s.split(" ");
+        
+        for(int i=0;i<st.length;i++){
+            String temp=st[i];
+            char ch=Character.toLowerCase(temp.charAt(0));
+            if(ch=='a' || ch=='e' || ch=='i' || ch=='o' || ch=='u'){
+                cnt++;
+            }
+        }
+        
+        System.out.println("vowels cnt: "+cnt);
+        sc.close();
+    }
+}

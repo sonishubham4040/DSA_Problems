@@ -1,0 +1,37 @@
+		// AVERAGE OF 5 NUMBERS IN LIMIT WITH 2 DECIMAL ANS
+		// TCS 
+
+import java.util.*;
+
+class Solution
+{
+    public static void main(String[] args)
+    {
+        Scanner sc=new Scanner(System.in);
+        int[] arr=new int[5];
+        
+        for(int i=0;i<5;i++){
+            arr[i]=sc.nextInt();
+        }
+        
+        int l1=sc.nextInt();
+        int l2=sc.nextInt();
+        int cnt=0;
+        int sum=0;
+        
+        for(int i=0;i<5;i++){
+            if(arr[i]>l1 && arr[i]<l2){
+                sum+=arr[i];
+                cnt++;
+            }
+        }
+        
+        double ans=0;
+        if(cnt>0){
+            ans=(double)sum/cnt;
+        }
+        
+        System.out.printf("%.2f", ans);
+        sc.close();
+    }
+}
